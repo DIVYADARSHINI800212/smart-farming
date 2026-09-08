@@ -87,6 +87,11 @@ const translations: Record<SupportedLanguage, Record<string, string>> = {
     nav_cost: 'சிகிச்சை செலவு',
     nav_followup: 'சிகிச்சை பின்தொடர்தல்',
     nav_alerts: 'எச்சரிக்கைகள்',
+    nav_farm_analytics: 'பண்ணை பகுப்பாய்வு',
+    nav_yield_forecast: 'மகசூல் முன்னறிவிப்பு',
+    nav_reports: 'அறிக்கைகள்',
+    nav_settings: 'அமைப்புகள்',
+    btn_start_demo: 'மாதிரி தொடங்கு',
 
     // Phase 4 Common Actions
     action_review_treatment: 'சிகிச்சை முறைகளை காண்க',
@@ -139,6 +144,11 @@ const translations: Record<SupportedLanguage, Record<string, string>> = {
     nav_cost: 'उपचार लागत अनुमान',
     nav_followup: 'उपचार निगरानी (फॉलो-अप)',
     nav_alerts: 'अलर्ट व चेतावनियां',
+    nav_farm_analytics: 'खेत विश्लेषिकी',
+    nav_yield_forecast: 'उपज पूर्वानुमान',
+    nav_reports: 'कृषि रिपोर्टें',
+    nav_settings: 'सिस्टम सेटिंग्स',
+    btn_start_demo: 'डेमो शुरू करें',
 
     // Phase 4 Common Actions
     action_review_treatment: 'उपचार विकल्प देखें',

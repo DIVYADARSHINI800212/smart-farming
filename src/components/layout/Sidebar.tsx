@@ -63,29 +63,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navGroups: NavGroup[] = [
     {
-      groupName: 'Core Monitoring & AI',
+      groupName: 'MAIN',
       items: [
         { label: t('nav_dashboard'), path: '/', icon: <LayoutDashboard className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_field_monitoring'), path: '/field-monitoring', icon: <MapPin className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_crop_health'), path: '/crop-health', icon: <Sprout className="h-5 w-5" />, isFunctional: true },
-        { label: t('nav_ai_vision'), path: '/ai-vision', icon: <ScanEye className="h-5 w-5" />, isFunctional: true },
-        { label: t('nav_disease_detection'), path: '/disease-detection', icon: <Microscope className="h-5 w-5" />, isFunctional: true, badge: 'Blast' },
-        { label: t('nav_pest_detection'), path: '/pest-detection', icon: <Bug className="h-5 w-5" />, isFunctional: true },
       ],
     },
     {
-      groupName: 'Precision Agronomy',
+      groupName: 'AI & DETECTION',
       items: [
+        { label: t('nav_ai_vision'), path: '/ai-vision', icon: <ScanEye className="h-5 w-5" />, isFunctional: true },
+        { label: t('nav_disease_detection'), path: '/disease-detection', icon: <Microscope className="h-5 w-5" />, isFunctional: true, badge: 'Blast 82%' },
+        { label: t('nav_pest_detection'), path: '/pest-detection', icon: <Bug className="h-5 w-5" />, isFunctional: true, badge: 'Folder 78%' },
         { label: t('nav_risk_assessment'), path: '/risk-assessment', icon: <AlertTriangle className="h-5 w-5" />, isFunctional: true },
+      ],
+    },
+    {
+      groupName: 'FARM MANAGEMENT',
+      items: [
         { label: t('nav_smart_irrigation'), path: '/smart-irrigation', icon: <Droplets className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_env_monitoring'), path: '/environmental-monitoring', icon: <CloudSun className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_weather'), path: '/weather-intelligence', icon: <CloudLightning className="h-5 w-5" />, isFunctional: true },
+        { label: t('nav_farmer_advisory'), path: '/farmer-advisory', icon: <UserCheck className="h-5 w-5" />, isFunctional: true, badge: 'Advisory' },
       ],
     },
     {
-      groupName: 'Farmer Advisory & Treatment',
+      groupName: 'TREATMENT',
       items: [
-        { label: t('nav_farmer_advisory'), path: '/farmer-advisory', icon: <UserCheck className="h-5 w-5" />, isFunctional: true, badge: 'Decision' },
         { label: t('nav_treatment'), path: '/treatment-recommendation', icon: <ShieldAlert className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_inputs'), path: '/agricultural-inputs', icon: <Boxes className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_availability'), path: '/product-availability', icon: <Store className="h-5 w-5" />, isFunctional: true },
@@ -95,19 +100,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ],
     },
     {
-      groupName: 'Farm Intelligence',
+      groupName: 'INSIGHTS',
       items: [
         { label: t('nav_alerts'), path: '/alerts', icon: <Bell className="h-5 w-5" />, isFunctional: true, badge: '2 Active' },
-        { label: 'Farm Analytics', icon: <BarChart3 className="h-5 w-5" /> },
-        { label: 'Yield Forecast', icon: <TrendingUp className="h-5 w-5" /> },
-        { label: t('nav_edge_nodes'), path: '/edge-nodes', icon: <Cpu className="h-5 w-5" />, isFunctional: true },
-        { label: 'Reports', icon: <FileText className="h-5 w-5" /> },
+        { label: t('nav_farm_analytics'), path: '/farm-analytics', icon: <BarChart3 className="h-5 w-5" />, isFunctional: true },
+        { label: t('nav_yield_forecast'), path: '/yield-forecast', icon: <TrendingUp className="h-5 w-5" />, isFunctional: true },
+        { label: t('nav_reports'), path: '/reports', icon: <FileText className="h-5 w-5" />, isFunctional: true },
       ],
     },
     {
-      groupName: 'System',
+      groupName: 'SYSTEM',
       items: [
-        { label: 'Settings', icon: <Settings className="h-5 w-5" /> },
+        { label: t('nav_edge_nodes'), path: '/edge-nodes', icon: <Cpu className="h-5 w-5" />, isFunctional: true },
+        { label: t('nav_settings'), path: '/settings', icon: <Settings className="h-5 w-5" />, isFunctional: true },
       ],
     },
   ];
