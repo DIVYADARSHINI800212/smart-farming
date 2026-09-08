@@ -1,0 +1,145 @@
+import { TreatmentTimingData } from '../types/phase4';
+
+export const mockZone1TimingData: TreatmentTimingData = {
+  zoneId: 'zone-1',
+  overallScore: 82,
+  overallStatus: 'Suitable',
+  currentConditions: {
+    temperature: 28.0,
+    humidity: 70.0,
+    rainProbability: 20,
+    expectedRainfallMm: 0.0,
+    windSpeedKmh: 9.5,
+    windDirection: 'SSE (155°)',
+    condition: 'Partly Cloudy with Calm Breeze',
+  },
+  factors: {
+    temperatureStatus: 'Suitable (24°C - 28°C range promotes cuticle uptake without thermal leaf burn)',
+    rainfallRisk: 'Low Risk (Zero precipitation anticipated during early morning window)',
+    windStatus: 'Moderate (9.5 km/h within 12 km/h maximum drift boundary)',
+    humidityStatus: 'Acceptable (70% maintains droplet hydration for optimal stomatal entry)',
+  },
+  bestApplicationWindow: {
+    day: 'Tomorrow Morning',
+    time: '06:00 AM – 08:30 AM',
+    recommendationNote:
+      'Calm morning window prior to thermal air currents. Dew will have partially evaporated, allowing uniform adherence of Tricyclazole or Pseudomonas without runoff.',
+  },
+  warnings: [
+    'Avoid application if sudden rain shower clouds form within 2 hours of scheduled spray.',
+    'Do NOT spray if wind gusts exceed 15 km/h to prevent chemical drift to non-target borders or water bodies.',
+    'Cease foliar spraying once ambient temperature exceeds 32°C (typically after 11:30 AM in summer).',
+    'Follow approved product label restrictions regarding PPE, water pH, and pollinator safety.',
+  ],
+  hourlyTimeline: [
+    {
+      date: 'Today',
+      timeWindow: '06:00 AM – 08:00 AM',
+      suitabilityScore: 88,
+      suitabilityStatus: 'Suitable',
+      temperature: { value: '24.2°C', status: 'Suitable' },
+      rainfall: { value: '0.0 mm (5%)', status: 'Low risk' },
+      wind: { value: '6.2 km/h', status: 'Low' },
+      humidity: { value: '82%', status: 'Acceptable' },
+      reason: 'Ideal dawn calm; minimal drift risk and optimal leaf surface retention.',
+    },
+    {
+      date: 'Today',
+      timeWindow: '08:00 AM – 10:00 AM',
+      suitabilityScore: 82,
+      suitabilityStatus: 'Suitable',
+      temperature: { value: '26.8°C', status: 'Suitable' },
+      rainfall: { value: '0.0 mm (10%)', status: 'Low risk' },
+      wind: { value: '8.5 km/h', status: 'Low' },
+      humidity: { value: '75%', status: 'Acceptable' },
+      reason: 'Good foliar absorption window; leaves dry and ready for systemic uptake.',
+    },
+    {
+      date: 'Today',
+      timeWindow: '10:00 AM – 12:00 PM',
+      suitabilityScore: 65,
+      suitabilityStatus: 'Caution',
+      temperature: { value: '29.5°C', status: 'Marginal' },
+      rainfall: { value: '0.0 mm (15%)', status: 'Low risk' },
+      wind: { value: '11.4 km/h', status: 'Moderate' },
+      humidity: { value: '68%', status: 'Acceptable' },
+      reason: 'Rising ambient heat accelerates droplet evaporation; apply only if urgent.',
+    },
+    {
+      date: 'Today',
+      timeWindow: '12:00 PM – 03:00 PM',
+      suitabilityScore: 38,
+      suitabilityStatus: 'Not Suitable',
+      temperature: { value: '32.4°C', status: 'Unsuitable' },
+      rainfall: { value: '0.0 mm (20%)', status: 'Low risk' },
+      wind: { value: '16.0 km/h', status: 'High' },
+      humidity: { value: '62%', status: 'Marginal' },
+      reason: 'High heat (>32°C) causes rapid solvent volatilization and phytotoxicity risk.',
+    },
+    {
+      date: 'Today',
+      timeWindow: '03:00 PM – 05:30 PM',
+      suitabilityScore: 58,
+      suitabilityStatus: 'Caution',
+      temperature: { value: '30.1°C', status: 'Marginal' },
+      rainfall: { value: '0.2 mm (30%)', status: 'Moderate' },
+      wind: { value: '13.2 km/h', status: 'Moderate' },
+      humidity: { value: '72%', status: 'Acceptable' },
+      reason: 'Wind subsiding, but late afternoon convective clouds introduce drizzle probability.',
+    },
+    {
+      date: 'Today',
+      timeWindow: '05:30 PM – 07:00 PM',
+      suitabilityScore: 74,
+      suitabilityStatus: 'Suitable',
+      temperature: { value: '27.4°C', status: 'Suitable' },
+      rainfall: { value: '0.0 mm (25%)', status: 'Low risk' },
+      wind: { value: '7.8 km/h', status: 'Low' },
+      humidity: { value: '78%', status: 'Acceptable' },
+      reason: 'Acceptable evening window for biological bio-pesticides (protects from UV).',
+    },
+    {
+      date: 'Tomorrow',
+      timeWindow: '06:00 AM – 08:30 AM',
+      suitabilityScore: 92,
+      suitabilityStatus: 'Suitable',
+      temperature: { value: '23.8°C', status: 'Suitable' },
+      rainfall: { value: '0.0 mm (5%)', status: 'Low risk' },
+      wind: { value: '5.4 km/h', status: 'Low' },
+      humidity: { value: '80%', status: 'Acceptable' },
+      reason: 'RECOMMENDED BEST WINDOW: Zero rain, low wind drift, maximum systemic absorption.',
+    },
+  ],
+};
+
+export const mockZone2TimingData: TreatmentTimingData = {
+  ...mockZone1TimingData,
+  zoneId: 'zone-2',
+  overallScore: 68,
+  overallStatus: 'Marginal',
+  currentConditions: {
+    temperature: 27.0,
+    humidity: 85.0,
+    rainProbability: 55,
+    expectedRainfallMm: 2.0,
+    windSpeedKmh: 14.0,
+    windDirection: 'S (180°)',
+    condition: 'Overcast with Intermittent Drizzle Risk',
+  },
+  factors: {
+    temperatureStatus: 'Suitable (27°C within safe band)',
+    rainfallRisk: 'Moderate Risk (Drizzle expected in afternoon; requires rainfast formulation or sticker)',
+    windStatus: 'Moderate-High (14 km/h approaching threshold)',
+    humidityStatus: 'High (85% leaves wet; must wait until moisture evaporates before spray)',
+  },
+  bestApplicationWindow: {
+    day: 'Tomorrow Morning',
+    time: '06:30 AM – 09:00 AM',
+    recommendationNote:
+      'Wait for rainfront to pass and foliage to dry completely before applying systemic fungicide with sticker adjuvant.',
+  },
+};
+
+export function getTimingData(zoneId: string): TreatmentTimingData {
+  return zoneId === 'zone-2' ? mockZone2TimingData : mockZone1TimingData;
+}

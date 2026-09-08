@@ -1,0 +1,88 @@
+import { IrrigationLog, SoilWaterBudget } from '../types';
+
+export const mockSoilWaterBudgets: Record<string, SoilWaterBudget> = {
+  'zone-1': {
+    zoneId: 'zone-1',
+    currentMoisture: 32,
+    wiltingPoint: 22,
+    fieldCapacity: 60,
+    depletionPercentage: 68,
+    soilTemperature: 25.4,
+    waterRequirementMm: 14.5,
+    recommendedDurationMins: 45,
+    recommendedTime: '16:30 – 17:15 (Late Afternoon)',
+    overIrrigationRisk: 'Low',
+  },
+  'zone-2': {
+    zoneId: 'zone-2',
+    currentMoisture: 45,
+    wiltingPoint: 22,
+    fieldCapacity: 60,
+    depletionPercentage: 35,
+    soilTemperature: 24.8,
+    waterRequirementMm: 0,
+    recommendedDurationMins: 0,
+    recommendedTime: 'Adequate Moisture — No Irrigation Required',
+    overIrrigationRisk: 'High',
+  },
+};
+
+export const mockWaterConsumptionTrends = [
+  { week: 'Week 1', dripVolumeLiters: 185000, floodBaselineLiters: 225000, waterSavedPct: 17.8 },
+  { week: 'Week 2', dripVolumeLiters: 192000, floodBaselineLiters: 232000, waterSavedPct: 17.2 },
+  { week: 'Week 3', dripVolumeLiters: 178000, floodBaselineLiters: 220000, waterSavedPct: 19.1 },
+  { week: 'Week 4', dripVolumeLiters: 165000, floodBaselineLiters: 205000, waterSavedPct: 19.5 },
+  { week: 'Week 5', dripVolumeLiters: 180000, floodBaselineLiters: 220000, waterSavedPct: 18.2 },
+  { week: 'Week 6 (Current)', dripVolumeLiters: 172000, floodBaselineLiters: 210000, waterSavedPct: 18.1 },
+];
+
+export const mockIrrigationHistory: IrrigationLog[] = [
+  {
+    id: 'IRR-109',
+    date: '2026-09-06 17:00',
+    zone: 'Zone 1 (North Field)',
+    durationMinutes: 45,
+    waterVolumeLiters: 38200,
+    startingMoisture: 31,
+    endingMoisture: 54,
+    waterSavedVsFlood: 18.4,
+    method: 'Precision Drip',
+    status: 'Completed',
+  },
+  {
+    id: 'IRR-104',
+    date: '2026-09-03 06:15',
+    zone: 'Zone 2 (South Field)',
+    durationMinutes: 30,
+    waterVolumeLiters: 24500,
+    startingMoisture: 38,
+    endingMoisture: 52,
+    waterSavedVsFlood: 16.8,
+    method: 'Precision Drip',
+    status: 'Completed',
+  },
+  {
+    id: 'IRR-098',
+    date: '2026-08-30 16:45',
+    zone: 'Zone 1 (North Field)',
+    durationMinutes: 50,
+    waterVolumeLiters: 42000,
+    startingMoisture: 29,
+    endingMoisture: 55,
+    waterSavedVsFlood: 19.2,
+    method: 'Precision Drip',
+    status: 'Completed',
+  },
+  {
+    id: 'IRR-091',
+    date: '2026-08-25 17:30',
+    zone: 'Zone 2 (South Field)',
+    durationMinutes: 35,
+    waterVolumeLiters: 28000,
+    startingMoisture: 36,
+    endingMoisture: 50,
+    waterSavedVsFlood: 17.5,
+    method: 'Precision Drip',
+    status: 'Completed',
+  },
+];

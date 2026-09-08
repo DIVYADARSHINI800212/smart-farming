@@ -1,0 +1,195 @@
+import { FarmerAdvisoryData } from '../types/phase4';
+
+export const mockZone1Advisory: FarmerAdvisoryData = {
+  zoneId: 'zone-1',
+  zoneName: 'Zone 1 — North Paddy Field',
+  crop: 'Paddy (ADT 43 Rice)',
+  growthStage: 'Active Tillering (Day 42 / 115)',
+  lastAnalysisTime: 'Today at 07:15 AM (LoRa sync + Vision)',
+  situation: {
+    cropHealth: 86,
+    diseaseRisk: 'Medium',
+    pestRisk: 'High (Leaf Folder 78%)',
+    waterStress: 'Medium (Moisture 32%)',
+    weatherRisk: 'Low',
+    overallRisk: 'Medium-High',
+  },
+  diagnosis: {
+    primaryIssue: 'Rice Leaf Blast (Early Spindle Lesions) & Leaf Folder',
+    scientificName: 'Pyricularia oryzae + Cnaphalocrocis medinalis',
+    confidence: 82,
+    severity: 'HIGH',
+    affectedArea: '18% of Zone 1 (approx 0.41 Acres)',
+    symptoms: [
+      'Spindle-shaped foliar lesions with grayish center and dark brown margin',
+      'Longitudinal leaf folding with transparent white streaks from larval feeding',
+      'Reduced photosynthetic canopy area on lower tillers',
+    ],
+  },
+  sensorEvidence: {
+    temperature: 28.0,
+    humidity: 70.0,
+    soilMoisture: 32.0,
+    rainfall: 0.0,
+    explanation: {
+      temperatureNote: '28°C falls right in the optimal fungal spore germination band (24°C–30°C).',
+      humidityNote: '70% RH is moderate but sustained nocturnal condensation creates adequate leaf wetness.',
+      moistureNote: '32% soil moisture indicates slight water stress, weakening plant cellular defense.',
+      rainfallNote: '0 mm rain provides dry foliage today, making early morning application ideal.',
+    },
+  },
+  fusionWeights: {
+    imageAiPercent: 45,
+    sensorDataPercent: 25,
+    weatherDataPercent: 15,
+    riskEnginePercent: 15,
+    fusionSummary: 'Vision CNN identified spindle blast lesions (82%) corroborated by sub-40% moisture and 28°C microclimate.',
+  },
+  actions: [
+    {
+      id: 'act-1',
+      title: 'Inspect North Tillering Rows',
+      priority: 'Critical',
+      description: 'Physically scout Zone 1 north bunds to verify blast lesion density and check for rolled leaf tips.',
+      timeframe: 'Immediate (within 4 hours)',
+      iconType: 'inspect',
+    },
+    {
+      id: 'act-2',
+      title: 'Review Targeted Fungicide Regimen',
+      priority: 'High',
+      description: 'Evaluate demo protective formulation (Tricyclazole 75% WP or bio-agent Pseudomonas fluorescens).',
+      timeframe: 'Plan for tomorrow morning',
+      iconType: 'treat',
+    },
+    {
+      id: 'act-3',
+      title: 'Avoid Heavy Flood Irrigation',
+      priority: 'Medium',
+      description: 'Run 35-minute precision drip/furrow to restore moisture without standing water that boosts humidity.',
+      timeframe: 'Today evening (05:00 PM)',
+      iconType: 'irrigate',
+    },
+    {
+      id: 'act-4',
+      title: 'Track Leaf Wetness & Humidity',
+      priority: 'Medium',
+      description: 'Continuous monitoring of DHT22 telemetry to anticipate nighttime sporulation peaks.',
+      timeframe: 'Ongoing 24/7',
+      iconType: 'monitor',
+    },
+    {
+      id: 'act-5',
+      title: 'Re-Scan Leaf Foliage Post-Treatment',
+      priority: 'Informational',
+      description: 'Upload high-resolution smartphone leaf scan at Day 3 and Day 7 to verify lesion desiccation.',
+      timeframe: 'Day +3 and Day +7',
+      iconType: 'recheck',
+    },
+  ],
+  timelineStages: [
+    { stage: 'Detection', time: '06:30 AM', status: 'completed', details: 'Mobile leaf image uploaded & preprocessed' },
+    { stage: 'Analysis', time: '06:32 AM', status: 'completed', details: 'MobileNetV2 CNN inferred Rice Leaf Blast (82%)' },
+    { stage: 'Risk Assessment', time: '06:35 AM', status: 'completed', details: 'Sensor fusion elevated Zone 1 to Medium-High' },
+    { stage: 'Recommendation', time: '07:15 AM', status: 'current', details: 'Advisory synthesized with treatment alternatives' },
+    { stage: 'Treatment', time: 'Tomorrow 06:30 AM', status: 'upcoming', details: 'Recommended foliar spray window scheduled' },
+    { stage: 'Follow-up', time: 'Day +3 to +7', status: 'upcoming', details: 'Severity comparison and recovery verification' },
+  ],
+  farmerFriendlySummary:
+    'Zone 1 requires prompt attention due to elevated disease risk. Review the affected crop area (18%) and follow the recommended management workflow before lesions expand to upper canopy leaves.',
+};
+
+export const mockZone2Advisory: FarmerAdvisoryData = {
+  zoneId: 'zone-2',
+  zoneName: 'Zone 2 — South Paddy Field',
+  crop: 'Paddy (BPT 5204 Samba Masuri)',
+  growthStage: 'Panicle Initiation (Day 65 / 135)',
+  lastAnalysisTime: 'Today at 07:18 AM (LoRa sync + Vision)',
+  situation: {
+    cropHealth: 78,
+    diseaseRisk: 'Critical (Blast 82%)',
+    pestRisk: 'Low (Pest 22%)',
+    waterStress: 'Optimal (Moisture 45%)',
+    weatherRisk: 'Medium (Rain drizzle risk)',
+    overallRisk: 'High',
+  },
+  diagnosis: {
+    primaryIssue: 'Severe Rice Leaf Blast (High Sporulation)',
+    scientificName: 'Pyricularia oryzae (Magnaporthe oryzae)',
+    confidence: 88,
+    severity: 'HIGH',
+    affectedArea: '34% of Zone 2 (approx 0.85 Acres)',
+    symptoms: [
+      'Large coalescing diamond lesions across middle and upper canopy flag leaves',
+      'Visible gray fungal sporulation under persistent 85% canopy humidity',
+      'Early collar rot and partial node necrosis on sensitive Samba Masuri tillers',
+    ],
+  },
+  sensorEvidence: {
+    temperature: 27.0,
+    humidity: 85.0,
+    soilMoisture: 45.0,
+    rainfall: 2.0,
+    explanation: {
+      temperatureNote: '27°C coupled with microclimate shade provides maximum fungal incubation rate.',
+      humidityNote: '85% high humidity with 2mm rain triggers massive spore release within 6 hours.',
+      moistureNote: '45% moisture is optimal for crop growth but standing water trapped humidity.',
+      rainfallNote: '2.0 mm drizzle leaves free water film on leaves; urgent fungicide protection needed once dry.',
+    },
+  },
+  fusionWeights: {
+    imageAiPercent: 50,
+    sensorDataPercent: 20,
+    weatherDataPercent: 15,
+    riskEnginePercent: 15,
+    fusionSummary: 'Severe Blast confidence (88%) amplified by 85% RH and drizzle events during panicle initiation.',
+  },
+  actions: [
+    {
+      id: 'act-201',
+      title: 'Immediate Field Boundary Quarantine',
+      priority: 'Critical',
+      description: 'Demarcate the 34% affected south quadrant to prevent mechanical spore transport to Zone 1.',
+      timeframe: 'Immediate',
+      iconType: 'inspect',
+    },
+    {
+      id: 'act-202',
+      title: 'Apply Curative Systemic Treatment',
+      priority: 'Critical',
+      description: 'Prepare recommended demo systemic formulation once leaf dew dries completely.',
+      timeframe: 'Next clear spray window',
+      iconType: 'treat',
+    },
+    {
+      id: 'act-203',
+      title: 'Suspend Top-Dress Nitrogen Fertilizer',
+      priority: 'High',
+      description: 'Cease chemical urea application immediately; excessive nitrogen softens cell walls and accelerates blast.',
+      timeframe: 'Next 10 days',
+      iconType: 'monitor',
+    },
+    {
+      id: 'act-204',
+      title: 'Drain Surface Water to Lower Canopy RH',
+      priority: 'High',
+      description: 'Lower standing water from 4.8 cm to 2 cm to improve inter-row air circulation.',
+      timeframe: 'Today morning',
+      iconType: 'irrigate',
+    },
+  ],
+  timelineStages: [
+    { stage: 'Detection', time: '06:40 AM', status: 'completed', details: 'Severe lesion cluster detected by edge node' },
+    { stage: 'Analysis', time: '06:42 AM', status: 'completed', details: 'Fungal blast confirmed at 88% confidence' },
+    { stage: 'Risk Assessment', time: '06:45 AM', status: 'completed', details: 'High-risk alert pushed to farmer dashboard' },
+    { stage: 'Recommendation', time: '07:18 AM', status: 'current', details: 'Emergency systemic treatment protocol drafted' },
+    { stage: 'Treatment', time: 'Today 10:00 AM', status: 'upcoming', details: 'Window opens post morning dew dry-off' },
+    { stage: 'Follow-up', time: 'Day +2 to +5', status: 'upcoming', details: 'Check panicle neck blast prevention' },
+  ],
+  farmerFriendlySummary:
+    'Zone 2 requires urgent intervention due to critical blast proliferation (34% area affected). Drain surface water slightly and review the curative treatment protocol before panicle neck infection occurs.',
+};
+
+export function getAdvisoryData(zoneId: string): FarmerAdvisoryData {
+  return zoneId === 'zone-2' ? mockZone2Advisory : mockZone1Advisory;
+}

@@ -1,0 +1,188 @@
+SMART FARMING ASSISTANT
+Technical Requirements Document
+System Architecture & Implementation Specification — Smart India Hackathon (SIH)
+Document Type
+TRD
+Project
+Smart Farming Assistant
+Companion Doc
+PRD v1.0
+Prepared By
+Divyadarshini M
+Version
+1.0
+Date
+September 2026
+1. System Overview
+Smart Farming Assistant follows an edge-first architecture: two field sensor nodes stream environmental data over a low-power wireless link to a central Edge AI Gateway, which performs local sensor processing, image preprocessing, disease/pest inference, sensor+vision fusion, and risk decision-making. A farmer's smartphone acts as the image acquisition device, connecting to the gateway over local Wi-Fi. Results and alerts are surfaced on a web/mobile dashboard, with cloud sync used only for historical storage and remote reporting when internet is available.
+2. Architecture Diagram (Logical Flow)
+Node 1 (Zone 1) ┐
+Node 2 (Zone 2) ┘─ LoRa/Wireless → Edge AI Gateway
+Farmer Smartphone ─ Local Wi-Fi → Edge AI Gateway
+Edge AI Gateway ─ Internet (optional/best-effort) → Cloud Dashboard/Alerts
+2.1 Component Responsibilities
+Component
+Responsibility
+Field Sensor Node (x2)
+Soil moisture, temperature, humidity, rain, optional water-level sensing; periodic wireless transmission
+Edge AI Gateway
+Sensor data processing, image preprocessing, Disease AI, Pest AI, sensor+vision fusion, risk engine, local database, alert generation
+Farmer Smartphone (App)
+Image capture, zone tagging, local Wi-Fi upload to gateway, alert/dashboard viewing
+Web Dashboard
+Visualization, historical analytics, farmer advisory, settings, reporting
+Cloud Backend (optional sync)
+Long-term storage, multi-farm aggregation, remote access, push notifications
+3. End-to-End Data Flow (8 Stages)
+#
+Stage
+Description
+1
+Field Monitoring (Continuous)
+Nodes collect soil moisture, temperature, humidity, and rainfall data and transmit wirelessly to the gateway on a fixed interval.
+2
+Risk Detection & Image Trigger
+Gateway analyzes sensor data per zone (e.g., low moisture + high temp → water stress; high humidity + recent rain → disease risk) and prompts the farmer to capture an image of the flagged zone.
+3
+Image Acquisition
+Farmer opens the mobile app, selects the zone, and captures a close-up image; app tags location/zone ID, compresses the image, strips metadata, and sends it over local Wi-Fi.
+4
+Image Preprocessing (Edge)
+Gateway performs quality check (blur/lighting), resize (e.g., 320×320), crop to region of interest, and normalization for model input.
+5
+AI Analysis
+Disease AI and Pest AI models run inference on the preprocessed image, producing class probabilities (e.g., Blast 0.82, Brown Spot 0.08, Healthy 0.06) and a pest/disease confidence score.
+6
+Sensor + Image Fusion
+Fusion engine combines image-based classification results with environmental sensor data (temperature, humidity, rainfall, soil) to compute a final, calibrated risk score.
+7
+Decision & Alert
+Risk engine classifies risk (e.g., Zone 2 — Possible Blast, Confidence: Medium/High) and generates a recommended action set (inspect, check symptoms, follow crop-protection guidance).
+8
+Dashboard / Farmer Action
+Alert and recommendation are pushed to the dashboard/app; farmer takes action in the field; outcome and treatment history are logged for trend analysis.
+4. Hardware Specification
+4.1 Field Sensor Node
+Sensors: capacitive soil moisture sensor, DHT22/SHT-series temperature & humidity sensor, tipping-bucket or optical rain sensor, optional ultrasonic water-level sensor.
+Microcontroller: low-power MCU (e.g., ESP32) with LoRa module for long-range, low-power transmission to the gateway.
+Power: solar panel with battery backup for continuous field operation.
+Enclosure: weatherproof (IP65+) housing rated for outdoor agricultural conditions.
+4.2 Edge AI Gateway
+Compute: single-board computer capable of local CNN inference (e.g., Raspberry Pi 4/5 or Jetson-class board for higher throughput).
+Connectivity: LoRa receiver (for nodes), local Wi-Fi access point (for farmer's phone), optional cellular/Wi-Fi uplink for cloud sync.
+Storage: local SSD/eMMC for buffering sensor data, images, and model artifacts during offline operation.
+5. Software Architecture
+5.1 Technology Stack
+Layer
+Suggested Technology
+Sensor Node Firmware
+C/C++ (Arduino/ESP-IDF framework)
+Edge Gateway Runtime
+Python (edge services), Docker for service isolation
+Edge AI Inference
+TensorFlow Lite / ONNX Runtime for on-device Disease AI & Pest AI models
+Edge Local Database
+SQLite / TinyDB for offline-first local storage
+Mobile App
+React Native or Flutter (cross-platform image capture & alerts)
+Web Dashboard Frontend
+React.js with a component library and charting library (e.g., Recharts/Chart.js)
+Backend / Cloud API
+Node.js (Express) or Python (FastAPI) REST API
+Cloud Database
+PostgreSQL (structured data) + object storage (S3-compatible) for images
+Messaging / Sync
+MQTT or REST batch sync between gateway and cloud when connectivity is available
+Weather Integration
+Third-party weather API (e.g., OpenWeatherMap) for forecast and rain probability
+5.2 AI Models
+Disease Detection Model: CNN (e.g., MobileNetV2/EfficientNet-Lite backbone, transfer-learned) classifying leaf images into disease classes plus “Healthy” and “Others,” with an associated confidence score.
+Pest Detection Model: CNN or lightweight object-detection model identifying pest type, presence, and estimated activity/population level from leaf/trap images.
+Fusion/Risk Engine: rule-based or lightweight ML model combining image classification confidence with environmental features (temperature, humidity, rainfall, soil moisture) to produce a final risk level (Low/Medium/High) and confidence band.
+Model deployment: quantized (INT8) models converted to TensorFlow Lite/ONNX for real-time on-device inference within the gateway's compute budget.
+6. Data Model (Core Entities)
+Entity
+Key Fields
+Farm
+farm_id, name, location, owner, created_at
+Field / Zone
+zone_id, farm_id, boundary_geo, crop_type, growth_stage
+SensorNode
+node_id, zone_id, node_type, last_seen, battery_status
+SensorReading
+reading_id, node_id, timestamp, soil_moisture, temp, humidity, rainfall, water_level
+ImageCapture
+image_id, zone_id, captured_by, timestamp, storage_url, preprocessing_status
+DetectionResult
+result_id, image_id, model_type (disease/pest), class_label, confidence, severity
+RiskAssessment
+risk_id, zone_id, timestamp, risk_type, risk_level, contributing_factors, fusion_score
+Alert
+alert_id, zone_id, severity, category, message, recommended_action, status, created_at
+TreatmentRecommendation
+rec_id, risk_id, active_ingredient, product, dosage, method, timing, cost_estimate
+Dealer
+dealer_id, name, location, distance, contact, product_stock
+TreatmentHistory
+history_id, zone_id, treatment_date, product_used, pre/post condition, effectiveness
+7. API Design (Representative Endpoints)
+GET  /api/v1/farms/{farmId}/dashboard
+GET  /api/v1/zones/{zoneId}/sensors/latest
+POST /api/v1/zones/{zoneId}/images            (multipart image upload)
+GET  /api/v1/zones/{zoneId}/detections
+GET  /api/v1/zones/{zoneId}/irrigation/recommendation
+GET  /api/v1/zones/{zoneId}/advisory
+GET  /api/v1/alerts?severity=critical&status=active
+GET  /api/v1/dealers?product={productId}&near={lat,lng}
+GET  /api/v1/analytics/{zoneId}/trends?metric=soil_moisture&range=30d
+8. Communication Protocols
+Link
+Protocol
+Notes
+Sensor Node ↔ Gateway
+LoRa (sub-GHz)
+Long range, low power; suited to open farmland with sparse infrastructure
+Farmer Phone ↔ Gateway
+Local Wi-Fi (HTTP/REST)
+Enables image upload and dashboard access without internet dependency
+Gateway ↔ Cloud
+HTTPS REST / MQTT
+Best-effort batch sync; queues data locally when offline
+Dashboard ↔ Backend
+HTTPS REST, WebSocket (for live alerts)
+WebSocket used for real-time alert push to connected clients
+9. Non-Functional Requirements
+Category
+Requirement
+Performance
+Edge inference latency < 3 seconds per image; sensor-to-alert latency < 5 minutes
+Availability
+Core monitoring/alerting functions operate fully offline; ≥ 99% local uptime
+Scalability
+Gateway supports ≥ 8 sensor nodes and multiple concurrent image uploads per deployment
+Security
+TLS for all cloud sync traffic; local Wi-Fi secured with WPA2/WPA3; role-based access on dashboard
+Data Privacy
+Farm and location data isolated per farmer/cooperative account; images stored with access control
+Power Efficiency
+Sensor nodes designed for multi-month operation on solar + battery power
+Usability
+Dashboard and mobile app support low-literacy UI patterns (icons, color-coded risk, local language)
+Maintainability
+Modular microservice-style edge services (sensor, image, fusion, alert) independently updatable
+10. Deployment & Environment
+Development: local simulation of sensor data and sample leaf-image datasets for model training/testing before field deployment.
+Staging: single-node + single-gateway pilot deployment in a controlled field/greenhouse for validation.
+Production (Pilot): two-node deployment per field unit as described in Section 3, with dashboard hosted on a cloud provider (e.g., AWS/GCP/Azure free-tier for hackathon demo).
+CI/CD: containerized edge services (Docker) with version-tagged model artifacts for reproducible deployment to gateway hardware.
+11. Risks & Mitigations
+Risk
+Mitigation
+Limited/no internet connectivity in the field
+Edge-first design: all core detection/alerting runs locally without cloud dependency
+Low AI model accuracy on unseen disease/pest classes
+Start with a limited, well-labeled dataset for common regional crops; expand iteratively
+Sensor node power failure
+Solar + battery with low-power sleep cycles; battery status surfaced in dashboard
+Farmer misinterprets AI confidence as certainty
+UI clearly labels advisory outputs with confidence bands and recommends inspection before action

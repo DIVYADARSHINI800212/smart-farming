@@ -1,0 +1,158 @@
+SMART FARMING ASSISTANT
+Product Requirements Document
+AI-Powered Precision Agriculture Platform — Smart India Hackathon (SIH)
+Document Type
+PRD
+Project
+Smart Farming Assistant
+Prepared For
+Smart India Hackathon
+Prepared By
+Divyadarshini M
+Version
+1.0
+Date
+September 2026
+1. Executive Summary
+Smart Farming Assistant is an AI-powered precision agriculture platform that combines low-cost field sensor nodes, farmer-captured mobile images, and an edge AI gateway to continuously monitor crop and environmental health. The system detects early signs of disease and pest infestation, evaluates irrigation and weather-related risk, and delivers actionable, farmer-friendly recommendations through a web dashboard and mobile alerts.
+The platform is designed to work in low-connectivity rural environments by processing sensor and image data locally at the edge, syncing to the cloud dashboard when connectivity is available. It targets smallholder and mid-size farmers who currently rely on manual field inspection and delayed expert consultation, both of which increase the risk of yield loss.
+2. Problem Statement
+Farmers often detect crop disease and pest infestations only after visible, large-scale damage has occurred, by which point yield loss is difficult to reverse.
+Manual field monitoring is time-consuming, inconsistent, and dependent on the farmer's personal experience and availability.
+Irrigation decisions are frequently made on intuition rather than actual soil moisture, weather, and crop water-stress data, leading to over- or under-irrigation.
+Access to timely agronomic expertise (correct treatment, dosage, and application timing) is limited in rural areas, and misapplication of pesticides is common.
+Existing precision-agriculture solutions are often costly, cloud-dependent, and unsuitable for regions with unreliable internet connectivity.
+3. Goals and Objectives
+3.1 Product Goals
+Enable early, automated detection of crop disease and pest risk using a combination of sensor data and AI-based image analysis.
+Provide farmers with clear, prioritized, and actionable recommendations rather than raw sensor data.
+Optimize water usage through smart, data-driven irrigation recommendations.
+Operate reliably in low-connectivity conditions through local edge processing.
+Keep hardware and deployment costs low enough for smallholder adoption (2 field nodes + 1 edge gateway per deployment unit).
+3.2 Success Metrics
+Metric
+Target
+Disease/pest detection accuracy (AI model)
+≥ 85% on validation image set
+Time from field risk event to farmer alert
+< 5 minutes (edge processing)
+Reduction in unnecessary irrigation
+≥ 15% water savings vs. baseline
+Dashboard usability (farmer task completion)
+≥ 90% of test users complete core flow unaided
+System uptime (offline-capable core functions)
+≥ 99% (excludes cloud sync)
+4. Target Users and Personas
+Persona
+Description
+Key Needs
+Smallholder Farmer
+Owns/manages 1–5 acres; limited digital literacy
+Simple alerts, local-language guidance, low-cost hardware
+Agricultural Extension Officer
+Supports multiple farms in a region
+Aggregated view across farms, treatment history, reports
+Cooperative / FPO Admin
+Manages shared equipment and dealer network
+Product availability, dealer directory, cost tracking
+5. Scope
+5.1 In Scope (SIH Prototype)
+Two field sensor nodes (soil moisture, temperature, humidity, rain, optional water level) communicating over LoRa/wireless to an edge gateway.
+Edge AI Gateway performing sensor data processing, image preprocessing, disease AI, pest AI, sensor+vision fusion, and local risk/decision engine.
+Mobile image capture flow for farmers to photograph affected leaves/plants, tagged by zone.
+Web dashboard covering: Dashboard, Field Monitoring, AI Crop Analysis, Smart Irrigation, Environment & Weather, Farmer Advisory, Analytics, Alerts, Settings.
+AI-generated treatment recommendations including product, dosage, application timing, and nearby dealer availability.
+Offline-first local processing with sync to cloud dashboard when internet is available.
+5.2 Out of Scope (Future Phases)
+Drone/satellite-based large-area imaging.
+Automated pesticide/irrigation actuation (system is advisory-only in this phase).
+Marketplace/e-commerce transactions with dealers (directory and contact only).
+Multi-crop yield price forecasting and market-linkage features.
+6. Functional Requirements — Feature Modules
+The web application is organized into nine primary modules, corresponding to the dashboard information architecture below.
+6.1 Dashboard (Home)
+Farm health, crop health, soil moisture, temperature, and humidity summary widgets.
+Pest risk, disease risk, and weather risk indicators at a glance.
+Active alerts panel and AI recommendation summary.
+Node status and last-updated timestamp.
+6.2 Field Monitoring
+Interactive field map showing zones, sensor node locations, and per-zone health/risk status.
+Per-zone soil moisture, temperature, humidity, last captured image, and last update time.
+6.3 AI Crop Analysis
+Image capture and upload flow (camera or gallery), with preprocessing (quality check, resize, crop to region of interest, normalize).
+Disease detection and pest detection results with confidence score and severity level.
+Affected area/zone tagging and AI diagnosis summary.
+Detection history log per zone.
+6.4 Smart Irrigation
+Soil moisture, soil temperature, water stress, and over-irrigation risk indicators.
+Irrigation status and recommendation (target zone, recommended duration, timing) generated from sensor + weather fusion.
+Rainfall forecast integration to avoid irrigating ahead of expected rain.
+Water consumption tracking, water saved metric, and irrigation history.
+6.5 Environment & Weather
+Current conditions and multi-day forecast (temperature, humidity, rainfall, rain probability, wind).
+Heat stress, drought, and flood risk indicators.
+Disease-conducive condition flagging (e.g., high humidity + recent rain) and suitable spray/application weather windows.
+Weather alerts feed.
+6.6 Farmer Advisory
+AI diagnosis and risk level combining image and sensor fusion output.
+Recommended action, treatment recommendation (active ingredient, product, dosage, method, frequency, timing).
+Weather suitability check before recommending application.
+Product availability: nearby dealer name, distance, and contact.
+Estimated product and treatment cost, safety information, pre-harvest interval, and follow-up recommendation.
+6.7 Analytics
+Trend charts: crop health, disease, pest activity, soil moisture, temperature, humidity, rainfall, irrigation, and water usage.
+Treatment and alert history, field performance summary, yield risk factors, and historical data view.
+6.8 Alerts
+Consolidated, severity-ranked alert feed (critical/high/medium/low) across disease, pest, irrigation, heat, flood, drought, and weather categories.
+Each alert includes location/zone, timestamp, and recommended action; full alert history retained.
+6.9 Settings
+Farm, field, crop, and node/sensor configuration.
+Alert and notification preferences, weather API and data source configuration, language selection, and system status view.
+7. User Stories
+ID
+As a…
+I want to…
+So that…
+US-01
+Farmer
+receive an alert when a zone shows high disease risk
+I can inspect and treat the crop before it spreads
+US-02
+Farmer
+photograph a leaf and get an instant AI diagnosis
+I don't have to wait for an expert visit
+US-03
+Farmer
+see a recommended irrigation time and duration per zone
+I avoid over- or under-watering my crop
+US-04
+Farmer
+see nearby dealers who stock the recommended treatment
+I can act on the recommendation quickly
+US-05
+Extension Officer
+view health and risk trends across multiple farms
+I can prioritize which farms need a visit
+US-06
+Farmer
+use core alerting features without an internet connection
+the system still works in low-connectivity areas
+8. Assumptions and Constraints
+Each deployment unit covers a limited field area using two sensor nodes; larger farms require multiple units.
+Farmers have access to a basic smartphone with a camera and local Wi-Fi connectivity to the edge gateway.
+Edge AI Gateway has sufficient local compute for lightweight disease/pest CNN inference; cloud sync is best-effort, not required for core alerts.
+Treatment recommendations are advisory; final application decisions and regulatory compliance remain the farmer's responsibility.
+Initial AI models are trained on a limited set of common crop diseases/pests relevant to the pilot region and crop type.
+9. Milestones (SIH Timeline)
+Phase
+Deliverable
+Phase 1 — Design
+Finalized PRD/TRD, UI wireframes, dataset collection for AI models
+Phase 2 — Core Build
+Sensor node + edge gateway integration, dashboard shell, auth
+Phase 3 — AI Integration
+Disease/pest detection models, sensor+image fusion risk engine
+Phase 4 — Advisory & Alerts
+Treatment recommendation engine, dealer directory, alerting
+Phase 5 — Testing & Demo
+Field/simulated testing, performance tuning, hackathon demo prep
