@@ -132,7 +132,7 @@ export function useFarmData() {
       if (preset === 'normal') {
         return prev.map(z => ({
           ...z,
-          status: 'Optimal',
+          status: 'Healthy' as const,
           currentReading: {
             ...z.currentReading,
             soilMoisture: z.zoneId === 'zone-1' ? 52 : 54,
@@ -158,7 +158,7 @@ export function useFarmData() {
       } else if (preset === 'water_stress') {
         return prev.map(z => ({
           ...z,
-          status: 'Water Stress',
+          status: 'Water Stress' as const,
           currentReading: {
             ...z.currentReading,
             soilMoisture: z.zoneId === 'zone-1' ? 22 : 28,
@@ -175,7 +175,7 @@ export function useFarmData() {
       } else if (preset === 'heavy_rain') {
         return prev.map(z => ({
           ...z,
-          status: 'Flooding Risk',
+          status: 'Water Stress' as const,
           currentReading: {
             ...z.currentReading,
             soilMoisture: 88,
@@ -189,7 +189,7 @@ export function useFarmData() {
       } else if (preset === 'pest_outbreak') {
         return prev.map(z => ({
           ...z,
-          status: 'Pest Infested',
+          status: 'Pest Infestation' as const,
           currentReading: {
             ...z.currentReading,
             soilMoisture: 42,
@@ -213,7 +213,7 @@ export function useFarmData() {
     setFarmOverview(prev => ({
       ...prev,
       healthScore: preset === 'normal' ? 94 : preset === 'disease_risk' ? 84 : preset === 'water_stress' ? 68 : 62,
-      cropHealthStatus: preset === 'normal' ? 'Optimal' : preset === 'disease_risk' ? 'Good' : 'Needs Attention',
+      cropHealthStatus: preset === 'normal' ? 'Excellent' : preset === 'disease_risk' ? 'Good' : 'Moderate',
     }));
   }, []);
 
