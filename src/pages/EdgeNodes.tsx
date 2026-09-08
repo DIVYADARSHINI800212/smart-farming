@@ -4,6 +4,7 @@ import { ArchitectureFlowDiagram } from '../components/edge/ArchitectureFlowDiag
 import { GatewayMetricsCard } from '../components/edge/GatewayMetricsCard';
 import { NodeHardwareGrid } from '../components/edge/NodeHardwareGrid';
 import { ModelPerformanceCard } from '../components/edge/ModelPerformanceCard';
+import { AIStatus } from '../components/common/AIStatus';
 import {
   mockGatewayDiagnostics,
   mockNodeHardwareDetails,
@@ -38,6 +39,9 @@ export const EdgeNodes: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* AI System Status */}
+      <AIStatus />
 
       {/* Edge KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

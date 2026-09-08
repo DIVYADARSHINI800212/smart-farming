@@ -131,21 +131,26 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
                 }}
               >
                 <Popup>
-                  <div className="p-1 space-y-1.5 min-w-[200px]">
+                  <div className="p-1 space-y-2 min-w-[220px]">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs text-deep-green">{zone.name}</span>
                       <StatusPill status={zone.status} pulse={false} />
                     </div>
-                    <p className="text-[11px] text-gray-500">{zone.cropType}</p>
-                    <div className="grid grid-cols-2 gap-1 pt-1 border-t border-gray-100 text-[11px]">
+                    <p className="text-[11px] text-gray-500">{zone.cropType} • {zone.areaAcres} Acres</p>
+                    <div className="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-gray-100 text-[11px]">
+                      <div>Health: <strong className="text-agri-green">{100 - zone.riskScore}%</strong></div>
                       <div>Moisture: <strong>{zone.currentReading.soilMoisture}%</strong></div>
-                      <div>Temp: <strong>{zone.currentReading.temperature}°C</strong></div>
-                      <div>Humidity: <strong>{zone.currentReading.humidity}%</strong></div>
-                      <div>Rain: <strong>{zone.currentReading.rainfall} mm</strong></div>
+                      <div>Disease Risk: <strong className={zone.status === 'Disease Risk' ? 'text-danger-red' : 'text-gray-700'}>{zone.status === 'Disease Risk' ? 'High (Blast 82%)' : 'Low (8%)'}</strong></div>
+                      <div>Pest Risk: <strong className={zone.pestDistribution[0].percentage > 50 ? 'text-yellow-700' : 'text-gray-700'}>{zone.pestDistribution[0].label} ({zone.pestDistribution[0].percentage}%)</strong></div>
+                      <div>Temp / Humidity: <strong>{zone.currentReading.temperature}°C / {zone.currentReading.humidity}%</strong></div>
+                      <div>Last Update: <strong>{zone.currentReading.timestamp}</strong></div>
                     </div>
-                    <div className="text-[10px] text-gray-400 pt-1">
-                      Click zone to focus telemetry details below.
-                    </div>
+                    <button
+                      onClick={() => onSelectZone(zone.zoneId)}
+                      className="w-full mt-1 py-1 px-2 text-center text-[10px] font-bold text-white bg-agri-green hover:bg-green-700 rounded-lg transition-colors shadow-2xs"
+                    >
+                      Open Zone Details
+                    </button>
                   </div>
                 </Popup>
               </Polygon>
@@ -182,17 +187,23 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
           <div className="font-bold text-deep-green text-[11px] uppercase tracking-wide">
             GIS Layer Legend
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded bg-amber-400 opacity-70 border border-amber-600"></span>
-            <span>Zone 1: Water Stress (32% Moisture)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded bg-red-500 opacity-70 border border-red-700"></span>
-            <span>Zone 2: Disease Risk (82% Blast)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">📡</span>
-            <span>ESP32 LoRa Field Nodes (Nodes 1 & 2)</span>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-emerald-500 border border-emerald-700"></span>
+              <span>Healthy</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-amber-400 border border-amber-600"></span>
+              <span>Watch</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-red-500 border border-red-700"></span>
+              <span>High Risk</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span>📡</span>
+              <span>IoT Node</span>
+            </div>
           </div>
         </div>
       </div>

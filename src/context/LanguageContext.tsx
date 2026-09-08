@@ -30,6 +30,11 @@ const translations: Record<SupportedLanguage, Record<string, string>> = {
     nav_cost: 'Treatment Cost',
     nav_followup: 'Treatment Follow-Up',
     nav_alerts: 'Alerts',
+    nav_farm_analytics: 'Farm Analytics',
+    nav_yield_forecast: 'Yield Forecast',
+    nav_reports: 'Reports',
+    nav_settings: 'Settings',
+    btn_start_demo: 'Start Demo',
 
     // Phase 4 Common Actions
     action_review_treatment: 'Review Treatment Options',
