@@ -74,7 +74,7 @@ export const GlobalSearch: React.FC = () => {
   };
 
   return (
-    <div ref={searchRef} className="relative w-44 sm:w-60 md:w-72 lg:w-80">
+    <div ref={searchRef} className="relative w-full">
       <div className="relative flex items-center">
         <Search className="absolute left-3 h-4 w-4 text-gray-400 pointer-events-none" />
         <input
@@ -99,7 +99,7 @@ export const GlobalSearch: React.FC = () => {
       </div>
 
       {isOpen && query.trim().length > 0 && (
-        <div className="absolute top-full mt-2 left-0 right-0 bg-white rounded-2xl shadow-xl border border-gray-200 z-50 p-2 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
+        <div className="absolute top-full mt-2 left-0 right-0 min-w-[280px] bg-white rounded-2xl shadow-xl border border-gray-200 z-50 p-2 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
           <div className="px-3 py-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between">
             <span>{t('search_matching_results', 'Matching Results')} ({filteredResults.length})</span>
             <span className="flex items-center gap-1"><CornerDownLeft className="h-2.5 w-2.5" /> {t('search_to_select', 'to select')}</span>

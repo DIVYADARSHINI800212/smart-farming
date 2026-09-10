@@ -40,24 +40,24 @@ export const FarmerAdvisory: React.FC = () => {
       <DemoDisclaimerBanner type="general" />
 
       {/* 3. Header & Zone Selector */}
-      <div className="bg-white p-5 rounded-2xl border border-[#E6F0EB] shadow-subtle flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div className="flex items-start gap-3.5">
+      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-[#E6F0EB] shadow-subtle flex flex-col xl:flex-row xl:items-center justify-between gap-5">
+        <div className="flex items-start gap-3.5 min-w-0 flex-1">
           <div className="p-3 rounded-xl bg-green-50 text-agri-green shrink-0">
             <UserCheck className="h-7 w-7" />
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-black text-deep-green tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-deep-green tracking-tight break-words">
                 {t('farmer_advisory_title', 'Farmer Agronomic Advisory Hub')}
               </h1>
-              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-soft-green/30 text-deep-green shrink-0">
                 {t('precision_crop_soil', 'AI-Assisted Decision Support')}
               </span>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1.5 leading-relaxed break-words">
               {t('farmer_advisory_subtitle', 'Synthesized actionable recommendations derived from leaf vision, field sensors, and weather forecasting')}
             </p>
-            <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-gray-600">
+            <div className="flex flex-wrap items-center gap-4 mt-2.5 text-xs text-gray-600">
               <span className="flex items-center gap-1.5 font-medium">
                 <Clock className="h-3.5 w-3.5 text-gray-400" />
                 {advisory.lastAnalysisTime}
@@ -72,8 +72,8 @@ export const FarmerAdvisory: React.FC = () => {
           </div>
         </div>
 
-        {/* Existing ZoneSelector Component */}
-        <div className="w-full lg:w-96 shrink-0">
+        {/* ZoneSelector Component with adaptable width */}
+        <div className="w-full xl:w-[440px] shrink-0">
           <ZoneSelector
             selectedZone={selectedZone}
             onSelectZone={setSelectedZone}
@@ -86,10 +86,10 @@ export const FarmerAdvisory: React.FC = () => {
         <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
           {t('farm_at_a_glance', 'Overall Farm & Zone Situation')}
         </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
           {/* Crop Health */}
-          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">{t('crop_health_index', 'Crop Health')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-gray-500 leading-tight">{t('crop_health_index', 'Crop Health')}</span>
             <div className="my-1.5 flex items-baseline gap-1">
               <span className="text-2xl font-black text-deep-green">{advisory.situation.cropHealth}</span>
               <span className="text-[10px] text-gray-400">/ 100</span>
@@ -100,8 +100,8 @@ export const FarmerAdvisory: React.FC = () => {
           </div>
 
           {/* Disease Risk */}
-          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">{t('disease_risk_gauge_title', 'Disease Risk')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-gray-500 leading-tight">{t('disease_risk_gauge_title', 'Disease Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-danger-red">{advisory.situation.diseaseRisk}</span>
             </div>
@@ -111,19 +111,19 @@ export const FarmerAdvisory: React.FC = () => {
           </div>
 
           {/* Pest Risk */}
-          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">{t('pest_risk_gauge_title', 'Pest Risk')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-gray-500 leading-tight">{t('pest_risk_gauge_title', 'Pest Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-yellow-800">{advisory.situation.pestRisk.split(' ')[0]}</span>
             </div>
-            <span className="text-[10px] font-bold text-yellow-800 bg-amber-50 px-2 py-0.5 rounded-md inline-block w-fit truncate max-w-full">
+            <span className="text-[10px] font-bold text-yellow-800 bg-amber-50 px-2 py-0.5 rounded-md inline-block w-fit">
               {t('badge_folder_78', 'Folder 78%')}
             </span>
           </div>
 
           {/* Water Stress */}
-          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">{t('water_stress', 'Water Stress')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-gray-500 leading-tight">{t('water_stress', 'Water Stress')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-amber-700">{advisory.situation.waterStress.split(' ')[0]}</span>
             </div>
@@ -133,8 +133,8 @@ export const FarmerAdvisory: React.FC = () => {
           </div>
 
           {/* Weather Risk */}
-          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">{t('weather_risk_index', 'Weather Risk')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-gray-500 leading-tight">{t('weather_risk_index', 'Weather Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-agri-green">{advisory.situation.weatherRisk}</span>
             </div>
@@ -144,8 +144,8 @@ export const FarmerAdvisory: React.FC = () => {
           </div>
 
           {/* Overall Risk */}
-          <div className="p-3.5 bg-white rounded-xl border border-red-200 bg-red-50/20 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-danger-red">{t('overall_farm_risk', 'Overall Risk')}</span>
+          <div className="p-3.5 bg-white rounded-xl border border-red-200 bg-red-50/20 shadow-xs flex flex-col justify-between min-w-0">
+            <span className="text-[11px] font-semibold text-danger-red leading-tight">{t('overall_farm_risk', 'Overall Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-danger-red">{advisory.situation.overallRisk}</span>
             </div>
@@ -266,7 +266,7 @@ export const FarmerAdvisory: React.FC = () => {
             />
 
             <div className="space-y-3.5 pt-1">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-2.5">
                 <div className="p-3 bg-orange-50/60 rounded-xl border border-orange-100 text-center">
                   <Thermometer className="h-4 w-4 text-orange-600 mx-auto mb-1" />
                   <span className="text-base font-bold text-orange-950 block">
@@ -430,7 +430,7 @@ export const FarmerAdvisory: React.FC = () => {
           }
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 pt-1">
           {advisory.actions.map((act) => {
             const getPriorityStyle = (p: string) => {
               switch (p) {
@@ -491,7 +491,7 @@ export const FarmerAdvisory: React.FC = () => {
           icon={<Calendar className="h-5 w-5 text-gray-500" />}
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 pt-2">
           {advisory.timelineStages.map((stage, sIdx) => {
             const isCompleted = stage.status === 'completed';
             const isCurrent = stage.status === 'current';

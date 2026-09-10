@@ -86,8 +86,8 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
       </div>
 
       {/* Horizontal Step Nav */}
-      <div className="overflow-x-auto pb-1 scrollbar-none">
-        <div className="flex items-center justify-between min-w-[620px] gap-1">
+      <div className="overflow-x-auto pb-1.5 scrollbar-thin scrollbar-thumb-gray-200">
+        <div className="flex items-center min-w-max gap-1.5 w-full justify-between">
           {WORKFLOW_STEPS.map((step, idx) => {
             const isActive = step.id === currentStep;
             const isCompleted = step.id < currentStep;
@@ -115,9 +115,9 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
                   >
                     {step.icon}
                   </div>
-                  <div className="flex flex-col text-left">
+                  <div className="flex flex-col text-left whitespace-nowrap min-w-0">
                     <span className="text-[10px] opacity-75 font-normal">{t('step_label', 'Step')} {step.id}</span>
-                    <span className="truncate">{t(step.labelKey, step.defaultLabel)}</span>
+                    <span className="font-bold">{t(step.labelKey, step.defaultLabel)}</span>
                   </div>
                 </NavLink>
 

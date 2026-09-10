@@ -63,13 +63,13 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-xl text-gray-600 hover:text-deep-green hover:bg-gray-100 border border-gray-200 transition-colors"
+        className="relative h-9 w-9 flex items-center justify-center rounded-xl text-gray-600 hover:text-deep-green hover:bg-gray-100 border border-gray-200 transition-colors shrink-0"
         title={t('telemetry_notifications', 'Field Notifications & Alerts')}
         aria-label="Notifications"
       >
         <Bell className="h-4 w-4" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-danger-red text-white text-[10px] font-bold flex items-center justify-center animate-pulse">
+          <span className="absolute -top-1 -right-1 h-4 min-w-[16px] px-1 rounded-full bg-danger-red text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white animate-pulse">
             {unreadCount}
           </span>
         )}
