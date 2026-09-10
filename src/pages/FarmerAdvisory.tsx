@@ -6,13 +6,10 @@ import {
   Thermometer,
   Droplets,
   CloudSun,
-  ShieldAlert,
-  AlertTriangle,
   Layers,
   ArrowRight,
   Clock,
   Sparkles,
-  Info,
   CheckCircle2,
   Calendar,
 } from 'lucide-react';
@@ -23,20 +20,20 @@ import { ZoneSelector } from '../components/ui/ZoneSelector';
 import { TreatmentWorkflowStepper } from '../components/advisory/TreatmentWorkflowStepper';
 import { DemoDisclaimerBanner } from '../components/advisory/DemoDisclaimerBanner';
 import { getAdvisoryData } from '../data/advisoryData';
-import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../i18n';
 
 export const FarmerAdvisory: React.FC = () => {
   const [selectedZone, setSelectedZone] = useState<string>('zone-1');
   const advisory = getAdvisoryData(selectedZone);
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* 1. Cross-Module Pipeline Stepper */}
       <TreatmentWorkflowStepper
         currentStep={1}
-        nextStepTitle={t('action_review_treatment')}
+        nextStepTitle={t('btn_view_advisory', 'Review Treatment Protocol')}
       />
 
       {/* 2. Banner Disclaimer */}
@@ -51,14 +48,14 @@ export const FarmerAdvisory: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_farmer_advisory')}
+                {t('farmer_advisory_title', 'Farmer Agronomic Advisory Hub')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
-                AI-Assisted Decision Support
+                {t('precision_crop_soil', 'AI-Assisted Decision Support')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Synthesized actionable recommendations derived from leaf vision, field sensors, and weather forecasting
+              {t('farmer_advisory_subtitle', 'Synthesized actionable recommendations derived from leaf vision, field sensors, and weather forecasting')}
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-gray-600">
               <span className="flex items-center gap-1.5 font-medium">
@@ -66,10 +63,10 @@ export const FarmerAdvisory: React.FC = () => {
                 {advisory.lastAnalysisTime}
               </span>
               <span className="font-semibold text-deep-green">
-                Crop: {advisory.crop}
+                {advisory.crop}
               </span>
               <span className="text-gray-500">
-                Stage: {advisory.growthStage}
+                {advisory.growthStage}
               </span>
             </div>
           </div>
@@ -87,94 +84,94 @@ export const FarmerAdvisory: React.FC = () => {
       {/* 4. Overall Farm Situation Cards (6 Cards) */}
       <div>
         <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-          Overall Farm & Zone Situation
+          {t('farm_at_a_glance', 'Overall Farm & Zone Situation')}
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {/* Crop Health */}
           <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">Crop Health</span>
+            <span className="text-[11px] font-semibold text-gray-500">{t('crop_health_index', 'Crop Health')}</span>
             <div className="my-1.5 flex items-baseline gap-1">
               <span className="text-2xl font-black text-deep-green">{advisory.situation.cropHealth}</span>
               <span className="text-[10px] text-gray-400">/ 100</span>
             </div>
             <span className="text-[10px] font-bold text-agri-green bg-green-50 px-2 py-0.5 rounded-md inline-block w-fit">
-              Vigorous
+              {t('badge_good', 'Vigorous')}
             </span>
           </div>
 
           {/* Disease Risk */}
           <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">Disease Risk</span>
+            <span className="text-[11px] font-semibold text-gray-500">{t('disease_risk_gauge_title', 'Disease Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-danger-red">{advisory.situation.diseaseRisk}</span>
             </div>
             <span className="text-[10px] font-bold text-danger-red bg-red-50 px-2 py-0.5 rounded-md inline-block w-fit">
-              Blast 82%
+              {t('badge_blast_82', 'Blast 82%')}
             </span>
           </div>
 
           {/* Pest Risk */}
           <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">Pest Risk</span>
+            <span className="text-[11px] font-semibold text-gray-500">{t('pest_risk_gauge_title', 'Pest Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-yellow-800">{advisory.situation.pestRisk.split(' ')[0]}</span>
             </div>
             <span className="text-[10px] font-bold text-yellow-800 bg-amber-50 px-2 py-0.5 rounded-md inline-block w-fit truncate max-w-full">
-              Folder 78%
+              {t('badge_folder_78', 'Folder 78%')}
             </span>
           </div>
 
           {/* Water Stress */}
           <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">Water Stress</span>
+            <span className="text-[11px] font-semibold text-gray-500">{t('water_stress', 'Water Stress')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-amber-700">{advisory.situation.waterStress.split(' ')[0]}</span>
             </div>
             <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md inline-block w-fit">
-              32% Moist
+              32% {t('soil_moisture', 'Moist')}
             </span>
           </div>
 
           {/* Weather Risk */}
           <div className="p-3.5 bg-white rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-gray-500">Weather Risk</span>
+            <span className="text-[11px] font-semibold text-gray-500">{t('weather_risk_index', 'Weather Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-agri-green">{advisory.situation.weatherRisk}</span>
             </div>
             <span className="text-[10px] font-bold text-agri-green bg-green-50 px-2 py-0.5 rounded-md inline-block w-fit">
-              Clear 24h
+              {t('badge_optimal', 'Clear 24h')}
             </span>
           </div>
 
           {/* Overall Risk */}
           <div className="p-3.5 bg-white rounded-xl border border-red-200 bg-red-50/20 shadow-xs flex flex-col justify-between">
-            <span className="text-[11px] font-semibold text-danger-red">Overall Risk</span>
+            <span className="text-[11px] font-semibold text-danger-red">{t('overall_farm_risk', 'Overall Risk')}</span>
             <div className="my-1.5">
               <span className="text-lg font-black text-danger-red">{advisory.situation.overallRisk}</span>
             </div>
             <span className="text-[10px] font-bold text-white bg-danger-red px-2 py-0.5 rounded-md inline-block w-fit">
-              Action Req.
+              {t('priority_action_required', 'Action Req.')}
             </span>
           </div>
         </div>
       </div>
 
       {/* 5. Farmer-Friendly Summary Highlight Card */}
-      <div className="bg-linear-to-r from-deep-green to-[#1b4332] text-white p-5 sm:p-6 rounded-2xl shadow-lg border border-soft-green/20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-deep-green to-[#1b4332] text-white p-5 sm:p-6 rounded-2xl shadow-lg border border-soft-green/20 relative overflow-hidden">
         <div className="absolute right-0 top-0 bottom-0 w-64 bg-radial from-soft-green/10 to-transparent pointer-events-none" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div className="space-y-2 max-w-3xl">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-soft-green animate-pulse" />
               <span className="text-xs font-bold uppercase tracking-wider text-soft-green">
-                Agronomic Priority Alert • {advisory.zoneName}
+                {t('priority_action_required', 'Agronomic Priority Alert')} • {advisory.zoneName.includes('Zone 1') ? t('zone_1_north_paddy', advisory.zoneName) : t('zone_2_south_paddy', advisory.zoneName)}
               </span>
             </div>
             <p className="text-base sm:text-lg font-bold leading-snug">
               "{advisory.farmerFriendlySummary}"
             </p>
             <p className="text-xs text-white/70">
-              Immediate inspection recommended before applying treatment. Follow the decision pathway below to configure targeted treatment and check dealer availability.
+              {t('recommended_protocol_text', 'Immediate inspection recommended before applying treatment. Follow the decision pathway below to configure targeted treatment and check dealer availability.')}
             </p>
           </div>
 
@@ -185,12 +182,12 @@ export const FarmerAdvisory: React.FC = () => {
               className="bg-white text-deep-green hover:bg-cream font-bold shadow-md"
               onClick={() => navigate('/treatment-recommendation')}
             >
-              <span>{t('action_review_treatment')}</span>
+              <span>{t('btn_view_advisory', 'Review Treatment Protocol')}</span>
               <ArrowRight className="h-4 w-4 ml-1.5" />
             </Button>
             <Link to="/disease-detection">
               <button className="text-xs text-soft-green hover:underline font-semibold text-center w-full block py-1">
-                View Raw Vision Diagnostics
+                {t('btn_inspect', 'View Raw Vision Diagnostics')}
               </button>
             </Link>
           </div>
@@ -203,8 +200,8 @@ export const FarmerAdvisory: React.FC = () => {
         <div className="lg:col-span-6">
           <Card className="h-full flex flex-col justify-between">
             <CardHeader
-              title="Edge AI Diagnostic Synthesis"
-              subtitle="Leaf image analysis from MobileNetV2 quantized CNN model"
+              title={t('edge_ai_diagnostic_synthesis', 'Edge AI Diagnostic Synthesis')}
+              subtitle={t('leaf_image_analysis_sub', 'Leaf image analysis from MobileNetV2 quantized CNN model')}
               icon={<Microscope className="h-5 w-5 text-danger-red" />}
               action={
                 <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-red-100 text-danger-red">
@@ -217,7 +214,7 @@ export const FarmerAdvisory: React.FC = () => {
               <div className="p-3.5 bg-red-50/50 rounded-xl border border-red-100">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Primary Detected Pathogen
+                    {t('primary_detected_pathogen', 'Primary Detected Pathogen')}
                   </span>
                   <Badge severity={advisory.diagnosis.severity as any}>
                     {advisory.diagnosis.severity} SEVERITY
@@ -233,18 +230,18 @@ export const FarmerAdvisory: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-                  <span className="text-gray-500 block text-[11px]">Affected Field Zone</span>
+                  <span className="text-gray-500 block text-[11px]">{t('affected_field_zone', 'Affected Field Zone')}</span>
                   <span className="font-bold text-dark-forest">{advisory.zoneName}</span>
                 </div>
                 <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-                  <span className="text-gray-500 block text-[11px]">Estimated Area</span>
+                  <span className="text-gray-500 block text-[11px]">{t('estimated_area', 'Estimated Area')}</span>
                   <span className="font-bold text-danger-red">{advisory.diagnosis.affectedArea}</span>
                 </div>
               </div>
 
               <div className="space-y-1.5 pt-1">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400 block">
-                  Observed Foliar Symptoms
+                  {t('observed_foliar_symptoms', 'Observed Foliar Symptoms')}
                 </span>
                 <ul className="space-y-1.5 text-xs text-gray-700">
                   {advisory.diagnosis.symptoms.map((sym, idx) => (
@@ -263,8 +260,8 @@ export const FarmerAdvisory: React.FC = () => {
         <div className="lg:col-span-6">
           <Card className="h-full flex flex-col justify-between">
             <CardHeader
-              title="Supporting Telemetry Evidence"
-              subtitle="Real-time environmental sensor measurements from LoRa Node"
+              title={t('supporting_telemetry_evidence', 'Supporting Telemetry Evidence')}
+              subtitle={t('realtime_sensor_lora_sub', 'Real-time environmental sensor measurements from LoRa Node')}
               icon={<Layers className="h-5 w-5 text-agri-green" />}
             />
 
@@ -275,7 +272,7 @@ export const FarmerAdvisory: React.FC = () => {
                   <span className="text-base font-bold text-orange-950 block">
                     {advisory.sensorEvidence.temperature}°C
                   </span>
-                  <span className="text-[10px] text-gray-500">Air Temp</span>
+                  <span className="text-[10px] text-gray-500">{t('air_temp_label', 'Air Temp')}</span>
                 </div>
 
                 <div className="p-3 bg-blue-50/60 rounded-xl border border-blue-100 text-center">
@@ -283,7 +280,7 @@ export const FarmerAdvisory: React.FC = () => {
                   <span className="text-base font-bold text-blue-950 block">
                     {advisory.sensorEvidence.humidity}%
                   </span>
-                  <span className="text-[10px] text-gray-500">Rel Humidity</span>
+                  <span className="text-[10px] text-gray-500">{t('rel_humidity_label', 'Rel Humidity')}</span>
                 </div>
 
                 <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-100 text-center">
@@ -291,7 +288,7 @@ export const FarmerAdvisory: React.FC = () => {
                   <span className="text-base font-bold text-amber-950 block">
                     {advisory.sensorEvidence.soilMoisture}%
                   </span>
-                  <span className="text-[10px] text-gray-500">Soil Moisture</span>
+                  <span className="text-[10px] text-gray-500">{t('soil_moisture_label', 'Soil Moisture')}</span>
                 </div>
 
                 <div className="p-3 bg-teal-50/60 rounded-xl border border-teal-100 text-center">
@@ -299,7 +296,7 @@ export const FarmerAdvisory: React.FC = () => {
                   <span className="text-base font-bold text-teal-950 block">
                     {advisory.sensorEvidence.rainfall} mm
                   </span>
-                  <span className="text-[10px] text-gray-500">24h Rain</span>
+                  <span className="text-[10px] text-gray-500">{t('rain_24h_label', '24h Rain')}</span>
                 </div>
               </div>
 
@@ -330,8 +327,8 @@ export const FarmerAdvisory: React.FC = () => {
       {/* 7. AI + Sensor Fusion Visual Engine */}
       <Card>
         <CardHeader
-          title="Multi-Modal Sensor + Vision Fusion Architecture"
-          subtitle="How four distinct telemetry channels synthesize into calibrated farmer guidance"
+          title={t('multimodal_sensor_vision_fusion', 'Multi-Modal Sensor + Vision Fusion Architecture')}
+          subtitle={t('multimodal_fusion_sub', 'How four distinct telemetry channels synthesize into calibrated farmer guidance')}
           icon={<Sparkles className="h-5 w-5 text-agri-green" />}
           action={
             <span className="text-xs font-bold text-deep-green bg-soft-green/30 px-2.5 py-1 rounded-full">
@@ -345,28 +342,28 @@ export const FarmerAdvisory: React.FC = () => {
           <div className="p-4 bg-cream/70 rounded-2xl border border-[#E6F0EB]">
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-bold text-deep-green text-center">
               <div className="px-3 py-2 bg-white rounded-xl border border-gray-200 shadow-xs">
-                <span className="text-[10px] text-gray-400 block font-medium">Model 1</span>
-                <span>IMAGE AI ({advisory.fusionWeights.imageAiPercent}%)</span>
+                <span className="text-[10px] text-gray-400 block font-medium">{t('fusion_model_1', 'Model 1')}</span>
+                <span>{t('image_ai_label', 'IMAGE AI')} ({advisory.fusionWeights.imageAiPercent}%)</span>
               </div>
               <span className="text-gray-400 text-base">+</span>
               <div className="px-3 py-2 bg-white rounded-xl border border-gray-200 shadow-xs">
-                <span className="text-[10px] text-gray-400 block font-medium">Telemetry</span>
-                <span>SENSOR DATA ({advisory.fusionWeights.sensorDataPercent}%)</span>
+                <span className="text-[10px] text-gray-400 block font-medium">{t('fusion_telemetry', 'Telemetry')}</span>
+                <span>{t('sensor_data_label', 'SENSOR DATA')} ({advisory.fusionWeights.sensorDataPercent}%)</span>
               </div>
               <span className="text-gray-400 text-base">+</span>
               <div className="px-3 py-2 bg-white rounded-xl border border-gray-200 shadow-xs">
-                <span className="text-[10px] text-gray-400 block font-medium">Forecast</span>
-                <span>WEATHER DATA ({advisory.fusionWeights.weatherDataPercent}%)</span>
+                <span className="text-[10px] text-gray-400 block font-medium">{t('fusion_forecast', 'Forecast')}</span>
+                <span>{t('weather_data_label', 'WEATHER DATA')} ({advisory.fusionWeights.weatherDataPercent}%)</span>
               </div>
               <span className="text-gray-400 text-base">+</span>
               <div className="px-3 py-2 bg-white rounded-xl border border-gray-200 shadow-xs">
-                <span className="text-[10px] text-gray-400 block font-medium">Agronomic</span>
-                <span>RISK ENGINE ({advisory.fusionWeights.riskEnginePercent}%)</span>
+                <span className="text-[10px] text-gray-400 block font-medium">{t('fusion_agronomic', 'Agronomic')}</span>
+                <span>{t('risk_engine_label', 'RISK ENGINE')} ({advisory.fusionWeights.riskEnginePercent}%)</span>
               </div>
               <span className="text-agri-green text-lg font-black">=</span>
               <div className="px-4 py-2 bg-agri-green text-white rounded-xl shadow-md">
-                <span className="text-[10px] text-soft-green block font-bold">Result</span>
-                <span>FINAL ADVISORY</span>
+                <span className="text-[10px] text-soft-green block font-bold">{t('fusion_result', 'Result')}</span>
+                <span>{t('final_advisory_label', 'FINAL ADVISORY')}</span>
               </div>
             </div>
 
@@ -379,7 +376,7 @@ export const FarmerAdvisory: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-1">
             <div className="p-3 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex justify-between text-xs font-semibold mb-1">
-                <span>Vision CNN Weight</span>
+                <span>{t('vision_cnn_weight', 'Vision CNN Weight')}</span>
                 <span className="font-bold text-deep-green">{advisory.fusionWeights.imageAiPercent}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -389,7 +386,7 @@ export const FarmerAdvisory: React.FC = () => {
 
             <div className="p-3 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex justify-between text-xs font-semibold mb-1">
-                <span>Sensor Node Weight</span>
+                <span>{t('sensor_node_weight', 'Sensor Node Weight')}</span>
                 <span className="font-bold text-deep-green">{advisory.fusionWeights.sensorDataPercent}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -399,7 +396,7 @@ export const FarmerAdvisory: React.FC = () => {
 
             <div className="p-3 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex justify-between text-xs font-semibold mb-1">
-                <span>Weather Intelligence</span>
+                <span>{t('weather_intelligence', 'Weather Intelligence')}</span>
                 <span className="font-bold text-deep-green">{advisory.fusionWeights.weatherDataPercent}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -409,7 +406,7 @@ export const FarmerAdvisory: React.FC = () => {
 
             <div className="p-3 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex justify-between text-xs font-semibold mb-1">
-                <span>Agronomic Risk Rules</span>
+                <span>{t('agronomic_risk_rules', 'Agronomic Risk Rules')}</span>
                 <span className="font-bold text-deep-green">{advisory.fusionWeights.riskEnginePercent}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -423,12 +420,12 @@ export const FarmerAdvisory: React.FC = () => {
       {/* 8. Actionable Recommendation Cards with Priority Levels */}
       <Card>
         <CardHeader
-          title="Recommended Action Workflow"
-          subtitle="Prioritized, agronomic field steps tailored to current infection severity"
+          title={t('step_by_step_treatment', 'Recommended Action Workflow')}
+          subtitle={t('actionable_guidance', 'Prioritized, agronomic field steps tailored to current infection severity')}
           icon={<CheckCircle2 className="h-5 w-5 text-agri-green" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-              {advisory.actions.length} Action Items
+              {advisory.actions.length} {t('inferences_logged', 'Action Items')}
             </span>
           }
         />
@@ -458,7 +455,7 @@ export const FarmerAdvisory: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getPriorityStyle(act.priority)}`}>
-                      {act.priority.toUpperCase()} PRIORITY
+                      {t(`badge_${act.priority.toLowerCase()}`, act.priority).toUpperCase()} {t('priority_action_required', 'PRIORITY')}
                     </span>
                     <span className="text-[10px] text-gray-400 font-semibold">{act.timeframe}</span>
                   </div>
@@ -471,12 +468,12 @@ export const FarmerAdvisory: React.FC = () => {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-[11px] text-gray-500 font-medium">Action #{act.id.slice(-1)}</span>
+                  <span className="text-[11px] text-gray-500 font-medium">#{act.id.slice(-1)}</span>
                   <button
                     onClick={() => navigate('/treatment-recommendation')}
                     className="text-xs font-bold text-agri-green hover:text-deep-green flex items-center gap-1"
                   >
-                    <span>Configure</span>
+                    <span>{t('btn_view_details', 'Configure')}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -489,8 +486,8 @@ export const FarmerAdvisory: React.FC = () => {
       {/* 9. Advisory Timeline (Detection -> Follow-up) */}
       <Card>
         <CardHeader
-          title="End-to-End Decision Lifecycle Timeline"
-          subtitle="Sequential agronomic management progression for this incident"
+          title={t('symptom_progression', 'End-to-End Decision Lifecycle Timeline')}
+          subtitle={t('step_by_step_treatment', 'Sequential agronomic management progression for this incident')}
           icon={<Calendar className="h-5 w-5 text-gray-500" />}
         />
 
@@ -511,7 +508,7 @@ export const FarmerAdvisory: React.FC = () => {
                 }`}
               >
                 <div>
-                  <span className="text-[10px] font-bold text-gray-400 block">Step {sIdx + 1}</span>
+                  <span className="text-[10px] font-bold text-gray-400 block">{t('step_label', 'Step')} {sIdx + 1}</span>
                   <span className={`text-xs font-bold block my-1 ${
                     isCurrent ? 'text-agri-green' : isCompleted ? 'text-deep-green' : 'text-gray-600'
                   }`}>
@@ -530,7 +527,7 @@ export const FarmerAdvisory: React.FC = () => {
         {/* Bottom Workflow Action Bar */}
         <div className="mt-5 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <p className="text-xs text-gray-500">
-            Next module in treatment pipeline: <strong>Treatment Recommendation & Formulation Protocol</strong>
+            {t('nav_treatment', 'Next')}: <strong>{t('treatment_title', 'Treatment Recommendation & Formulation Protocol')}</strong>
           </p>
           <Button
             variant="primary"
@@ -538,7 +535,7 @@ export const FarmerAdvisory: React.FC = () => {
             onClick={() => navigate('/treatment-recommendation')}
             className="flex items-center gap-2"
           >
-            <span>Proceed to Treatment Protocol</span>
+            <span>{t('btn_next', 'Proceed to Treatment Protocol')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

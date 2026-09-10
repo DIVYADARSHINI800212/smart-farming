@@ -1,6 +1,6 @@
 import React from 'react';
 import { useOutletContext, Link } from 'react-router-dom';
-import { Bug, AlertTriangle, ShieldCheck, ArrowRight, History, Calendar } from 'lucide-react';
+import { Bug, History, Calendar } from 'lucide-react';
 import { PestResultCard } from '../components/pest/PestResultCard';
 import { PestPopulationChart } from '../components/pest/PestPopulationChart';
 import { EarlyWarningSection } from '../components/pest/EarlyWarningSection';
@@ -13,11 +13,13 @@ import {
   mockPestHistory,
 } from '../data/pestData';
 import { useFarmData } from '../hooks/useFarmData';
+import { useTranslation } from '../i18n';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const PestDetection: React.FC = () => {
   const { zones } = useOutletContext<FarmDataContext>();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -29,21 +31,21 @@ export const PestDetection: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl font-black text-deep-green tracking-tight">
-              Pest Detection & Entomological Surveillance
+              {t('pest_detection_title', 'Pest Detection & Entomological Surveillance')}
             </h1>
             <p className="text-xs text-gray-500 mt-0.5">
-              Light trap and canopy webbing inference for leaf folder, stem borer, and planthoppers
+              {t('pest_detection_subtitle', 'Light trap and canopy webbing inference for leaf folder, stem borer, and planthoppers')}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
-            DEMONSTRATION AI RESULT
+            {t('demo_mode_badge', 'DEMONSTRATION AI RESULT')}
           </span>
           <Link to="/ai-vision">
             <Button variant="outline" size="sm">
-              Re-Scan Leaf
+              {t('btn_recalculate', 'Re-Scan Leaf')}
             </Button>
           </Link>
         </div>
@@ -61,12 +63,12 @@ export const PestDetection: React.FC = () => {
       {/* 4. Pest Surveillance History Log */}
       <Card>
         <CardHeader
-          title="Pest Trap & Canopy Surveillance History"
-          subtitle="Chronological log of verified entomological observations"
+          title={t('history_log_title', 'Pest Trap & Canopy Surveillance History')}
+          subtitle={t('history_log_sub', 'Chronological log of verified entomological observations')}
           icon={<History className="h-5 w-5 text-gray-500" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-              {mockPestHistory.length} Past Inferences
+              {mockPestHistory.length} {t('inferences_logged', 'Past Inferences')}
             </span>
           }
         />
@@ -75,13 +77,13 @@ export const PestDetection: React.FC = () => {
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-gray-100 text-[11px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50/50">
-                <th className="py-2.5 px-3">Date & Time</th>
-                <th className="py-2.5 px-3">Location</th>
-                <th className="py-2.5 px-3">Insect Species Identified</th>
-                <th className="py-2.5 px-3">Confidence</th>
-                <th className="py-2.5 px-3">Severity</th>
-                <th className="py-2.5 px-3">Trap Count</th>
-                <th className="py-2.5 px-3">Status</th>
+                <th className="py-2.5 px-3">{t('time', 'Date & Time')}</th>
+                <th className="py-2.5 px-3">{t('zones_label', 'Location')}</th>
+                <th className="py-2.5 px-3">{t('primary_diagnosis', 'Insect Species Identified')}</th>
+                <th className="py-2.5 px-3">{t('confidence', 'Confidence')}</th>
+                <th className="py-2.5 px-3">{t('severity', 'Severity')}</th>
+                <th className="py-2.5 px-3">{t('trap_status', 'Trap Count')}</th>
+                <th className="py-2.5 px-3">{t('stock_status', 'Status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -97,7 +99,7 @@ export const PestDetection: React.FC = () => {
                   <td className="py-3 px-3 font-bold text-deep-green">{item.pest}</td>
                   <td className="py-3 px-3 font-bold text-yellow-800">{item.confidence}%</td>
                   <td className="py-3 px-3">
-                    <Badge severity={item.severity as any}>{item.severity}</Badge>
+                    <Badge severity={item.severity as any}>{t(`badge_${item.severity.toLowerCase()}`, item.severity)}</Badge>
                   </td>
                   <td className="py-3 px-3 text-gray-600">{item.count}</td>
                   <td className="py-3 px-3">
@@ -106,7 +108,7 @@ export const PestDetection: React.FC = () => {
                         ? 'bg-amber-100 text-yellow-800'
                         : 'bg-green-100 text-agri-green'
                     }`}>
-                      {item.status}
+                      {item.status.includes('Active') ? t('badge_active', item.status) : t('badge_resolved', item.status)}
                     </span>
                   </td>
                 </tr>

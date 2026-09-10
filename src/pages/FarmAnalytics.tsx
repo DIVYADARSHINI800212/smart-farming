@@ -33,11 +33,13 @@ import {
   ANALYTICS_DATA_SEASON,
   AnalyticsMetricPoint 
 } from '../data/analyticsData';
+import { useLanguage } from '../context/LanguageContext';
 
 type DateFilterRange = '7D' | '30D' | '90D' | 'Season';
 
 export const FarmAnalytics: React.FC = () => {
   const [selectedRange, setSelectedRange] = useState<DateFilterRange>('30D');
+  const { t } = useLanguage();
 
   const getDataset = (): AnalyticsMetricPoint[] => {
     switch (selectedRange) {
@@ -61,14 +63,14 @@ export const FarmAnalytics: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                Farm Analytics & Longitudinal Intelligence
+                {t('analytics_title', 'Farm Analytics & Longitudinal Intelligence')}
               </h1>
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
-                Temporal Trends
+                {t('temporal_trends', 'Temporal Trends')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
-              Historical multi-sensor telemetry curves, disease epidemiology, water conservation, and treatment outcomes
+              {t('analytics_subtitle', 'Historical multi-sensor telemetry curves, disease epidemiology, water conservation, and treatment outcomes')}
             </p>
           </div>
         </div>
@@ -85,7 +87,7 @@ export const FarmAnalytics: React.FC = () => {
                   : 'text-gray-600 hover:text-dark-forest'
               }`}
             >
-              {rng === '7D' ? '7 Days' : rng === '30D' ? '30 Days' : rng === '90D' ? '90 Days' : 'Full Season'}
+              {rng === '7D' ? t('range_7d', '7 Days') : rng === '30D' ? t('range_30d', '30 Days') : rng === '90D' ? t('range_90d', '90 Days') : t('range_season', 'Full Season')}
             </button>
           ))}
         </div>
@@ -94,51 +96,51 @@ export const FarmAnalytics: React.FC = () => {
       {/* Farm Performance Summary Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Crop Health Impv.</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('crop_health_impv', 'Crop Health Impv.')}</span>
           <div className="text-xl font-black text-agri-green flex items-center gap-1">
             +4.2% <ArrowUpRight className="h-4 w-4 text-agri-green" />
           </div>
-          <span className="text-[10px] text-gray-500 block">NDVI vegetative gain</span>
+          <span className="text-[10px] text-gray-500 block">{t('ndvi_vegetative_gain', 'NDVI vegetative gain')}</span>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Water Saved</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('water_saved_metric', 'Water Saved')}</span>
           <div className="text-xl font-black text-blue-600 flex items-center gap-1">
             18.4% <Droplets className="h-4 w-4 text-blue-500" />
           </div>
-          <span className="text-[10px] text-gray-500 block">32,400 Litres saved</span>
+          <span className="text-[10px] text-gray-500 block">32,400 {t('litres_saved', 'Litres saved')}</span>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Disease Incidents</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('disease_incidents_metric', 'Disease Incidents')}</span>
           <div className="text-xl font-black text-danger-red flex items-center gap-1">
-            3 Detected
+            3 {t('status_detected', 'Detected')}
           </div>
-          <span className="text-[10px] text-gray-500 block">2 Resolved, 1 Active (Z2)</span>
+          <span className="text-[10px] text-gray-500 block">2 {t('status_resolved', 'Resolved')}, 1 {t('active', 'Active')} (Z2)</span>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Pest Incidents</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('pest_incidents_metric', 'Pest Incidents')}</span>
           <div className="text-xl font-black text-warning-amber flex items-center gap-1">
-            1 Active
+            1 {t('active', 'Active')}
           </div>
-          <span className="text-[10px] text-gray-500 block">Leaf Folder in Z2</span>
+          <span className="text-[10px] text-gray-500 block">{t('pest_leaf_folder', 'Leaf Folder')} in Z2</span>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Treatment Effect.</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('treatment_effect_metric', 'Treatment Effect.')}</span>
           <div className="text-xl font-black text-deep-green flex items-center gap-1">
             89% <Percent className="h-4 w-4 text-agri-green" />
           </div>
-          <span className="text-[10px] text-gray-500 block">Canopy recovery rate</span>
+          <span className="text-[10px] text-gray-500 block">{t('canopy_recovery_rate', 'Canopy recovery rate')}</span>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-1">
-          <span className="text-[10px] text-gray-400 font-bold uppercase block">Estimated Yield Risk</span>
+          <span className="text-[10px] text-gray-400 font-bold uppercase block">{t('estimated_yield_risk', 'Estimated Yield Risk')}</span>
           <div className="text-xl font-black text-yellow-700 flex items-center gap-1">
-            Low-Medium
+            {t('low_medium', 'Low-Medium')}
           </div>
-          <span className="text-[10px] text-gray-500 block">Projected 4.8 Tonnes</span>
+          <span className="text-[10px] text-gray-500 block">{t('projected_yield_4_8', 'Projected 4.8 Tonnes')}</span>
         </div>
       </div>
 
@@ -148,11 +150,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Crop Health & Foliar Vigor Index</h3>
-              <p className="text-[11px] text-gray-500">Multi-spectral chlorophyll and vegetative growth trend</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('crop_health_foliar_vigor_index', 'Crop Health & Foliar Vigor Index')}</h3>
+              <p className="text-[11px] text-gray-500">{t('crop_health_vigor_desc', 'Multi-spectral chlorophyll and vegetative growth trend')}</p>
             </div>
             <span className="text-xs font-bold text-agri-green bg-green-50 px-2 py-0.5 rounded-full">
-              Target &gt; 80%
+              {t('target_gt_80', 'Target > 80%')}
             </span>
           </div>
 
@@ -169,7 +171,7 @@ export const FarmAnalytics: React.FC = () => {
                 <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#718096' }} />
                 <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
-                <Area type="monotone" dataKey="cropHealth" name="Health Score (%)" stroke="#2E7D32" strokeWidth={3} fillOpacity={1} fill="url(#cropHealthGrad)" />
+                <Area type="monotone" dataKey="cropHealth" name={t('health_score_pct', 'Health Score (%)')} stroke="#2E7D32" strokeWidth={3} fillOpacity={1} fill="url(#cropHealthGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -179,11 +181,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Disease vs Pest Risk Probability Trend</h3>
-              <p className="text-[11px] text-gray-500">Rice Blast (fungal) vs Leaf Folder (insect) likelihood</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('disease_pest_risk_trend', 'Disease vs Pest Risk Probability Trend')}</h3>
+              <p className="text-[11px] text-gray-500">{t('disease_pest_trend_desc', 'Rice Blast (fungal) vs Leaf Folder (insect) likelihood')}</p>
             </div>
             <span className="text-xs font-bold text-danger-red bg-red-50 px-2 py-0.5 rounded-full">
-              Blast Spike
+              {t('blast_spike', 'Blast Spike')}
             </span>
           </div>
 
@@ -195,8 +197,8 @@ export const FarmAnalytics: React.FC = () => {
                 <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="blastRisk" name="Blast Risk (%)" stroke="#D9534F" strokeWidth={2.5} dot={{ r: 4 }} />
-                <Line type="monotone" dataKey="leafFolderRisk" name="Leaf Folder Risk (%)" stroke="#F4B942" strokeWidth={2.5} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="blastRisk" name={t('blast_risk_pct', 'Blast Risk (%)')} stroke="#D9534F" strokeWidth={2.5} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="leafFolderRisk" name={t('leaf_folder_risk_pct', 'Leaf Folder Risk (%)')} stroke="#F4B942" strokeWidth={2.5} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -209,11 +211,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Soil Moisture Dynamics: Zone 1 vs Zone 2</h3>
-              <p className="text-[11px] text-gray-500">Zone 1 deficit (32%) compared to Zone 2 balanced status (45%)</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('soil_moisture_dynamics', 'Soil Moisture Dynamics: Zone 1 vs Zone 2')}</h3>
+              <p className="text-[11px] text-gray-500">{t('soil_moisture_dynamics_desc', 'Zone 1 deficit (32%) compared to Zone 2 balanced status (45%)')}</p>
             </div>
             <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
-              Optimal (45-65%)
+              {t('optimal_range_45_65', 'Optimal (45-65%)')}
             </span>
           </div>
 
@@ -225,8 +227,8 @@ export const FarmAnalytics: React.FC = () => {
                 <YAxis domain={[10, 80]} tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="soilMoistureZ1" name="Zone 1 Moisture (%)" stroke="#F4B942" strokeWidth={2.5} strokeDasharray="4 4" />
-                <Line type="monotone" dataKey="soilMoistureZ2" name="Zone 2 Moisture (%)" stroke="#2E7D32" strokeWidth={2.5} />
+                <Line type="monotone" dataKey="soilMoistureZ1" name={t('zone_1_moisture_pct', 'Zone 1 Moisture (%)')} stroke="#F4B942" strokeWidth={2.5} strokeDasharray="4 4" />
+                <Line type="monotone" dataKey="soilMoistureZ2" name={t('zone_2_moisture_pct', 'Zone 2 Moisture (%)')} stroke="#2E7D32" strokeWidth={2.5} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -236,11 +238,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Environmental Canopy Microclimate</h3>
-              <p className="text-[11px] text-gray-500">Relative humidity, canopy heat, and rainfall volume</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('canopy_microclimate', 'Environmental Canopy Microclimate')}</h3>
+              <p className="text-[11px] text-gray-500">{t('canopy_microclimate_desc', 'Relative humidity, canopy heat, and rainfall volume')}</p>
             </div>
             <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-              85% Max Humidity
+              {t('max_humidity_85', '85% Max Humidity')}
             </span>
           </div>
 
@@ -252,8 +254,8 @@ export const FarmAnalytics: React.FC = () => {
                 <YAxis tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
                 <Legend />
-                <Area type="monotone" dataKey="humidity" name="Humidity (%)" stroke="#3B82F6" fill="#BFDBFE" fillOpacity={0.4} />
-                <Area type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#EF4444" fill="#FECACA" fillOpacity={0.3} />
+                <Area type="monotone" dataKey="humidity" name={t('humidity_pct', 'Humidity (%)')} stroke="#3B82F6" fill="#BFDBFE" fillOpacity={0.4} />
+                <Area type="monotone" dataKey="temperature" name={t('temp_c', 'Temp (°C)')} stroke="#EF4444" fill="#FECACA" fillOpacity={0.3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -266,11 +268,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Water Consumption vs Smart Savings</h3>
-              <p className="text-[11px] text-gray-500">Sensor-guided furrow delivery vs traditional flood baseline (Liters)</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('water_consumption_savings', 'Water Consumption vs Smart Savings')}</h3>
+              <p className="text-[11px] text-gray-500">{t('water_consumption_savings_desc', 'Sensor-guided furrow delivery vs traditional flood baseline (Liters)')}</p>
             </div>
             <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-              +18.4% Efficiency
+              {t('efficiency_plus_18_4', '+18.4% Efficiency')}
             </span>
           </div>
 
@@ -282,8 +284,8 @@ export const FarmAnalytics: React.FC = () => {
                 <YAxis tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="waterUsageLiters" name="Water Used (L)" fill="#60A5FA" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="waterSavedLiters" name="Water Saved (L)" fill="#34D399" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="waterUsageLiters" name={t('water_used_l', 'Water Used (L)')} fill="#60A5FA" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="waterSavedLiters" name={t('water_saved_l', 'Water Saved (L)')} fill="#34D399" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -293,11 +295,11 @@ export const FarmAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-[#E6F0EB] p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <div>
-              <h3 className="text-sm font-bold text-deep-green">Treatment Effectiveness & Recovery Progression</h3>
-              <p className="text-[11px] text-gray-500">Post-spray blast lesion arrest and healthy canopy regeneration</p>
+              <h3 className="text-sm font-bold text-deep-green">{t('treatment_effectiveness_progression', 'Treatment Effectiveness & Recovery Progression')}</h3>
+              <p className="text-[11px] text-gray-500">{t('treatment_effectiveness_desc', 'Post-spray blast lesion arrest and healthy canopy regeneration')}</p>
             </div>
             <span className="text-xs font-bold text-agri-green bg-green-50 px-2 py-0.5 rounded-full">
-              89% Current Recovery
+              {t('current_recovery_89', '89% Current Recovery')}
             </span>
           </div>
 
@@ -308,7 +310,7 @@ export const FarmAnalytics: React.FC = () => {
                 <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#718096' }} />
                 <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: '#718096' }} />
                 <Tooltip />
-                <Line type="monotone" dataKey="treatmentEffectiveness" name="Canopy Healing (%)" stroke="#10B981" strokeWidth={3} dot={{ r: 5, fill: '#10B981' }} />
+                <Line type="monotone" dataKey="treatmentEffectiveness" name={t('canopy_healing_pct', 'Canopy Healing (%)')} stroke="#10B981" strokeWidth={3} dot={{ r: 5, fill: '#10B981' }} />
               </LineChart>
             </ResponsiveContainer>
           </div>

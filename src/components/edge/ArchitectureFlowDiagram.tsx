@@ -14,7 +14,10 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
+import { useTranslation } from '../../context/LanguageContext';
+
 export const ArchitectureFlowDiagram: React.FC = () => {
+  const { t } = useTranslation();
   const steps = [
     {
       id: 1,
@@ -71,8 +74,8 @@ export const ArchitectureFlowDiagram: React.FC = () => {
             <Radio className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-semibold text-agri-dark">Edge Architecture & Data Topology</h3>
-            <p className="text-xs text-agri-muted">Resilient offline-first IoT mesh with on-prem quantized neural inference</p>
+            <h3 className="text-base font-semibold text-agri-dark">{t('edge_architecture_topology', 'Edge Architecture & Data Topology')}</h3>
+            <p className="text-xs text-agri-muted">{t('resilient_mesh_desc', 'Resilient offline-first IoT mesh with on-prem quantized neural inference')}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -80,7 +83,7 @@ export const ArchitectureFlowDiagram: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-ping inline-block" />
             LORA MESH ACTIVE
           </Badge>
-          <Badge variant="info">OFFLINE CAPABLE</Badge>
+          <Badge variant="info">{t('offline_capable_badge', 'OFFLINE CAPABLE')}</Badge>
         </div>
       </div>
 
@@ -127,7 +130,7 @@ export const ArchitectureFlowDiagram: React.FC = () => {
         <div className="flex items-center gap-2">
           <Database className="w-4 h-4 text-blue-500 shrink-0" />
           <span>
-            <strong className="text-agri-dark">Zero-Data-Loss Architecture:</strong> Nodes queue up to 2,048 telemetry packets locally in SPI flash during RF fading, auto-syncing upon LoRa link reacquisition.
+            <strong className="text-agri-dark">{t('zero_data_loss_arch_label', 'Zero-Data-Loss Architecture:')}</strong> {t('zero_data_loss_arch_desc', 'Nodes queue up to 2,048 telemetry packets locally in SPI flash during RF fading, auto-syncing upon LoRa link reacquisition.')}
           </span>
         </div>
         <div className="flex items-center gap-1 font-mono text-[11px] text-emerald-700 bg-emerald-50 px-2 py-1 rounded">

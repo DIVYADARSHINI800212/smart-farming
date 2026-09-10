@@ -1,5 +1,7 @@
 import React from 'react';
 import { ShieldCheck, TrendingUp } from 'lucide-react';
+import { useTranslation } from '../../i18n';
+import { translateLabel, translateGrowthStage } from '../../utils/translationMapper';
 
 interface HealthScoreCardProps {
   score: number;
@@ -18,6 +20,8 @@ export const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
   trendText = '+3.5% vs last week',
   className = '',
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={`p-6 rounded-2xl bg-gradient-to-br from-deep-green to-[#1B5E20] text-white shadow-card border border-soft-green/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6 ${className}`}>
       <div className="flex items-center gap-5">
@@ -34,17 +38,17 @@ export const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-soft-green/20 text-soft-green border border-soft-green/30">
-              Crop Health Score • {status}
+              {t('crop_health_index', 'Crop Health Score')} • {translateLabel(status, 'status', t)}
             </span>
             <span className="text-xs text-soft-green flex items-center gap-1">
-              <TrendingUp className="h-3 w-3" /> {trendText}
+              <TrendingUp className="h-3 w-3" /> +3.5% {t('vs_last_week', 'vs last week')}
             </span>
           </div>
           <h2 className="text-lg sm:text-xl font-bold text-white mt-1">
-            Current Stage: {stage}
+            {t('current_stage', 'Current Stage')}: {translateGrowthStage(stage, t)}
           </h2>
           <p className="text-xs text-soft-green/80 mt-1 max-w-md">
-            Biometric canopy reflectance and sensor fusion indicate healthy tillering vigor with isolated moisture stress.
+            {t('farm_health_desc', 'Biometric canopy reflectance and sensor fusion indicate healthy tillering vigor with isolated moisture stress.')}
           </p>
         </div>
       </div>

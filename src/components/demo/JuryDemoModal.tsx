@@ -19,6 +19,7 @@ import {
   LayoutDashboard
 } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useTranslation } from '../../i18n';
 
 interface JuryDemoModalProps {
   isOpen: boolean;
@@ -206,6 +207,7 @@ const DEMO_STEPS: DemoStep[] = [
 ];
 
 export const JuryDemoModal: React.FC<JuryDemoModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -257,7 +259,7 @@ export const JuryDemoModal: React.FC<JuryDemoModalProps> = ({ isOpen, onClose })
           <button
             onClick={onClose}
             className="p-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-            title="Exit Demo"
+            title={t('exit_demo', 'Exit Demo')}
           >
             <X className="h-5 w-5" />
           </button>
@@ -370,7 +372,7 @@ export const JuryDemoModal: React.FC<JuryDemoModalProps> = ({ isOpen, onClose })
               icon={<ChevronLeft className="h-4 w-4" />}
               className="text-xs"
             >
-              Previous
+              {t('btn_previous', 'Previous')}
             </Button>
 
             {currentStepIndex < DEMO_STEPS.length - 1 ? (
@@ -380,7 +382,7 @@ export const JuryDemoModal: React.FC<JuryDemoModalProps> = ({ isOpen, onClose })
                 onClick={handleNext}
                 className="text-xs"
               >
-                <span>Next Step</span>
+                <span>{t('next_step', 'Next Step')}</span>
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             ) : (
@@ -391,7 +393,7 @@ export const JuryDemoModal: React.FC<JuryDemoModalProps> = ({ isOpen, onClose })
                 icon={<CheckCircle2 className="h-4 w-4" />}
                 className="text-xs bg-agri-green"
               >
-                Complete & Explore
+                {t('complete_and_explore', 'Complete & Explore')}
               </Button>
             )}
           </div>

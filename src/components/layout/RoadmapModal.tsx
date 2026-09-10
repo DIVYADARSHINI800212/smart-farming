@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Sparkles, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useTranslation } from '../../i18n';
 
 interface RoadmapModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface RoadmapModalProps {
 }
 
 export const RoadmapModal: React.FC<RoadmapModalProps> = ({ isOpen, onClose, moduleName }) => {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const moduleDescriptions: Record<string, { desc: string; features: string[] }> = {
@@ -115,7 +117,7 @@ export const RoadmapModal: React.FC<RoadmapModalProps> = ({ isOpen, onClose, mod
                   Phase 2 Roadmap
                 </span>
               </div>
-              <p className="text-xs text-soft-green/90 mt-0.5">Smart India Hackathon Feature Specification</p>
+              <p className="text-xs text-soft-green/90 mt-0.5">{t('sih_feature_spec', 'Smart India Hackathon Feature Specification')}</p>
             </div>
           </div>
           <button 
@@ -150,7 +152,7 @@ export const RoadmapModal: React.FC<RoadmapModalProps> = ({ isOpen, onClose, mod
           </div>
 
           <div className="p-3 bg-green-50 rounded-xl border border-green-200/60 text-xs text-agri-green flex items-center justify-between">
-            <span>Core Phase 1 features (Dashboard, Field Monitoring, Alerts) are currently active and ready for evaluation.</span>
+            <span>{t('sih_phase1_status', 'Core Phase 1 features (Dashboard, Field Monitoring, Alerts) are currently active and ready for evaluation.')}</span>
           </div>
         </div>
 

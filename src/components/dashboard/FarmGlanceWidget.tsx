@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layers, CheckCircle2, AlertTriangle, MapPin, Radio, Bell } from 'lucide-react';
 import { FarmOverview, Zone, Alert } from '../../types';
+import { useTranslation } from '../../i18n';
 
 interface FarmGlanceWidgetProps {
   overview: FarmOverview;
@@ -9,6 +10,7 @@ interface FarmGlanceWidgetProps {
 }
 
 export const FarmGlanceWidget: React.FC<FarmGlanceWidgetProps> = ({ overview, zones, alerts }) => {
+  const { t } = useTranslation();
   const totalArea = overview.totalAcres;
   const activeAlertsCount = alerts.filter(a => a.status === 'Active').length;
 
@@ -22,44 +24,44 @@ export const FarmGlanceWidget: React.FC<FarmGlanceWidgetProps> = ({ overview, zo
 
   const items = [
     {
-      label: 'Total Farm Area',
-      value: `${totalArea} Acres`,
-      sub: 'Thanjavur Pilot Unit',
+      label: t('total_farm_area', 'Total Farm Area'),
+      value: `${totalArea} ${t('acres', 'Acres')}`,
+      sub: t('thanjavur_unit', 'Thanjavur Pilot Unit'),
       icon: <Layers className="h-4 w-4 text-agri-green" />,
       bg: 'bg-green-50/70 border-green-100',
     },
     {
-      label: 'Healthy Canopy Area',
-      value: `${healthyAcres} Acres`,
-      sub: `${Math.round((healthyAcres / totalArea) * 100)}% of total acreage`,
+      label: t('healthy_canopy_area', 'Healthy Canopy Area'),
+      value: `${healthyAcres} ${t('acres', 'Acres')}`,
+      sub: `${Math.round((healthyAcres / totalArea) * 100)}% ${t('total_acreage_pct', 'of total acreage')}`,
       icon: <CheckCircle2 className="h-4 w-4 text-agri-green" />,
       bg: 'bg-green-50/70 border-green-100',
     },
     {
-      label: 'Stressed / Affected Area',
-      value: `${affectedAcresFormatted} Acres`,
-      sub: 'Z1 moisture + Z2 blast lesion quad',
+      label: t('stressed_affected_area', 'Stressed / Affected Area'),
+      value: `${affectedAcresFormatted} ${t('acres', 'Acres')}`,
+      sub: t('z1_moisture_z2_blast', 'Z1 moisture + Z2 blast lesion quad'),
       icon: <AlertTriangle className="h-4 w-4 text-danger-red" />,
       bg: 'bg-red-50/60 border-red-100',
     },
     {
-      label: 'Monitored Field Zones',
-      value: `${zones.length} Zones`,
-      sub: 'Zone 1 (North) & Zone 2 (South)',
+      label: t('monitored_field_zones', 'Monitored Field Zones'),
+      value: `${zones.length} ${t('zones_label', 'Zones')}`,
+      sub: t('z1_z2_zones_sub', 'Zone 1 (North) & Zone 2 (South)'),
       icon: <MapPin className="h-4 w-4 text-blue-500" />,
       bg: 'bg-blue-50/60 border-blue-100',
     },
     {
-      label: 'Connected IoT Nodes',
-      value: '2 Nodes Active',
-      sub: 'Node 01 & 02 • LoRa 868MHz',
+      label: t('connected_iot_nodes', 'Connected IoT Nodes'),
+      value: `2 ${t('nodes_active', 'Nodes Active')}`,
+      sub: t('lora_freq_sub', 'Node 01 & 02 • LoRa 868MHz'),
       icon: <Radio className="h-4 w-4 text-agri-green animate-pulse" />,
       bg: 'bg-green-50/70 border-green-100',
     },
     {
-      label: 'Active Field Alerts',
-      value: `${activeAlertsCount} Unresolved`,
-      sub: '1 High Disease, 1 Water Stress',
+      label: t('active_field_alerts', 'Active Field Alerts'),
+      value: `${activeAlertsCount} ${t('unresolved', 'Unresolved')}`,
+      sub: t('high_disease_water_stress', '1 High Disease, 1 Water Stress'),
       icon: <Bell className="h-4 w-4 text-warning-amber" />,
       bg: 'bg-amber-50/60 border-amber-100',
     },
@@ -70,14 +72,14 @@ export const FarmGlanceWidget: React.FC<FarmGlanceWidgetProps> = ({ overview, zo
       <div className="flex items-center justify-between pb-3 border-b border-gray-100">
         <div>
           <h4 className="text-sm font-bold text-deep-green uppercase tracking-wide">
-            Farm at a Glance
+            {t('farm_at_a_glance', 'Farm at a Glance')}
           </h4>
           <p className="text-xs text-gray-500">
-            Real-time physical acreage, edge deployment, and health audit
+            {t('farm_glance_sub', 'Real-time physical acreage, edge deployment, and health audit')}
           </p>
         </div>
         <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-soft-green/30 text-deep-green border border-soft-green/50">
-          SIH Multi-Zone Pilot
+          {t('pilot_zone_badge', 'SIH Multi-Zone Pilot')}
         </span>
       </div>
 

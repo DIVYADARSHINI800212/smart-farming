@@ -12,20 +12,24 @@ import {
   AlertTriangle,
   Layers,
 } from 'lucide-react';
+import { useTranslation } from '../../context/LanguageContext';
+import { translateZoneName, translateStatus } from '../../utils/translationMapper';
 
 interface NodeHardwareGridProps {
   nodes: NodeHardwareDetail[];
 }
 
 export const NodeHardwareGrid: React.FC<NodeHardwareGridProps> = ({ nodes }) => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-bold text-agri-dark">Deployed Field Microcontroller Nodes</h3>
-          <p className="text-xs text-agri-muted">Real-time battery SOC, solar harvesting & LoRa link margins</p>
+          <h3 className="text-base font-bold text-agri-dark">{t('deployed_field_nodes', 'Deployed Field Microcontroller Nodes')}</h3>
+          <p className="text-xs text-agri-muted">{t('real_time_battery_soc', 'Real-time battery SOC, solar harvesting & LoRa link margins')}</p>
         </div>
-        <Badge variant="info">{nodes.length} Nodes Active</Badge>
+        <Badge variant="info">{nodes.length} {t('nodes_active_badge', 'Nodes Active')}</Badge>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -40,18 +44,18 @@ export const NodeHardwareGrid: React.FC<NodeHardwareGridProps> = ({ nodes }) => 
                   <div className="flex items-center gap-2">
                     <h4 className="text-base font-bold text-agri-dark">{node.name}</h4>
                     <Badge variant={node.status === 'Connected' ? 'success' : 'danger'}>
-                      {node.status}
+                      {translateStatus(node.status, t)}
                     </Badge>
                   </div>
                   <p className="text-xs text-agri-muted">
                     ID: <span className="font-mono text-agri-dark">{node.nodeId}</span> • Zone:{' '}
-                    <span className="font-medium text-agri-dark">{node.zoneName}</span>
+                    <span className="font-medium text-agri-dark">{translateZoneName(node.zoneName, t)}</span>
                   </p>
                 </div>
               </div>
 
               <div className="text-right">
-                <span className="text-[10px] text-slate-400 block">Firmware</span>
+                <span className="text-[10px] text-slate-400 block">{t('firmware', 'Firmware')}</span>
                 <span className="text-xs font-mono font-medium text-slate-600">{node.firmwareVersion}</span>
               </div>
             </div>
@@ -61,21 +65,21 @@ export const NodeHardwareGrid: React.FC<NodeHardwareGridProps> = ({ nodes }) => 
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center gap-1.5 text-xs text-agri-muted mb-1">
                   <BatteryCharging className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Battery</span>
+                  <span>{t('battery_label', 'Battery')}</span>
                 </div>
                 <p className="text-sm font-bold text-agri-dark">{node.batteryPercentage}%</p>
                 <span className="text-[10px] text-emerald-600 font-medium">
-                  {node.solarCharging ? 'Solar Charging' : 'Discharging'}
+                  {node.solarCharging ? t('solar_charging', 'Solar Charging') : t('discharging', 'Discharging')}
                 </span>
               </div>
 
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center gap-1.5 text-xs text-agri-muted mb-1">
                   <Sun className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Solar Harvester</span>
+                  <span>{t('solar_harvester', 'Solar Harvester')}</span>
                 </div>
-                <p className="text-sm font-bold text-agri-dark">{node.solarCharging ? 'Active' : 'Standby'}</p>
-                <span className="text-[10px] text-slate-400">MPPT Controller</span>
+                <p className="text-sm font-bold text-agri-dark">{node.solarCharging ? t('active_status', 'Active') : t('standby_status', 'Standby')}</p>
+                <span className="text-[10px] text-slate-400">{t('mppt_controller', 'MPPT Controller')}</span>
               </div>
 
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
@@ -90,7 +94,7 @@ export const NodeHardwareGrid: React.FC<NodeHardwareGridProps> = ({ nodes }) => 
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center gap-1.5 text-xs text-agri-muted mb-1">
                   <Clock className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Heartbeat</span>
+                  <span>{t('heartbeat', 'Heartbeat')}</span>
                 </div>
                 <p className="text-sm font-bold text-agri-dark">{node.lastSyncAgo}</p>
                 <span className="text-[10px] text-slate-400">15m sleep cycle</span>
@@ -101,7 +105,7 @@ export const NodeHardwareGrid: React.FC<NodeHardwareGridProps> = ({ nodes }) => 
             <div className="pt-2 border-t border-slate-100">
               <span className="text-xs font-semibold text-agri-dark block mb-2 flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-agri-green" />
-                Attached Sensor Transducers
+                {t('attached_sensors_payload', 'Attached Sensor Transducers')}
               </span>
               <div className="flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-1 text-[11px] bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200">

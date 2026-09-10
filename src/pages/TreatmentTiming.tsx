@@ -33,7 +33,7 @@ export const TreatmentTiming: React.FC = () => {
       {/* 1. Workflow Stepper (Step 5) */}
       <TreatmentWorkflowStepper
         currentStep={5}
-        nextStepTitle={t('action_estimate_cost')}
+        nextStepTitle={t('action_estimate_cost', 'Estimate Treatment Cost')}
       />
 
       {/* 2. Banner Disclaimer */}
@@ -48,14 +48,14 @@ export const TreatmentTiming: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_timing')}
+                {t('nav_timing', 'Treatment Timing')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-                Microclimate Spray Feasibility
+                {t('microclimate_spray_feasibility', 'Microclimate Spray Feasibility')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Evaluating ambient temperature, wind drift risk, leaf surface wetness, and rainfall probability to prevent spray wash-off
+              {t('timing_subtitle', 'Evaluating ambient temperature, wind drift risk, leaf surface wetness, and rainfall probability to prevent spray wash-off')}
             </p>
           </div>
         </div>
@@ -76,14 +76,14 @@ export const TreatmentTiming: React.FC = () => {
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                 <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
-                  Application Suitability Score
+                  {t('suitability_score_label', 'Application Suitability Score')}
                 </span>
                 <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
                   timing.overallStatus === 'Suitable'
                     ? 'bg-green-100 text-agri-green'
                     : 'bg-amber-100 text-yellow-800'
                 }`}>
-                  {timing.overallStatus.toUpperCase()} WINDOW
+                  {timing.overallStatus === 'Suitable' ? t('badge_suitable', 'Suitable') : t('badge_caution', 'Caution')} {t('window_label', 'WINDOW')}
                 </span>
               </div>
 
@@ -97,19 +97,19 @@ export const TreatmentTiming: React.FC = () => {
               {/* Contributing Telemetry Factors */}
               <div className="space-y-2 text-xs">
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100">
-                  <span className="text-gray-500 font-medium">Air Temperature</span>
+                  <span className="text-gray-500 font-medium">{t('air_temp_label', 'Air Temperature')}</span>
                   <span className="font-bold text-deep-green">{timing.factors.temperatureStatus.split(' ')[0]}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100">
-                  <span className="text-gray-500 font-medium">Precipitation Wash Risk</span>
+                  <span className="text-gray-500 font-medium">{t('precip_wash_risk', 'Precipitation Wash Risk')}</span>
                   <span className="font-bold text-agri-green">{timing.factors.rainfallRisk.split(' ')[0]} {timing.factors.rainfallRisk.split(' ')[1]}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100">
-                  <span className="text-gray-500 font-medium">Wind Drift Risk</span>
+                  <span className="text-gray-500 font-medium">{t('wind_drift_risk', 'Wind Drift Risk')}</span>
                   <span className="font-bold text-dark-forest">{timing.factors.windStatus.split(' ')[0]}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100">
-                  <span className="text-gray-500 font-medium">Foliar Adherence (RH)</span>
+                  <span className="text-gray-500 font-medium">{t('foliar_adherence_rh', 'Foliar Adherence (RH)')}</span>
                   <span className="font-bold text-deep-green">{timing.factors.humidityStatus.split(' ')[0]}</span>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export const TreatmentTiming: React.FC = () => {
 
             <div className="mt-4 pt-3 border-t border-gray-100 text-[11px] text-gray-500 flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-agri-green shrink-0" />
-              <span>Optimal drift safety threshold is under 12 km/h wind speed.</span>
+              <span>{t('optimal_drift_threshold', 'Optimal drift safety threshold is under 12 km/h wind speed.')}</span>
             </div>
           </Card>
         </div>
@@ -133,12 +133,12 @@ export const TreatmentTiming: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-soft-green animate-pulse" />
                 <span className="text-xs font-bold uppercase tracking-wider text-soft-green">
-                  Optimal Spray Timing Recommendation
+                  {t('optimal_timing_rec', 'Optimal Spray Timing Recommendation')}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs font-medium text-white/80 block">Recommended Day & Window:</span>
+                <span className="text-xs font-medium text-white/80 block">{t('recommended_day_window', 'Recommended Day & Window:')}</span>
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-1">
                   {timing.bestApplicationWindow.day}
                 </h3>
@@ -156,19 +156,19 @@ export const TreatmentTiming: React.FC = () => {
             {/* Current Atmospheric Telemetry Bar */}
             <div className="relative z-10 mt-5 pt-4 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
               <div>
-                <span className="text-white/60 block text-[10px]">Current Temp</span>
+                <span className="text-white/60 block text-[10px]">{t('current_temp', 'Current Temp')}</span>
                 <span className="font-bold text-soft-green">{timing.currentConditions.temperature}°C</span>
               </div>
               <div>
-                <span className="text-white/60 block text-[10px]">Humidity</span>
+                <span className="text-white/60 block text-[10px]">{t('humidity_label', 'Humidity')}</span>
                 <span className="font-bold text-soft-green">{timing.currentConditions.humidity}%</span>
               </div>
               <div>
-                <span className="text-white/60 block text-[10px]">Wind Velocity</span>
+                <span className="text-white/60 block text-[10px]">{t('wind_velocity', 'Wind Velocity')}</span>
                 <span className="font-bold text-soft-green">{timing.currentConditions.windSpeedKmh} km/h</span>
               </div>
               <div>
-                <span className="text-white/60 block text-[10px]">Rain Probability</span>
+                <span className="text-white/60 block text-[10px]">{t('rain_probability', 'Rain Probability')}</span>
                 <span className="font-bold text-soft-green">{timing.currentConditions.rainProbability}%</span>
               </div>
             </div>
@@ -179,8 +179,8 @@ export const TreatmentTiming: React.FC = () => {
       {/* 5. Meteorological Warnings & Label Constraints */}
       <Card>
         <CardHeader
-          title="Meteorological Application Safeguards"
-          subtitle="Strict chemical drift and efficacy safety boundaries"
+          title={t('meteorological_safeguards_title', 'Meteorological Application Safeguards')}
+          subtitle={t('meteorological_safeguards_sub', 'Strict chemical drift and efficacy safety boundaries')}
           icon={<AlertTriangle className="h-5 w-5 text-warning-amber" />}
         />
 
@@ -202,8 +202,8 @@ export const TreatmentTiming: React.FC = () => {
       {/* 6. 24-Hour Timeline with Slots (Suitable, Caution, Not Suitable) */}
       <Card>
         <CardHeader
-          title="24-Hour Application Window Forecast"
-          subtitle="Hourly suitability classification based on forecasted dew evaporation, wind, and cloud convection"
+          title={t('timeline_24h_title', '24-Hour Application Window Forecast')}
+          subtitle={t('timeline_24h_sub', 'Hourly suitability classification based on forecasted dew evaporation, wind, and cloud convection')}
           icon={<Clock className="h-5 w-5 text-deep-green" />}
         />
 
@@ -221,6 +221,10 @@ export const TreatmentTiming: React.FC = () => {
                   return 'bg-gray-100 text-gray-600 border-gray-200';
               }
             };
+
+            const statusLabel = slot.suitabilityStatus === 'Suitable' ? t('badge_suitable', 'Suitable')
+              : slot.suitabilityStatus === 'Caution' ? t('badge_caution', 'Caution')
+              : t('badge_not_suitable', 'Not Suitable');
 
             return (
               <div
@@ -241,7 +245,7 @@ export const TreatmentTiming: React.FC = () => {
                   </div>
 
                   <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${getStatusBadge(slot.suitabilityStatus)}`}>
-                    {slot.suitabilityStatus.toUpperCase()} ({slot.suitabilityScore}%)
+                    {statusLabel.toUpperCase()} ({slot.suitabilityScore}%)
                   </span>
                 </div>
 
@@ -253,11 +257,11 @@ export const TreatmentTiming: React.FC = () => {
                   </span>
                   <span className="flex items-center gap-1">
                     <Droplets className="h-3.5 w-3.5 text-blue-400" />
-                    <span>Rain: {slot.rainfall.value}</span>
+                    <span>{t('rain_label', 'Rain')}: {slot.rainfall.value}</span>
                   </span>
                   <span className="flex items-center gap-1">
                     <Wind className="h-3.5 w-3.5 text-teal-500" />
-                    <span>Wind: {slot.wind.value}</span>
+                    <span>{t('wind_label', 'Wind')}: {slot.wind.value}</span>
                   </span>
                   <span className="flex items-center gap-1">
                     <Droplets className="h-3.5 w-3.5 text-gray-400" />
@@ -285,7 +289,7 @@ export const TreatmentTiming: React.FC = () => {
             size="md"
             onClick={() => navigate('/product-availability')}
           >
-            Back to Product Availability
+            {t('btn_back_to_availability', 'Back to Product Availability')}
           </Button>
 
           <Button
@@ -294,7 +298,7 @@ export const TreatmentTiming: React.FC = () => {
             onClick={() => navigate('/treatment-cost')}
             className="flex items-center gap-2"
           >
-            <span>{t('action_estimate_cost')}</span>
+            <span>{t('action_estimate_cost', 'Estimate Treatment Cost')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

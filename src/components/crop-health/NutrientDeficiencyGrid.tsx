@@ -1,18 +1,21 @@
 import React from 'react';
-import { Leaf, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Leaf } from 'lucide-react';
 import { Card, CardHeader } from '../ui/Card';
 import { NutrientIndicator } from '../../types';
+import { useTranslation } from '../../i18n';
 
 interface NutrientDeficiencyGridProps {
   nutrients: NutrientIndicator[];
 }
 
 export const NutrientDeficiencyGrid: React.FC<NutrientDeficiencyGridProps> = ({ nutrients }) => {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader
-        title="Plant Nutrient Health & Deficiency Diagnostics"
-        subtitle="Spectral chlorophyll & foliar symptom analysis"
+        title={t('title_nutrient_deficiency', 'Plant Nutrient Health & Deficiency Diagnostics')}
+        subtitle={t('nutrient_deficiency_sub', 'Spectral chlorophyll & foliar symptom analysis')}
         icon={<Leaf className="h-5 w-5 text-agri-green" />}
       />
 
@@ -20,7 +23,9 @@ export const NutrientDeficiencyGrid: React.FC<NutrientDeficiencyGridProps> = ({ 
         {nutrients.map((item, idx) => {
           const isDeficient = item.status === 'Deficient';
           const isBorderline = item.status === 'Borderline';
-          const isOptimal = item.status === 'Optimal';
+
+          const nutrientKey = `nutrient_${item.nutrient.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+          const statusKey = `badge_${item.status.toLowerCase()}`;
 
           return (
             <div
@@ -34,7 +39,7 @@ export const NutrientDeficiencyGrid: React.FC<NutrientDeficiencyGridProps> = ({ 
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-dark-forest">{item.nutrient}</span>
+                <span className="font-bold text-sm text-dark-forest">{t(nutrientKey, item.nutrient)}</span>
                 <span
                   className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                     isDeficient
@@ -44,13 +49,13 @@ export const NutrientDeficiencyGrid: React.FC<NutrientDeficiencyGridProps> = ({ 
                       : 'bg-green-100 text-agri-green border border-green-200'
                   }`}
                 >
-                  {item.status}
+                  {t(statusKey, item.status)}
                 </span>
               </div>
 
               <div className="mt-3">
                 <div className="flex justify-between text-xs text-gray-500 mb-1">
-                  <span>Sufficiency Index</span>
+                  <span>{t('sufficiency_index', 'Sufficiency Index')}</span>
                   <span className="font-bold text-dark-forest">{item.percentage}%</span>
                 </div>
                 <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -65,10 +70,10 @@ export const NutrientDeficiencyGrid: React.FC<NutrientDeficiencyGridProps> = ({ 
 
               <div className="mt-3 space-y-1.5 text-xs">
                 <p className="text-gray-600 leading-relaxed">
-                  <strong className="text-deep-green">Symptoms:</strong> {item.symptoms}
+                  <strong className="text-deep-green">{t('symptoms_label', 'Symptoms')}:</strong> {t(`${nutrientKey}_symptoms`, item.symptoms)}
                 </p>
                 <p className="text-agri-green font-medium">
-                  <strong className="text-deep-green">Recommendation:</strong> {item.recommendation}
+                  <strong className="text-deep-green">{t('recommendation_label', 'Recommendation')}:</strong> {t(`${nutrientKey}_rec`, item.recommendation)}
                 </p>
               </div>
             </div>

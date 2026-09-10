@@ -19,15 +19,15 @@ export const DemoDisclaimerBanner: React.FC<DemoDisclaimerBannerProps> = ({
     if (customMessage) return customMessage;
     switch (type) {
       case 'chemical':
-        return 'DEMO / PROTOTYPE DATA — Prototype agricultural input & chemical information only. Verify current approved product labels, registered dosages, and local agricultural university/KVK guidance before real-world use.';
+        return t('disclaimer_chemical', 'DEMO / PROTOTYPE DATA — Prototype agricultural input & chemical information only. Verify current approved product labels, registered dosages, and local agricultural university/KVK guidance before real-world use.');
       case 'weather':
-        return 'DEMO WEATHER TIMING — Weather-derived application window simulated from edge sensors and meteorological estimates. Actual spray timing must account for immediate local field conditions.';
+        return t('disclaimer_weather', 'DEMO WEATHER TIMING — Weather-derived application window simulated from edge sensors and meteorological estimates. Actual spray timing must account for immediate local field conditions.');
       case 'availability':
-        return 'DEMO AVAILABILITY DIRECTORY — Simulated agro-dealer inventory and contact directory. Real supplier and e-NAM/PACS integration planned for production.';
+        return t('disclaimer_availability', 'DEMO AVAILABILITY DIRECTORY — Simulated agro-dealer inventory and contact directory. Real supplier and e-NAM/PACS integration planned for production.');
       case 'cost':
-        return 'DEMO ESTIMATE — All prices, acreage rates, and savings are simulated estimates. Actual costs vary by regional dealer, market price, and labour rates.';
+        return t('disclaimer_cost', 'DEMO ESTIMATE — All prices, acreage rates, and savings are simulated estimates. Actual costs vary by regional dealer, market price, and labour rates.');
       default:
-        return t('disclaimer_general');
+        return t('disclaimer_general', 'Prototype agricultural system for SIH demonstration. Sensor values, vision inference, and advisory outputs are simulated.');
     }
   };
 
@@ -46,10 +46,10 @@ export const DemoDisclaimerBanner: React.FC<DemoDisclaimerBannerProps> = ({
       <div className="flex-1 text-xs">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
           <span className="font-bold tracking-wide uppercase text-[10px] px-2 py-0.5 rounded bg-amber-200/80 text-amber-900">
-            {t('badge_demo_data')}
+            {t('badge_demo_data', 'DEMO / PROTOTYPE DATA')}
           </span>
           <span className="text-[11px] font-semibold text-amber-800">
-            Hackathon Simulation Model
+            {t('badge_simulation_model', 'Hackathon Simulation Model')}
           </span>
         </div>
         <p className="text-amber-800 leading-relaxed font-medium">

@@ -12,16 +12,20 @@ import {
 import { Card, CardHeader } from '../ui/Card';
 import { Calendar } from 'lucide-react';
 
+import { useTranslation } from '../../context/LanguageContext';
+
 interface RiskForecastTimelineProps {
   data: Array<{ day: string; overallRisk: number; diseaseRisk: number; pestRisk: number; waterStress: number }>;
 }
 
 export const RiskForecastTimeline: React.FC<RiskForecastTimelineProps> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader
-        title="7-Day Predictive Risk Trajectory"
-        subtitle="Forecasting risk decline following prescribed agronomic interventions"
+        title={t('predictive_risk_trajectory_7d', '7-Day Predictive Risk Trajectory')}
+        subtitle={t('forecasting_risk_decline', 'Forecasting risk decline following prescribed agronomic interventions')}
         icon={<Calendar className="h-5 w-5 text-agri-green" />}
       />
 
@@ -49,7 +53,7 @@ export const RiskForecastTimeline: React.FC<RiskForecastTimelineProps> = ({ data
             <Area
               type="monotone"
               dataKey="overallRisk"
-              name="Composite Farm Risk (%)"
+              name={t('composite_farm_risk_percent', 'Composite Farm Risk (%)')}
               stroke="#D9534F"
               strokeWidth={2.5}
               fillOpacity={1}
@@ -58,7 +62,7 @@ export const RiskForecastTimeline: React.FC<RiskForecastTimelineProps> = ({ data
             <Area
               type="monotone"
               dataKey="diseaseRisk"
-              name="Disease Probability (%)"
+              name={t('disease_probability_percent', 'Disease Probability (%)')}
               stroke="#F4B942"
               strokeWidth={2}
               fillOpacity={0}
@@ -66,7 +70,7 @@ export const RiskForecastTimeline: React.FC<RiskForecastTimelineProps> = ({ data
             <Area
               type="monotone"
               dataKey="waterStress"
-              name="Water Deficit (%)"
+              name={t('water_deficit_percent', 'Water Deficit (%)')}
               stroke="#2E7D32"
               strokeWidth={2}
               fillOpacity={0}
@@ -76,8 +80,8 @@ export const RiskForecastTimeline: React.FC<RiskForecastTimelineProps> = ({ data
       </div>
 
       <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-        <span>Projection: <strong>Target Risk &lt; 30% by Day 7</strong></span>
-        <span className="text-agri-green font-semibold">Assuming recommended spray & irrigation</span>
+        <span>{t('projection_label', 'Projection:')} <strong>{t('target_risk_d7', 'Target Risk < 30% by Day 7')}</strong></span>
+        <span className="text-agri-green font-semibold">{t('assuming_recommended_actions', 'Assuming recommended spray & irrigation')}</span>
       </div>
     </Card>
   );

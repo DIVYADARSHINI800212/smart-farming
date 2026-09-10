@@ -2,12 +2,15 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { HourlyForecastItem } from '../../types';
 import { Sun, CloudSun, CloudRain, Droplets, Wind, Clock } from 'lucide-react';
+import { useTranslation } from '../../context/LanguageContext';
 
 interface HourlyForecastScrollProps {
   hourly: HourlyForecastItem[];
 }
 
 export const HourlyForecastScroll: React.FC<HourlyForecastScrollProps> = ({ hourly }) => {
+  const { t } = useTranslation();
+
   const getConditionIcon = (condition: string) => {
     switch (condition.toLowerCase()) {
       case 'sunny':
@@ -30,9 +33,9 @@ export const HourlyForecastScroll: React.FC<HourlyForecastScrollProps> = ({ hour
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Clock className="w-5 h-5 text-agri-green" />
-          <h3 className="text-base font-semibold text-agri-dark">24-Hour Micro-Forecast</h3>
+          <h3 className="text-base font-semibold text-agri-dark">{t('twenty_four_hour_forecast', '24-Hour Micro-Forecast')}</h3>
         </div>
-        <span className="text-xs text-agri-muted">Hourly ECMWF / GFS Blend</span>
+        <span className="text-xs text-agri-muted">{t('hourly_ecmwf_blend', 'Hourly ECMWF / GFS Blend')}</span>
       </div>
 
       <div className="overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-200">
@@ -47,7 +50,7 @@ export const HourlyForecastScroll: React.FC<HourlyForecastScrollProps> = ({ hour
               }`}
             >
               <span className={`text-xs font-semibold ${idx === 0 ? 'text-agri-green' : 'text-agri-dark'}`}>
-                {idx === 0 ? 'Now' : hour.time}
+                {idx === 0 ? t('now', 'Now') : hour.time}
               </span>
 
               <div className="my-2.5">{getConditionIcon(hour.condition)}</div>

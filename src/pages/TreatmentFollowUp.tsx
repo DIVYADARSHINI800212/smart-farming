@@ -40,7 +40,7 @@ export const TreatmentFollowUp: React.FC = () => {
       {/* 2. Banner Disclaimer */}
       <DemoDisclaimerBanner
         type="general"
-        customMessage="Treatment follow-up and clinical response analytics simulated from repeat vision inspections and post-spray canopy chlorophyll measurements."
+        customMessage={t('followup_disclaimer', 'Treatment follow-up and clinical response analytics simulated from repeat vision inspections and post-spray canopy chlorophyll measurements.')}
       />
 
       {/* 3. Header */}
@@ -52,14 +52,14 @@ export const TreatmentFollowUp: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_followup')}
+                {t('nav_followup', 'Treatment Follow-Up')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
-                Post-Intervention Analytics
+                {t('post_intervention_analytics', 'Post-Intervention Analytics')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Verify chemical and bio-agent efficacy, track 14-day canopy recovery milestones, and log historical treatment outcomes
+              {t('followup_subtitle', 'Verify chemical and bio-agent efficacy, track 14-day canopy recovery milestones, and log historical treatment outcomes')}
             </p>
           </div>
         </div>
@@ -68,7 +68,7 @@ export const TreatmentFollowUp: React.FC = () => {
           <Link to="/ai-vision">
             <Button variant="outline" size="sm" className="flex items-center gap-1.5">
               <Camera className="h-3.5 w-3.5" />
-              <span>Capture Follow-up Scan</span>
+              <span>{t('capture_followup_scan', 'Capture Follow-up Scan')}</span>
             </Button>
           </Link>
         </div>
@@ -80,69 +80,69 @@ export const TreatmentFollowUp: React.FC = () => {
       {/* 5. Follow-Up Action Protocols & Recommendations */}
       <Card>
         <CardHeader
-          title="Agronomic Follow-Up Guidance & Monitoring Directives"
-          subtitle="Prescribed next steps based on Day 7 recovery evaluation"
+          title={t('agronomic_guidance_directives_title', 'Agronomic Follow-Up Guidance & Monitoring Directives')}
+          subtitle={t('agronomic_guidance_directives_sub', 'Prescribed next steps based on Day 7 recovery evaluation')}
           icon={<CheckCircle2 className="h-5 w-5 text-agri-green" />}
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
           <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-1.5">
             <span className="text-[10px] font-bold text-agri-green uppercase tracking-wider block">
-              Directive 1 • Continuous Scouting
+              {t('directive_1', 'Directive 1 • Continuous Scouting')}
             </span>
-            <h4 className="text-xs font-bold text-dark-forest">Monitor Foliar Lesions</h4>
+            <h4 className="text-xs font-bold text-dark-forest">{t('dir1_title', 'Monitor Foliar Lesions')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              Continue daily scouting across Zone 1 and Zone 2 tillers between 06:30 and 08:30 AM to confirm absence of new sporulating rings.
+              {t('dir1_desc', 'Continue daily scouting across Zone 1 and Zone 2 tillers between 06:30 and 08:30 AM to confirm absence of new sporulating rings.')}
             </p>
           </div>
 
           <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-1.5">
             <span className="text-[10px] font-bold text-deep-green uppercase tracking-wider block">
-              Directive 2 • Smartphone Vision
+              {t('directive_2', 'Directive 2 • Smartphone Vision')}
             </span>
-            <h4 className="text-xs font-bold text-dark-forest">Capture Day 14 Resolution Photo</h4>
+            <h4 className="text-xs font-bold text-dark-forest">{t('dir2_title', 'Capture Day 14 Resolution Photo')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              Take close-up photos of tagged tillers using the AI Vision module at Day 14 to close the incident loop in the edge database.
+              {t('dir2_desc', 'Take close-up photos of tagged tillers using the AI Vision module at Day 14 to close the incident loop in the edge database.')}
             </p>
           </div>
 
           <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-1.5">
             <span className="text-[10px] font-bold text-blue-800 uppercase tracking-wider block">
-              Directive 3 • Irrigation Caution
+              {t('directive_3', 'Directive 3 • Irrigation Caution')}
             </span>
-            <h4 className="text-xs font-bold text-dark-forest">Review Sensor Microclimate</h4>
+            <h4 className="text-xs font-bold text-dark-forest">{t('dir3_title', 'Review Sensor Microclimate')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              Keep soil moisture around 45% without creating standing water pools that elevate canopy humidity above 80%.
+              {t('dir3_desc', 'Keep soil moisture around 45% without creating standing water pools that elevate canopy humidity above 80%.')}
             </p>
           </div>
 
           <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-1.5">
             <span className="text-[10px] font-bold text-purple-800 uppercase tracking-wider block">
-              Directive 4 • Balanced Nutrition
+              {t('directive_4', 'Directive 4 • Balanced Nutrition')}
             </span>
-            <h4 className="text-xs font-bold text-dark-forest">Top-Dress Potassium (K)</h4>
+            <h4 className="text-xs font-bold text-dark-forest">{t('dir4_title', 'Top-Dress Potassium (K)')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              Apply 15 kg/Ac Muriate of Potash (MOP) to strengthen culms against blast penetration prior to panicle emergence.
+              {t('dir4_desc', 'Apply 15 kg/Ac Muriate of Potash (MOP) to strengthen culms against blast penetration prior to panicle emergence.')}
             </p>
           </div>
 
           <div className="p-4 bg-red-50/50 rounded-xl border border-red-200 space-y-1.5">
             <span className="text-[10px] font-bold text-danger-red uppercase tracking-wider block">
-              Directive 5 • Escalation Trigger
+              {t('directive_5', 'Directive 5 • Escalation Trigger')}
             </span>
-            <h4 className="text-xs font-bold text-danger-red">Escalate if Symptoms Expand</h4>
+            <h4 className="text-xs font-bold text-danger-red">{t('dir5_title', 'Escalate if Symptoms Expand')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              If active lesions expand by more than 10% within 48 hours, immediately escalate to extension officer for booster advice.
+              {t('dir5_desc', 'If active lesions expand by more than 10% within 48 hours, immediately escalate to extension officer for booster advice.')}
             </p>
           </div>
 
           <div className="p-4 bg-green-50/50 rounded-xl border border-green-200 space-y-1.5">
             <span className="text-[10px] font-bold text-agri-green uppercase tracking-wider block">
-              Directive 6 • Edge LoRa Sync
+              {t('directive_6', 'Directive 6 • Edge LoRa Sync')}
             </span>
-            <h4 className="text-xs font-bold text-deep-green">Audit Gateway Log</h4>
+            <h4 className="text-xs font-bold text-deep-green">{t('dir6_title', 'Audit Gateway Log')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              Ensure LoRa gateway maintains active telemetry connection for rapid automated anomaly detection.
+              {t('dir6_desc', 'Ensure LoRa gateway maintains active telemetry connection for rapid automated anomaly detection.')}
             </p>
           </div>
         </div>
@@ -151,12 +151,12 @@ export const TreatmentFollowUp: React.FC = () => {
       {/* 6. Treatment Incident History Log Table */}
       <Card>
         <CardHeader
-          title="Historical Treatment Interventions Log"
-          subtitle="Audited repository of completed crop protection applications"
+          title={t('historical_treatment_log_title', 'Historical Treatment Interventions Log')}
+          subtitle={t('historical_treatment_log_sub', 'Audited repository of completed crop protection applications')}
           icon={<History className="h-5 w-5 text-gray-500" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-              {mockFollowUpLogs.length} Verified Incidents
+              {mockFollowUpLogs.length} {t('verified_incidents', 'Verified Incidents')}
             </span>
           }
         />
@@ -165,15 +165,15 @@ export const TreatmentFollowUp: React.FC = () => {
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-gray-100 text-[11px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50/50">
-                <th className="py-2.5 px-3">Date</th>
-                <th className="py-2.5 px-3">Zone</th>
-                <th className="py-2.5 px-3">Problem Diagnosed</th>
-                <th className="py-2.5 px-3">Applied Formulation</th>
-                <th className="py-2.5 px-3">Severity Pre</th>
-                <th className="py-2.5 px-3">Severity Post</th>
-                <th className="py-2.5 px-3">Effectiveness</th>
-                <th className="py-2.5 px-3">Status</th>
-                <th className="py-2.5 px-3 text-right">Details</th>
+                <th className="py-2.5 px-3">{t('th_date', 'Date')}</th>
+                <th className="py-2.5 px-3">{t('th_zone', 'Zone')}</th>
+                <th className="py-2.5 px-3">{t('th_problem_diagnosed', 'Problem Diagnosed')}</th>
+                <th className="py-2.5 px-3">{t('th_applied_formulation', 'Applied Formulation')}</th>
+                <th className="py-2.5 px-3">{t('th_severity_pre', 'Severity Pre')}</th>
+                <th className="py-2.5 px-3">{t('th_severity_post', 'Severity Post')}</th>
+                <th className="py-2.5 px-3">{t('th_effectiveness', 'Effectiveness')}</th>
+                <th className="py-2.5 px-3">{t('th_status', 'Status')}</th>
+                <th className="py-2.5 px-3 text-right">{t('th_details', 'Details')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -229,7 +229,7 @@ export const TreatmentFollowUp: React.FC = () => {
                           <div className="p-3 bg-white rounded-xl border border-gray-200 space-y-1.5">
                             <div className="flex items-center justify-between">
                               <span className="font-bold text-deep-green">
-                                Field Incident Notes & Agronomic Audit:
+                                {t('field_incident_notes', 'Field Incident Notes & Agronomic Audit:')}
                               </span>
                               <span className="text-[10px] text-gray-400 font-mono">{log.id}</span>
                             </div>
@@ -252,7 +252,7 @@ export const TreatmentFollowUp: React.FC = () => {
             size="md"
             onClick={() => navigate('/treatment-cost')}
           >
-            Back to Cost Estimator
+            {t('btn_back_to_cost', 'Back to Cost Estimator')}
           </Button>
 
           <Button
@@ -261,7 +261,7 @@ export const TreatmentFollowUp: React.FC = () => {
             onClick={() => navigate('/farmer-advisory')}
             className="flex items-center gap-2"
           >
-            <span>Return to Farmer Advisory</span>
+            <span>{t('btn_return_advisory', 'Return to Farmer Advisory')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

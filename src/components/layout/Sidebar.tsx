@@ -63,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navGroups: NavGroup[] = [
     {
-      groupName: 'MAIN',
+      groupName: t('nav_group_main', 'MAIN'),
       items: [
         { label: t('nav_dashboard'), path: '/', icon: <LayoutDashboard className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_field_monitoring'), path: '/field-monitoring', icon: <MapPin className="h-5 w-5" />, isFunctional: true },
@@ -71,25 +71,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ],
     },
     {
-      groupName: 'AI & DETECTION',
+      groupName: t('nav_group_ai', 'AI & DETECTION'),
       items: [
         { label: t('nav_ai_vision'), path: '/ai-vision', icon: <ScanEye className="h-5 w-5" />, isFunctional: true },
-        { label: t('nav_disease_detection'), path: '/disease-detection', icon: <Microscope className="h-5 w-5" />, isFunctional: true, badge: 'Blast 82%' },
-        { label: t('nav_pest_detection'), path: '/pest-detection', icon: <Bug className="h-5 w-5" />, isFunctional: true, badge: 'Folder 78%' },
+        { label: t('nav_disease_detection'), path: '/disease-detection', icon: <Microscope className="h-5 w-5" />, isFunctional: true, badge: t('badge_blast_82', 'Blast 82%') },
+        { label: t('nav_pest_detection'), path: '/pest-detection', icon: <Bug className="h-5 w-5" />, isFunctional: true, badge: t('badge_folder_78', 'Folder 78%') },
         { label: t('nav_risk_assessment'), path: '/risk-assessment', icon: <AlertTriangle className="h-5 w-5" />, isFunctional: true },
       ],
     },
     {
-      groupName: 'FARM MANAGEMENT',
+      groupName: t('nav_group_farm_management', 'FARM MANAGEMENT'),
       items: [
         { label: t('nav_smart_irrigation'), path: '/smart-irrigation', icon: <Droplets className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_env_monitoring'), path: '/environmental-monitoring', icon: <CloudSun className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_weather'), path: '/weather-intelligence', icon: <CloudLightning className="h-5 w-5" />, isFunctional: true },
-        { label: t('nav_farmer_advisory'), path: '/farmer-advisory', icon: <UserCheck className="h-5 w-5" />, isFunctional: true, badge: 'Advisory' },
+        { label: t('nav_farmer_advisory'), path: '/farmer-advisory', icon: <UserCheck className="h-5 w-5" />, isFunctional: true, badge: t('badge_advisory', 'Advisory') },
       ],
     },
     {
-      groupName: 'TREATMENT',
+      groupName: t('nav_group_treatment', 'TREATMENT'),
       items: [
         { label: t('nav_treatment'), path: '/treatment-recommendation', icon: <ShieldAlert className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_inputs'), path: '/agricultural-inputs', icon: <Boxes className="h-5 w-5" />, isFunctional: true },
@@ -100,16 +100,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ],
     },
     {
-      groupName: 'INSIGHTS',
+      groupName: t('nav_group_insights', 'INSIGHTS'),
       items: [
-        { label: t('nav_alerts'), path: '/alerts', icon: <Bell className="h-5 w-5" />, isFunctional: true, badge: '2 Active' },
+        { label: t('nav_alerts'), path: '/alerts', icon: <Bell className="h-5 w-5" />, isFunctional: true, badge: t('badge_2_active', '2 Active') },
         { label: t('nav_farm_analytics'), path: '/farm-analytics', icon: <BarChart3 className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_yield_forecast'), path: '/yield-forecast', icon: <TrendingUp className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_reports'), path: '/reports', icon: <FileText className="h-5 w-5" />, isFunctional: true },
       ],
     },
     {
-      groupName: 'SYSTEM',
+      groupName: t('nav_group_system', 'SYSTEM'),
       items: [
         { label: t('nav_edge_nodes'), path: '/edge-nodes', icon: <Cpu className="h-5 w-5" />, isFunctional: true },
         { label: t('nav_settings'), path: '/settings', icon: <Settings className="h-5 w-5" />, isFunctional: true },
@@ -152,10 +152,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {!collapsed && (
               <div className="leading-tight truncate">
                 <span className="font-bold text-sm text-white tracking-wide block truncate">
-                  Smart Farming
+                  {t('app_title', 'Smart Farming')}
                 </span>
                 <span className="text-[11px] text-soft-green font-medium tracking-wider uppercase block">
-                  Assistant • SIH
+                  {t('app_subtitle', 'Assistant • SIH')}
                 </span>
               </div>
             )}
@@ -206,7 +206,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           <span className="truncate">{item.label}</span>
                           {item.badge && (
                             <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full ${
-                              item.badge.includes('Blast') ? 'bg-danger-red text-white' : 'bg-danger-red text-white'
+                              item.badge.includes('Blast') || item.badge.includes('குலை') || item.badge.includes('ब्लास्ट') ? 'bg-danger-red text-white' : 'bg-danger-red text-white'
                             }`}>
                               {item.badge}
                             </span>
@@ -255,11 +255,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-agri-green"></span>
               </span>
               <span className="font-semibold text-soft-green text-[11px] uppercase tracking-wide">
-                Edge AI Pipeline
+                {t('edge_ai_pipeline_title', 'Edge AI Pipeline')}
               </span>
             </div>
             <p className="text-[11px] text-white/70 leading-tight">
-              MobileNetV2 + YOLOv8 inference ready. LoRa nodes streaming.
+              {t('edge_ai_pipeline_desc', 'MobileNetV2 + YOLOv8 inference ready. LoRa nodes streaming.')}
             </p>
           </div>
         )}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { AlertOctagon, ShieldCheck, AlertTriangle, Flame } from 'lucide-react';
 import { RiskLevel } from '../../types';
+import { useTranslation } from '../../context/LanguageContext';
+import { translateRiskLevel } from '../../utils/translationMapper';
 
 interface RiskCardProps {
   title: string;
@@ -19,6 +21,7 @@ export const RiskCard: React.FC<RiskCardProps> = ({
   icon,
   className = '',
 }) => {
+  const { t } = useTranslation();
   const getRiskStyle = (level: RiskLevel) => {
     switch (level) {
       case 'Critical':
@@ -60,16 +63,16 @@ export const RiskCard: React.FC<RiskCardProps> = ({
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           {icon && <div className="p-1.5 rounded-lg bg-white shadow-xs border border-gray-100">{icon}</div>}
-          <h4 className="text-xs font-bold text-dark-forest">{title}</h4>
+          <h4 className="text-xs font-bold text-dark-forest">{t(title, title)}</h4>
         </div>
         <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${style.badge}`}>
-          {riskLevel}
+          {translateRiskLevel(riskLevel, t)}
         </span>
       </div>
 
       <div className="mt-3 flex items-baseline justify-between">
         <span className="text-2xl font-black text-dark-forest tracking-tight">{score}</span>
-        <span className="text-[11px] text-gray-500 font-semibold">/ 100 Risk Index</span>
+        <span className="text-[11px] text-gray-500 font-semibold">{t('risk_index_unit', '/ 100 Risk Index')}</span>
       </div>
 
       <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden mt-2 border border-gray-200/50">
@@ -79,7 +82,7 @@ export const RiskCard: React.FC<RiskCardProps> = ({
         />
       </div>
 
-      <p className="text-[11px] text-gray-500 mt-2.5 leading-relaxed">{description}</p>
+      <p className="text-[11px] text-gray-500 mt-2.5 leading-relaxed">{t(description, description)}</p>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, AlertTriangle, Droplets, Bell, FileText, ChevronRight, Zap } from 'lucide-react';
+import { useTranslation } from '../../i18n';
 
 interface QuickActionsProps {
   className?: string;
@@ -9,39 +10,40 @@ interface QuickActionsProps {
 
 export const QuickActions: React.FC<QuickActionsProps> = ({ className = '', horizontal = false }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const actions = [
     {
-      title: 'Capture Crop Image',
-      description: 'Upload leaf photo for edge CNN disease & pest inference',
+      title: t('btn_capture_image', 'Capture Crop Image'),
+      description: t('ai_vision_subtitle', 'Upload leaf photo for edge CNN disease & pest inference'),
       icon: <Camera className="h-5 w-5 text-agri-green" />,
       path: '/ai-vision',
       color: 'bg-green-50 border-green-100 hover:border-agri-green/50',
     },
     {
-      title: 'Check Farm Risk',
-      description: 'View calibrated sensor + image fusion risk matrix',
+      title: t('risk_assessment_title', 'Check Farm Risk'),
+      description: t('risk_assessment_subtitle', 'View calibrated sensor + image fusion risk matrix'),
       icon: <AlertTriangle className="h-5 w-5 text-warning-amber" />,
       path: '/risk-assessment',
       color: 'bg-amber-50/60 border-amber-100 hover:border-warning-amber/50',
     },
     {
-      title: 'View Irrigation',
-      description: 'Inspect soil water tension & smart pumping window',
+      title: t('nav_smart_irrigation', 'View Irrigation'),
+      description: t('smart_irrigation_subtitle', 'Inspect soil water tension & smart pumping window'),
       icon: <Droplets className="h-5 w-5 text-blue-500" />,
       path: '/smart-irrigation',
       color: 'bg-blue-50/60 border-blue-100 hover:border-blue-300',
     },
     {
-      title: 'View Alerts',
-      description: 'Review 2 active prioritized field notifications',
+      title: t('nav_alerts', 'View Alerts'),
+      description: t('alerts_subtitle', 'Review active prioritized field notifications'),
       icon: <Bell className="h-5 w-5 text-danger-red" />,
       path: '/alerts',
       color: 'bg-red-50/50 border-red-100 hover:border-danger-red/50',
     },
     {
-      title: 'Generate Report',
-      description: 'Compile crop health, telemetry & treatment audit',
+      title: t('btn_generate_report', 'Generate Report'),
+      description: t('reports_subtitle', 'Compile crop health, telemetry & treatment audit'),
       icon: <FileText className="h-5 w-5 text-purple-600" />,
       path: '/reports',
       color: 'bg-purple-50/50 border-purple-100 hover:border-purple-300',
@@ -82,9 +84,9 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ className = '', hori
           <div className="p-1.5 rounded-lg bg-soft-green/30 text-agri-green">
             <Zap className="h-4 w-4" />
           </div>
-          <h4 className="text-sm font-bold text-deep-green">Global Quick Actions</h4>
+          <h4 className="text-sm font-bold text-deep-green">{t('global_quick_actions', 'Global Quick Actions')}</h4>
         </div>
-        <span className="text-[11px] text-gray-400 font-medium">1-Click Fast Navigation</span>
+        <span className="text-[11px] text-gray-400 font-medium">{t('click_fast_navigation', '1-Click Fast Navigation')}</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">

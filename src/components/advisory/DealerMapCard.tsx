@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPin, Navigation, Phone, Clock, Store, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { Card, CardHeader } from '../ui/Card';
 import { DealerProductItem } from '../../types/phase4';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface DealerMapCardProps {
   dealers: DealerProductItem[];
@@ -14,15 +15,17 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
   selectedDealerId,
   onSelectDealer,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <Card>
       <CardHeader
-        title="Farm-to-Dealer Proximity Network"
-        subtitle="Frontend schematic visualization of agro-input centers relative to Green Valley Unit 1"
+        title={t('dealer_network_title', 'Farm-to-Dealer Proximity Network')}
+        subtitle={t('dealer_network_sub', 'Frontend schematic visualization of agro-input centers relative to Green Valley Unit 1')}
         icon={<Navigation className="h-5 w-5 text-agri-green" />}
         action={
           <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-50 text-agri-green border border-green-200">
-            Within 15 km Radius
+            {t('within_15km', 'Within 15 km Radius')}
           </span>
         }
       />
@@ -33,9 +36,9 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-gray-200 text-xs">
               <span className="font-bold text-deep-green uppercase tracking-wider text-[10px]">
-                Regional Logistics Map (Schematic)
+                {t('regional_logistics_map', 'Regional Logistics Map (Schematic)')}
               </span>
-              <span className="text-gray-500 font-medium">Demo GPS Routing</span>
+              <span className="text-gray-500 font-medium">{t('demo_gps_routing', 'Demo GPS Routing')}</span>
             </div>
 
             {/* Farm Origin Hub */}
@@ -45,7 +48,7 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
               </div>
               <div className="flex-1">
                 <span className="text-[10px] font-bold text-agri-green uppercase tracking-wider block">
-                  Origin Hub (Zero km)
+                  {t('origin_hub_zero_km', 'Origin Hub (Zero km)')}
                 </span>
                 <h4 className="text-xs font-bold text-deep-green">Green Valley Precision Agro Unit</h4>
                 <p className="text-[11px] text-gray-500">Thanjavur Pilot Farm • Coordinates: 10.78°N, 79.13°E</p>
@@ -100,9 +103,9 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
           </div>
 
           <div className="p-3 bg-white rounded-xl border border-gray-200 text-[11px] text-gray-600 space-y-1">
-            <span className="font-bold text-deep-green block">Dispatch Notice:</span>
+            <span className="font-bold text-deep-green block">{t('dispatch_notice', 'Dispatch Notice:')}</span>
             <p>
-              Average travel time to closest dealer (Kaveri Delta PACS) is ~12 minutes via rural arterial road.
+              {t('dispatch_notice_desc', 'Average travel time to closest dealer (Kaveri Delta PACS) is ~12 minutes via rural arterial road.')}
             </p>
           </div>
         </div>
@@ -110,7 +113,7 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
         {/* Right Side: Selected / Filtered Dealer Quick Details (7 Cols) */}
         <div className="lg:col-span-7 space-y-4">
           <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">
-            Dealer Directory & Stocked Formulations
+            {t('dealer_directory_stocked', 'Dealer Directory & Stocked Formulations')}
           </h4>
 
           <div className="space-y-3">
@@ -138,7 +141,7 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
 
                     <div className="flex items-center gap-2 shrink-0">
                       <span className="text-xs font-black text-agri-green bg-green-50 px-2.5 py-1 rounded-lg border border-green-200">
-                        {dealer.distanceKm} km away
+                        {dealer.distanceKm} km {t('distance_away', 'away')}
                       </span>
                     </div>
                   </div>
@@ -158,7 +161,7 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
                   {/* Available Stocked Products in this Dealer */}
                   <div className="space-y-1.5 pt-2 border-t border-gray-100">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                      Target Inventory Status
+                      {t('target_inventory_status', 'Target Inventory Status')}
                     </span>
                     <div className="divide-y divide-gray-50">
                       {dealer.stockedProducts.map((p, pIdx) => (
@@ -179,7 +182,9 @@ export const DealerMapCard: React.FC<DealerMapCardProps> = ({
                                 ? 'bg-amber-100 text-yellow-800'
                                 : 'bg-red-100 text-danger-red'
                             }`}>
-                              {p.status}
+                              {p.status === 'In Stock' ? t('badge_in_stock', 'In Stock')
+                                : p.status === 'Limited Stock' ? t('badge_limited_stock', 'Limited Stock')
+                                : t('badge_out_of_stock', 'Out of Stock')}
                             </span>
                           </div>
                         </div>

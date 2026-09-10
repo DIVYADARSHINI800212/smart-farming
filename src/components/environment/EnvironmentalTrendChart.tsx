@@ -11,17 +11,20 @@ import {
 } from 'recharts';
 import { Card, CardHeader } from '../ui/Card';
 import { TrendingUp } from 'lucide-react';
+import { useTranslation } from '../../i18n';
 
 interface EnvironmentalTrendChartProps {
   data: Array<{ time: string; airTemp: number; soilTemp: number; humidity: number; vpd: number; rain: number }>;
 }
 
 export const EnvironmentalTrendChart: React.FC<EnvironmentalTrendChartProps> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader
-        title="24-Hour Microclimate Diurnal Dynamics"
-        subtitle="Hourly atmospheric temperature, humidity, soil temperature & vapor pressure deficit"
+        title={t('microclimate_diurnal_dynamics', '24-Hour Microclimate Diurnal Dynamics')}
+        subtitle={t('microclimate_chart_sub', 'Hourly atmospheric temperature, humidity, soil temperature & vapor pressure deficit')}
         icon={<TrendingUp className="h-5 w-5 text-agri-green" />}
       />
 
@@ -45,7 +48,7 @@ export const EnvironmentalTrendChart: React.FC<EnvironmentalTrendChartProps> = (
               yAxisId="temp"
               type="monotone"
               dataKey="airTemp"
-              name="Air Temp (°C)"
+              name={t('air_temp_deg', 'Air Temp (°C)')}
               stroke="#D9534F"
               strokeWidth={2}
               dot={{ r: 2 }}
@@ -54,7 +57,7 @@ export const EnvironmentalTrendChart: React.FC<EnvironmentalTrendChartProps> = (
               yAxisId="temp"
               type="monotone"
               dataKey="soilTemp"
-              name="Soil Temp (°C)"
+              name={t('soil_temp_deg', 'Soil Temp (°C)')}
               stroke="#8C5832"
               strokeWidth={2}
               dot={{ r: 2 }}
@@ -63,7 +66,7 @@ export const EnvironmentalTrendChart: React.FC<EnvironmentalTrendChartProps> = (
               yAxisId="humid"
               type="monotone"
               dataKey="humidity"
-              name="Rel. Humidity (%)"
+              name={t('rel_humidity_pct', 'Rel. Humidity (%)')}
               stroke="#2E7D32"
               strokeWidth={2}
               dot={{ r: 2 }}

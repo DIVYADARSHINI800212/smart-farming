@@ -39,7 +39,7 @@ export const TreatmentRecommendation: React.FC = () => {
       {/* 1. Workflow Stepper (Step 2) */}
       <TreatmentWorkflowStepper
         currentStep={2}
-        nextStepTitle={t('action_view_inputs')}
+        nextStepTitle={t('action_view_inputs', 'View Agricultural Inputs')}
       />
 
       {/* 2. Prominent Prototype Disclaimer */}
@@ -54,14 +54,14 @@ export const TreatmentRecommendation: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_treatment')}
+                {t('nav_treatment', 'Treatment Recommendation')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-danger-red">
-                Prescription-Free Protocol
+                {t('prescription_free_protocol', 'Prescription-Free Protocol')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Converting AI vision diagnostics into multi-pillar agronomic management strategies and label-guided dosage references
+              {t('treatment_subtitle', 'Converting AI vision diagnostics into multi-pillar agronomic management strategies and label-guided dosage references')}
             </p>
           </div>
         </div>
@@ -77,19 +77,19 @@ export const TreatmentRecommendation: React.FC = () => {
       {/* 4. Detected Problem Diagnostic Card */}
       <Card>
         <CardHeader
-          title="Diagnostic Problem Profile"
-          subtitle="Pathological baseline requiring intervention"
+          title={t('diagnostic_problem_profile', 'Diagnostic Problem Profile')}
+          subtitle={t('diagnostic_problem_sub', 'Pathological baseline requiring intervention')}
           icon={<AlertTriangle className="h-5 w-5 text-danger-red" />}
           action={
             <Badge severity={treatment.detectedProblem.severity as any}>
-              {treatment.detectedProblem.severity} SEVERITY
+              {treatment.detectedProblem.severity} {t('severity_label', 'SEVERITY')}
             </Badge>
           }
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
           <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-            <span className="text-[11px] text-gray-500 block">Identified Disease</span>
+            <span className="text-[11px] text-gray-500 block">{t('identified_disease', 'Identified Disease')}</span>
             <span className="text-sm font-bold text-deep-green mt-0.5 block truncate">
               {treatment.detectedProblem.disease}
             </span>
@@ -99,27 +99,27 @@ export const TreatmentRecommendation: React.FC = () => {
           </div>
 
           <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-            <span className="text-[11px] text-gray-500 block">Vision Confidence</span>
+            <span className="text-[11px] text-gray-500 block">{t('vision_confidence', 'Vision Confidence')}</span>
             <span className="text-sm font-bold text-danger-red mt-0.5 block">
-              {treatment.detectedProblem.confidence}% High Certainty
+              {treatment.detectedProblem.confidence}% {t('high_certainty', 'High Certainty')}
             </span>
-            <span className="text-[10px] text-gray-400 block">MobileNetV2 Edge Model</span>
+            <span className="text-[10px] text-gray-400 block">MobileNetV2 {t('edge_model', 'Edge Model')}</span>
           </div>
 
           <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-            <span className="text-[11px] text-gray-500 block">Affected Target Area</span>
+            <span className="text-[11px] text-gray-500 block">{t('affected_target_area', 'Affected Target Area')}</span>
             <span className="text-sm font-bold text-dark-forest mt-0.5 block">
               {treatment.detectedProblem.affectedArea}
             </span>
-            <span className="text-[10px] text-gray-400 block">Confined to North Bunds</span>
+            <span className="text-[10px] text-gray-400 block">{t('confined_north_bunds', 'Confined to North Bunds')}</span>
           </div>
 
           <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-            <span className="text-[11px] text-gray-500 block">Selected Field Zone</span>
+            <span className="text-[11px] text-gray-500 block">{t('selected_field_zone', 'Selected Field Zone')}</span>
             <span className="text-sm font-bold text-agri-green mt-0.5 block">
               {treatment.zoneName}
             </span>
-            <span className="text-[10px] text-gray-400 block">Active Vegetative Cycle</span>
+            <span className="text-[10px] text-gray-400 block">{t('active_vegetative_cycle', 'Active Vegetative Cycle')}</span>
           </div>
         </div>
       </Card>
@@ -127,8 +127,8 @@ export const TreatmentRecommendation: React.FC = () => {
       {/* 5. Four Management Strategy Phases */}
       <Card>
         <CardHeader
-          title="Four-Phase Agronomic Management Strategy"
-          subtitle="Holistic crop protection workflow from immediate containment to post-spray verification"
+          title={t('four_phase_strategy_title', 'Four-Phase Agronomic Management Strategy')}
+          subtitle={t('four_phase_strategy_sub', 'Holistic crop protection workflow from immediate containment to post-spray verification')}
           icon={<Sliders className="h-5 w-5 text-agri-green" />}
         />
 
@@ -136,66 +136,67 @@ export const TreatmentRecommendation: React.FC = () => {
           <div className="p-4 rounded-xl border border-red-200 bg-red-50/40 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-danger-red block mb-1">
-                Phase 1 • Immediate
+                {t('phase_1_immediate', 'Phase 1 • Immediate')}
               </span>
-              <h4 className="text-xs font-bold text-dark-forest mb-2">Immediate Containment</h4>
+              <h4 className="text-xs font-bold text-dark-forest mb-2">{t('immediate_containment', 'Immediate Containment')}</h4>
               <p className="text-xs text-gray-600 leading-relaxed">
                 {treatment.managementPhases.immediateAction}
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-danger-red mt-3 block">Action within 24h</span>
+            <span className="text-[10px] font-semibold text-danger-red mt-3 block">{t('action_within_24h', 'Action within 24h')}</span>
           </div>
 
           <div className="p-4 rounded-xl border border-amber-200 bg-amber-50/40 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-800 block mb-1">
-                Phase 2 • Preventive
+                {t('phase_2_preventive', 'Phase 2 • Preventive')}
               </span>
-              <h4 className="text-xs font-bold text-dark-forest mb-2">Buffer Zone Barrier</h4>
+              <h4 className="text-xs font-bold text-dark-forest mb-2">{t('buffer_zone_barrier', 'Buffer Zone Barrier')}</h4>
               <p className="text-xs text-gray-600 leading-relaxed">
                 {treatment.managementPhases.preventiveAction}
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-yellow-800 mt-3 block">Day 0 to +2</span>
+            <span className="text-[10px] font-semibold text-yellow-800 mt-3 block">{t('day_0_to_2', 'Day 0 to +2')}</span>
           </div>
 
           <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800 block mb-1">
-                Phase 3 • Monitoring
+                {t('phase_3_monitoring', 'Phase 3 • Monitoring')}
               </span>
-              <h4 className="text-xs font-bold text-dark-forest mb-2">Symptom Tracking</h4>
+              <h4 className="text-xs font-bold text-dark-forest mb-2">{t('symptom_tracking', 'Symptom Tracking')}</h4>
               <p className="text-xs text-gray-600 leading-relaxed">
                 {treatment.managementPhases.monitoringAction}
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-blue-800 mt-3 block">Daily Scouting</span>
+            <span className="text-[10px] font-semibold text-blue-800 mt-3 block">{t('daily_scouting', 'Daily Scouting')}</span>
           </div>
 
           <div className="p-4 rounded-xl border border-green-200 bg-green-50/40 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-agri-green block mb-1">
-                Phase 4 • Follow-up
+                {t('phase_4_followup', 'Phase 4 • Follow-up')}
               </span>
-              <h4 className="text-xs font-bold text-dark-forest mb-2">Recovery Verification</h4>
+              <h4 className="text-xs font-bold text-dark-forest mb-2">{t('recovery_verification', 'Recovery Verification')}</h4>
               <p className="text-xs text-gray-600 leading-relaxed">
                 {treatment.managementPhases.followUpAction}
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-agri-green mt-3 block">Day +3 to +14</span>
+            <span className="text-[10px] font-semibold text-agri-green mt-3 block">{t('day_3_to_14', 'Day +3 to +14')}</span>
           </div>
         </div>
       </Card>
 
       {/* 6. Selectable Alternative Management Options (Tabs) */}
+      {/* 6. Selectable Alternative Management Options (Tabs) */}
       <Card>
         <CardHeader
-          title="Selectable Management Options (IPM Framework)"
-          subtitle="Explore Chemical, Biological, Cultural, or Integrated Pest Management options before deciding"
+          title={t('selectable_management_title', 'Selectable Management Options (IPM Framework)')}
+          subtitle={t('selectable_management_sub', 'Explore Chemical, Biological, Cultural, or Integrated Pest Management options before deciding')}
           icon={<Leaf className="h-5 w-5 text-agri-green" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-soft-green/30 text-deep-green">
-              Non-Prescriptive Options
+              {t('non_prescriptive_options', 'Non-Prescriptive Options')}
             </span>
           }
         />
@@ -204,6 +205,10 @@ export const TreatmentRecommendation: React.FC = () => {
         <div className="flex flex-wrap gap-2 pt-2 border-b border-gray-100 pb-3">
           {treatment.alternativeStrategies.map((strat) => {
             const isSelected = selectedStrategyCategory === strat.category;
+            const categoryLabel = strat.category === 'Chemical' ? t('strategy_chemical', 'Chemical Strategy')
+              : strat.category === 'Biological' ? t('strategy_biological', 'Biological Strategy')
+              : strat.category === 'Cultural' ? t('strategy_cultural', 'Cultural Strategy')
+              : t('strategy_ipm', 'IPM Strategy');
             return (
               <button
                 key={strat.id}
@@ -218,7 +223,7 @@ export const TreatmentRecommendation: React.FC = () => {
                 {strat.category === 'Biological' && <Leaf className="h-4 w-4 text-agri-green" />}
                 {strat.category === 'Cultural' && <Sprout className="h-4 w-4 text-amber-500" />}
                 {strat.category === 'IPM' && <ShieldCheck className="h-4 w-4 text-purple-400" />}
-                <span>{strat.category} Strategy</span>
+                <span>{categoryLabel}</span>
               </button>
             );
           })}
@@ -230,7 +235,7 @@ export const TreatmentRecommendation: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-agri-green">
-                  {activeStrategy.category} Management Option
+                  {activeStrategy.category} {t('management_option', 'Management Option')}
                 </span>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white border border-gray-200 text-gray-700">
                   {activeStrategy.safetyRating}
@@ -242,7 +247,7 @@ export const TreatmentRecommendation: React.FC = () => {
             </div>
 
             <div className="text-right">
-              <span className="text-xs text-gray-500 block">Est. Cost / Acre</span>
+              <span className="text-xs text-gray-500 block">{t('est_cost_acre', 'Est. Cost / Acre')}</span>
               <span className="text-lg font-black text-deep-green">
                 ₹{activeStrategy.estimatedCostPerAcre}
               </span>
@@ -252,34 +257,34 @@ export const TreatmentRecommendation: React.FC = () => {
           {/* Core Fields Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Product / Formulation</span>
+              <span className="text-gray-500 block text-[11px]">{t('product_formulation', 'Product / Formulation')}</span>
               <span className="font-bold text-dark-forest">{activeStrategy.productName}</span>
               <span className="text-[10px] text-gray-400 block">{activeStrategy.formulation}</span>
             </div>
 
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Active Ingredient</span>
+              <span className="text-gray-500 block text-[11px]">{t('active_ingredient', 'Active Ingredient')}</span>
               <span className="font-bold text-deep-green">{activeStrategy.activeIngredient}</span>
-              <span className="text-[10px] text-gray-400 block">Standard Reference Spec</span>
+              <span className="text-[10px] text-gray-400 block">{t('std_reference_spec', 'Standard Reference Spec')}</span>
             </div>
 
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Application Method</span>
+              <span className="text-gray-500 block text-[11px]">{t('application_method', 'Application Method')}</span>
               <span className="font-bold text-dark-forest">{activeStrategy.applicationMethod}</span>
             </div>
 
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Demo Application Rate</span>
+              <span className="text-gray-500 block text-[11px]">{t('demo_application_rate', 'Demo Application Rate')}</span>
               <span className="font-bold text-agri-green">{activeStrategy.applicationRate}</span>
             </div>
 
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Application Frequency</span>
+              <span className="text-gray-500 block text-[11px]">{t('application_frequency', 'Application Frequency')}</span>
               <span className="font-bold text-dark-forest">{activeStrategy.frequency}</span>
             </div>
 
             <div className="p-3 bg-white rounded-xl border border-gray-200">
-              <span className="text-gray-500 block text-[11px]">Treatment Duration / PHI</span>
+              <span className="text-gray-500 block text-[11px]">{t('treatment_duration_phi', 'Treatment Duration / PHI')}</span>
               <span className="font-bold text-dark-forest">
                 {activeStrategy.treatmentDuration} (PHI: {activeStrategy.preHarvestIntervalDays}d)
               </span>
@@ -290,7 +295,7 @@ export const TreatmentRecommendation: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
             <div className="p-3.5 bg-green-50/50 rounded-xl border border-green-200 text-xs">
               <span className="text-[11px] font-bold text-agri-green uppercase tracking-wider block mb-1.5">
-                Key Agronomic Advantages
+                {t('key_agronomic_advantages', 'Key Agronomic Advantages')}
               </span>
               <ul className="space-y-1 text-gray-700">
                 {activeStrategy.advantages.map((adv, i) => (
@@ -304,7 +309,7 @@ export const TreatmentRecommendation: React.FC = () => {
 
             <div className="p-3.5 bg-amber-50/50 rounded-xl border border-amber-200 text-xs">
               <span className="text-[11px] font-bold text-yellow-800 uppercase tracking-wider block mb-1.5">
-                Precautions & Field Boundaries
+                {t('precautions_boundaries', 'Precautions & Field Boundaries')}
               </span>
               <ul className="space-y-1 text-gray-700">
                 {activeStrategy.precautions.map((prec, i) => (
@@ -318,7 +323,7 @@ export const TreatmentRecommendation: React.FC = () => {
           </div>
 
           <div className="p-2.5 bg-white rounded-xl border border-gray-200 text-center text-xs text-gray-500 font-medium">
-            "Demo data — verify current local label, CIB&RC registration, and agricultural extension guidance."
+            {t('demo_data_notice', '"Demo data — verify current local label, CIB&RC registration, and agricultural extension guidance."')}
           </div>
         </div>
       </Card>
@@ -326,12 +331,12 @@ export const TreatmentRecommendation: React.FC = () => {
       {/* 7. Safety, Compliance & PPE Section */}
       <Card>
         <CardHeader
-          title="Mandatory Safety, Storage & Regulatory Checklist"
-          subtitle="Occupational health precautions and ecological compliance guidelines"
+          title={t('mandatory_safety_title', 'Mandatory Safety, Storage & Regulatory Checklist')}
+          subtitle={t('mandatory_safety_sub', 'Occupational health precautions and ecological compliance guidelines')}
           icon={<ShieldCheck className="h-5 w-5 text-deep-green" />}
           action={
             <span className="text-xs font-bold text-danger-red bg-red-50 px-2.5 py-1 rounded-full border border-red-200">
-              Mandatory Compliance
+              {t('mandatory_compliance', 'Mandatory Compliance')}
             </span>
           }
         />
@@ -357,7 +362,7 @@ export const TreatmentRecommendation: React.FC = () => {
             size="md"
             onClick={() => navigate('/farmer-advisory')}
           >
-            Back to Advisory
+            {t('btn_back_to_advisory', 'Back to Advisory')}
           </Button>
 
           <Button
@@ -366,7 +371,7 @@ export const TreatmentRecommendation: React.FC = () => {
             onClick={() => navigate('/agricultural-inputs')}
             className="flex items-center gap-2"
           >
-            <span>{t('action_view_inputs')}</span>
+            <span>{t('action_view_inputs', 'View Agricultural Inputs')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

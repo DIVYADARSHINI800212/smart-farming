@@ -2,6 +2,8 @@ import React from 'react';
 import { Calendar, CheckCircle2, Clock } from 'lucide-react';
 import { Card, CardHeader } from '../ui/Card';
 import { CropGrowthMetric } from '../../types';
+import { useTranslation } from '../../i18n';
+import { translateGrowthStage } from '../../utils/translationMapper';
 
 interface GrowthStageTimelineProps {
   stages: CropGrowthMetric[];
@@ -9,15 +11,17 @@ interface GrowthStageTimelineProps {
 }
 
 export const GrowthStageTimeline: React.FC<GrowthStageTimelineProps> = ({ stages, currentDay }) => {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader
-        title="Crop Growth & Phenology Progression"
-        subtitle={`Paddy Crop Cycle • Day ${currentDay} of 120 (Vegetative Stage)`}
+        title={t('title_crop_growth_phenology', 'Crop Growth & Phenology Progression')}
+        subtitle={`${t('paddy_crop_cycle', 'Paddy Crop Cycle')} • ${t('day_progress', { current: currentDay, total: 120 })} (${t('growth_stage_vegetative', 'Vegetative Stage')})`}
         icon={<Calendar className="h-5 w-5 text-agri-green" />}
         action={
           <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-agri-green border border-green-200">
-            Day 42 / 120
+            {t('day_progress', { current: 42, total: 120 })}
           </span>
         }
       />
@@ -40,26 +44,28 @@ export const GrowthStageTimeline: React.FC<GrowthStageTimelineProps> = ({ stages
             >
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                  Day {stage.dayNumber}
+                  {t('day_number_label', { day: stage.dayNumber }, `Day ${stage.dayNumber}`)}
                 </span>
                 {isPassed && <CheckCircle2 className="h-4 w-4 text-agri-green" />}
                 {isCurrent && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-agri-green text-white">
-                    Active
+                    {t('badge_active', 'Active')}
                   </span>
                 )}
                 {!isPassed && !isCurrent && <Clock className="h-4 w-4 text-gray-400" />}
               </div>
 
-              <h4 className="text-sm font-bold text-dark-forest mt-2">{stage.stageName}</h4>
+              <h4 className="text-sm font-bold text-dark-forest mt-2">
+                {translateGrowthStage(stage.stageName, t)}
+              </h4>
 
               <div className="mt-3 pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span className="text-[10px] text-gray-400 block">Canopy Cover</span>
+                  <span className="text-[10px] text-gray-400 block">{t('canopy_cover_label', 'Canopy Cover')}</span>
                   <span className="font-semibold text-dark-forest">{stage.canopyCoverPercentage}%</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-400 block">Height</span>
+                  <span className="text-[10px] text-gray-400 block">{t('height_label', 'Height')}</span>
                   <span className="font-semibold text-dark-forest">{stage.averageHeightCm} cm</span>
                 </div>
               </div>

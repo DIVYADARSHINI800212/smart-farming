@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { FileText, Eye, Sparkles, Filter, Download, Calendar, CheckCircle2, Clock } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { MOCK_REPORTS_LIST, FarmReportCard } from '../data/reportsData';
 import { ReportPreviewModal } from '../components/reports/ReportPreviewModal';
 import { useFarmData } from '../hooks/useFarmData';
+import { useLanguage } from '../context/LanguageContext';
+import { translateReport } from '../utils/translationMapper';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const Reports: React.FC = () => {
   const farmData = useOutletContext<FarmDataContext>();
+  const { t } = useLanguage();
   const [selectedReport, setSelectedReport] = useState<FarmReportCard | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [filterCategory, setFilterCategory] = useState<string>('All');
   const [generatingReportId, setGeneratingReportId] = useState<string | null>(null);
 
-  const categories = ['All', 'Executive Summary', 'Agronomy', 'Pathology', 'Water Resource', 'Crop Protection', 'Forecasting'];
+  const categories = [
+    { key: 'All', labelKey: 'filter_all', defaultLabel: 'All' },
+    { key: 'Executive Summary', labelKey: 'category_exec_summary', defaultLabel: 'Executive Summary' },
+    { key: 'Agronomy', labelKey: 'category_agronomy', defaultLabel: 'Agronomy' },
+    { key: 'Pathology', labelKey: 'category_pathology', defaultLabel: 'Pathology' },
+    { key: 'Water Resource', labelKey: 'category_water_resource', defaultLabel: 'Water Resource' },
+    { key: 'Crop Protection', labelKey: 'category_crop_protection', defaultLabel: 'Crop Protection' },
+    { key: 'Forecasting', labelKey: 'category_forecasting', defaultLabel: 'Forecasting' },
+  ];
 
-  const filteredReports = filterCategory === 'All' 
-    ? MOCK_REPORTS_LIST 
-    : MOCK_REPORTS_LIST.filter(r => r.category === filterCategory);
+  const filteredReports = useMemo(() => {
+    const rawList = filterCategory === 'All' 
+      ? MOCK_REPORTS_LIST 
+      : MOCK_REPORTS_LIST.filter(r => r.category === filterCategory);
+    return rawList.map(r => translateReport(r, t));
+  }, [filterCategory, t]);
 
   const handleView = (report: FarmReportCard) => {
     setSelectedReport(report);
@@ -46,14 +60,14 @@ export const Reports: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                Farm Reports & Agronomic Auditing
+                {t('reports_title', 'Farm Reports & Agronomic Auditing')}
               </h1>
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
-                12 Report Types
+                {t('report_types_count', '12 Report Types')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
-              Automated compilation of field sensor telemetry, edge AI classifications, irrigation logs, and treatment records
+              {t('reports_subtitle', 'Automated compilation of field sensor telemetry, edge AI classifications, irrigation logs, and treatment records')}
             </p>
           </div>
         </div>
@@ -62,11 +76,11 @@ export const Reports: React.FC = () => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => handleGenerate(MOCK_REPORTS_LIST[0])}
+            onClick={() => handleGenerate(filteredReports[0] || MOCK_REPORTS_LIST[0])}
             icon={<Sparkles className="h-3.5 w-3.5 text-purple-600" />}
             className="text-xs"
           >
-            Generate Comprehensive Audit
+            {t('generate_comprehensive_audit', 'Generate Comprehensive Audit')}
           </Button>
         </div>
       </div>
@@ -74,19 +88,19 @@ export const Reports: React.FC = () => {
       {/* Category Filter Pills */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
         <span className="text-xs font-bold text-gray-400 flex items-center gap-1 shrink-0 pl-1 mr-1">
-          <Filter className="h-3.5 w-3.5" /> Filter:
+          <Filter className="h-3.5 w-3.5" /> {t('filter_label', 'Filter')}:
         </span>
         {categories.map((cat) => (
           <button
-            key={cat}
-            onClick={() => setFilterCategory(cat)}
+            key={cat.key}
+            onClick={() => setFilterCategory(cat.key)}
             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 ${
-              filterCategory === cat
+              filterCategory === cat.key
                 ? 'bg-deep-green text-white shadow-xs'
                 : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
             }`}
           >
-            {cat}
+            {t(cat.labelKey, cat.defaultLabel)}
           </button>
         ))}
       </div>
@@ -139,7 +153,7 @@ export const Reports: React.FC = () => {
                     icon={<Eye className="h-3.5 w-3.5 text-gray-500" />}
                     className="w-full text-xs font-semibold text-gray-700 hover:text-deep-green"
                   >
-                    View
+                    {t('view', 'View')}
                   </Button>
 
                   <Button
@@ -150,7 +164,7 @@ export const Reports: React.FC = () => {
                     icon={<Sparkles className={`h-3.5 w-3.5 ${isGenerating ? 'animate-spin' : ''}`} />}
                     className="w-full text-xs font-bold bg-agri-green"
                   >
-                    {isGenerating ? 'Compiling...' : 'Generate'}
+                    {isGenerating ? t('compiling', 'Compiling...') : t('generate', 'Generate')}
                   </Button>
                 </div>
               </div>

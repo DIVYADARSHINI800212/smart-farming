@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
+import { useTranslation } from '../../i18n';
 
 interface ZoneSelectorProps {
   selectedZone: string;
@@ -12,18 +13,20 @@ export const ZoneSelector: React.FC<ZoneSelectorProps> = ({
   onSelectZone,
   className = '',
 }) => {
+  const { t } = useTranslation();
+
   const zones = [
     {
       id: 'zone-1',
-      name: 'Zone 1 (North Field)',
-      crop: 'Paddy ADT 43 • 2.3 Acres',
-      statusNote: 'Water Stress (32%)',
+      name: t('zone_1_north_paddy', 'Zone 1 (North Field)'),
+      crop: `Paddy ADT 43 • 2.3 ${t('acres', 'Acres')}`,
+      statusNote: `${t('water_stress', 'Water Stress')} (32%)`,
     },
     {
       id: 'zone-2',
-      name: 'Zone 2 (South Field)',
-      crop: 'Paddy BPT 5204 • 2.5 Acres',
-      statusNote: 'Disease Risk (85% Hum)',
+      name: t('zone_2_south_paddy', 'Zone 2 (South Field)'),
+      crop: `Paddy BPT 5204 • 2.5 ${t('acres', 'Acres')}`,
+      statusNote: `${t('blast_risk', 'Blast Risk')} (85% Hum)`,
     },
   ];
 

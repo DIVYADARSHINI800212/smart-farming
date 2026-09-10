@@ -1,5 +1,7 @@
 import React from 'react';
 import { getStatusColor } from '../../utils/formatters';
+import { useTranslation } from '../../i18n';
+import { translateLabel } from '../../utils/translationMapper';
 
 interface StatusPillProps {
   status: string;
@@ -12,7 +14,9 @@ export const StatusPill: React.FC<StatusPillProps> = ({
   className = '', 
   pulse = true 
 }) => {
+  const { t } = useTranslation();
   const colors = getStatusColor(status);
+  const displayText = translateLabel(status, 'status', t);
 
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text} ${className}`}>
@@ -22,7 +26,7 @@ export const StatusPill: React.FC<StatusPillProps> = ({
         )}
         <span className={`relative inline-flex rounded-full h-2 w-2 ${colors.dot}`}></span>
       </span>
-      {status}
+      {displayText}
     </span>
   );
 };

@@ -360,3 +360,13 @@ export interface NodeHardwareDetail {
     loraModule: 'Active' | 'Fault';
   };
 }
+
+export interface EdgeModelSpec {
+  modelName: string;
+  format: string;
+  modelSizeMb: number;
+  inferenceTimeMs: number;
+  accuracyPct: number;
+  inputShape: string;
+  acceleration: string;
+}

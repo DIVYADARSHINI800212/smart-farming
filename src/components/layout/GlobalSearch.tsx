@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { useTranslation } from '../../i18n';
 
 interface SearchItem {
   id: string;
@@ -40,6 +41,7 @@ const SEARCH_DATABASE: SearchItem[] = [
 ];
 
 export const GlobalSearch: React.FC = () => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -83,7 +85,7 @@ export const GlobalSearch: React.FC = () => {
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
-          placeholder="Search farm, zones, diseases..."
+          placeholder={t('search_placeholder', 'Search farm, zones, diseases...')}
           className="w-full pl-9 pr-8 py-1.5 bg-gray-50 hover:bg-gray-100 focus:bg-white text-xs text-dark-forest rounded-full border border-gray-200 focus:border-agri-green focus:outline-none focus:ring-2 focus:ring-agri-green/20 transition-all placeholder:text-gray-400"
         />
         {query && (
@@ -99,13 +101,13 @@ export const GlobalSearch: React.FC = () => {
       {isOpen && query.trim().length > 0 && (
         <div className="absolute top-full mt-2 left-0 right-0 bg-white rounded-2xl shadow-xl border border-gray-200 z-50 p-2 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
           <div className="px-3 py-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between">
-            <span>Matching Results ({filteredResults.length})</span>
-            <span className="flex items-center gap-1"><CornerDownLeft className="h-2.5 w-2.5" /> to select</span>
+            <span>{t('search_matching_results', 'Matching Results')} ({filteredResults.length})</span>
+            <span className="flex items-center gap-1"><CornerDownLeft className="h-2.5 w-2.5" /> {t('search_to_select', 'to select')}</span>
           </div>
 
           {filteredResults.length === 0 ? (
             <div className="p-4 text-center text-xs text-gray-400">
-              No results for "{query}". Try "Zone 2", "Blast", "Reports", "Timing"...
+              {t('search_no_results', 'No results for')} "{query}". {t('search_try_hint', 'Try "Zone 2", "Blast", "Reports", "Timing"...')}
             </div>
           ) : (
             <div className="space-y-1">

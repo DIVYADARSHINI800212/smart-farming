@@ -13,20 +13,24 @@ import {
 import { Card, CardHeader } from '../ui/Card';
 import { Bug } from 'lucide-react';
 
+import { useTranslation } from '../../context/LanguageContext';
+
 interface PestPopulationChartProps {
   data: Array<{ day: string; mothCountPerAcre: number; etlThreshold: number; damagedLeavesPct: number }>;
 }
 
 export const PestPopulationChart: React.FC<PestPopulationChartProps> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader
-        title="Pest Population Dynamics & Trap Counts"
-        subtitle="14-day flight monitoring curve vs Economic Threshold Level"
+        title={t('pest_dynamics_title', 'Pest Population Dynamics & Trap Counts')}
+        subtitle={t('pest_curve_desc', '14-day flight monitoring curve vs Economic Threshold Level')}
         icon={<Bug className="h-5 w-5 text-warning-amber" />}
         action={
           <span className="text-xs font-semibold text-yellow-800 bg-amber-100 px-2.5 py-1 rounded-full border border-amber-300">
-            Above ETL Threshold
+            {t('above_etl_threshold', 'Above ETL Threshold')}
           </span>
         }
       />
@@ -52,7 +56,7 @@ export const PestPopulationChart: React.FC<PestPopulationChartProps> = ({ data }
             <Line
               type="monotone"
               dataKey="mothCountPerAcre"
-              name="Adult Moth Count / Acre"
+              name={t('adult_moth_count_acre', 'Adult Moth Count / Acre')}
               stroke="#F4B942"
               strokeWidth={2.5}
               dot={{ r: 3, fill: '#F4B942' }}
@@ -60,7 +64,7 @@ export const PestPopulationChart: React.FC<PestPopulationChartProps> = ({ data }
             <Line
               type="monotone"
               dataKey="damagedLeavesPct"
-              name="Folded Leaves (% Damage)"
+              name={t('folded_leaves_damage', 'Folded Leaves (% Damage)')}
               stroke="#8C5832"
               strokeWidth={2}
               strokeDasharray="4 4"
@@ -71,8 +75,8 @@ export const PestPopulationChart: React.FC<PestPopulationChartProps> = ({ data }
       </div>
 
       <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-        <span>Sensor: <strong>Automated Solar Light Trap (Unit 1)</strong></span>
-        <span className="text-yellow-800 font-semibold">Peak flight occurred Day 0</span>
+        <span>{t('sensor_label', 'Sensor:')} <strong>{t('automated_solar_trap', 'Automated Solar Light Trap (Unit 1)')}</strong></span>
+        <span className="text-yellow-800 font-semibold">{t('peak_flight_day0', 'Peak flight occurred Day 0')}</span>
       </div>
     </Card>
   );

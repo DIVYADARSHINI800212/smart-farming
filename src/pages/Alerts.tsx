@@ -6,11 +6,13 @@ import { AlertFilterBar } from '../components/alerts/AlertFilterBar';
 import { AlertHistoryLog } from '../components/alerts/AlertHistoryLog';
 import { AlertCategory, AlertStatus, SeverityLevel } from '../types';
 import { useFarmData } from '../hooks/useFarmData';
+import { useLanguage } from '../context/LanguageContext';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const Alerts: React.FC = () => {
   const { alerts, acknowledgeAlert, resolveAlert } = useOutletContext<FarmDataContext>();
+  const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSeverity, setSelectedSeverity] = useState<SeverityLevel | 'ALL'>('ALL');
@@ -70,10 +72,10 @@ export const Alerts: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl font-black text-deep-green tracking-tight">
-              Alerts & Incident Notifications
+              {t('alerts_title', 'Alerts & Incident Notifications')}
             </h1>
             <p className="text-xs text-gray-500 mt-0.5">
-              Consolidated, severity-ranked real-time alerts across disease, pest, irrigation & climate
+              {t('alerts_subtitle', 'Consolidated, severity-ranked real-time alerts across disease, pest, irrigation & climate')}
             </p>
           </div>
         </div>
@@ -81,13 +83,13 @@ export const Alerts: React.FC = () => {
         {/* Status Metrics Badges */}
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-danger-red/10 text-danger-red border border-danger-red/20">
-            {criticalCount} Critical
+            {criticalCount} {t('badge_critical', 'Critical')}
           </span>
           <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-100 text-yellow-800 border border-amber-200">
-            {highCount} High Priority
+            {highCount} {t('high_priority', 'High Priority')}
           </span>
           <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-green-100 text-agri-green border border-green-200">
-            {activeCount} Active Total
+            {activeCount} {t('active_total', 'Active Total')}
           </span>
         </div>
       </div>
@@ -109,25 +111,25 @@ export const Alerts: React.FC = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-bold uppercase tracking-wider text-gray-500">
-            Filtered Alerts ({filteredAlerts.length})
+            {t('filtered_alerts', 'Filtered Alerts')} ({filteredAlerts.length})
           </h2>
           <span className="text-xs text-gray-400">
-            Real-time synchronization with Edge AI Gateway
+            {t('realtime_sync_edge', 'Real-time synchronization with Edge AI Gateway')}
           </span>
         </div>
 
         {filteredAlerts.length === 0 ? (
           <div className="p-12 text-center bg-white rounded-2xl border border-gray-200">
             <CheckCircle2 className="h-12 w-12 text-agri-green mx-auto mb-3 opacity-80" />
-            <h3 className="text-base font-bold text-deep-green">No Alerts Found</h3>
+            <h3 className="text-base font-bold text-deep-green">{t('no_alerts_found', 'No Alerts Found')}</h3>
             <p className="text-xs text-gray-500 mt-1 max-w-sm mx-auto">
-              There are no alerts matching the selected severity, category, or search criteria.
+              {t('no_alerts_desc', 'There are no alerts matching the selected severity, category, or search criteria.')}
             </p>
             <button
               onClick={handleResetFilters}
               className="mt-4 text-xs font-semibold text-agri-green hover:underline"
             >
-              Clear All Filters
+              {t('btn_clear_all_filters', 'Clear All Filters')}
             </button>
           </div>
         ) : (

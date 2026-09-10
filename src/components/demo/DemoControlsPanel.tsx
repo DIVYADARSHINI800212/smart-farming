@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sliders, RefreshCw, CheckCircle2, AlertTriangle, CloudRain, Bug, Droplets, Sparkles } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { DemoPreset, useFarmData } from '../../hooks/useFarmData';
+import { useTranslation } from '../../i18n';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
@@ -10,6 +11,7 @@ interface DemoControlsPanelProps {
 }
 
 export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }) => {
+  const { t } = useTranslation();
   const { zones, activePreset, applyPreset, updateZoneReading } = farmData;
   const z2 = zones.find(z => z.zoneId === 'zone-2') || zones[1] || zones[0];
 
@@ -49,14 +51,14 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-base font-bold text-deep-green tracking-tight">
-                Live Demo Controls & Scenario Simulator
+                {t('live_demo_controls', 'Live Demo Controls & Scenario Simulator')}
               </h3>
               <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
                 SIH Jury Tool
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
-              Instantly toggle farm conditions and adjust live parameters across all pages
+              {t('live_demo_sub', 'Instantly toggle farm conditions and adjust live parameters across all pages')}
             </p>
           </div>
         </div>
@@ -64,7 +66,7 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
         {savedFeedback && (
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-50 border border-green-200 text-xs font-semibold text-agri-green animate-in fade-in">
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Configuration saved locally for demo</span>
+            <span>{t('config_saved_demo', 'Configuration saved locally for demo')}</span>
           </div>
         )}
       </div>
@@ -72,7 +74,7 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
       {/* Preset Buttons Grid */}
       <div className="space-y-2">
         <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block">
-          Preset Demonstrations
+          {t('preset_demonstrations', 'Preset Demonstrations')}
         </span>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {presets.map((preset) => {
@@ -113,10 +115,10 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
       <div className="pt-2 border-t border-gray-100 space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
-            Fine-Tune Simulated Telemetry (Zone 2)
+            {t('finetune_simulated_telemetry', 'Fine-Tune Simulated Telemetry (Zone 2)')}
           </span>
           <span className="text-[11px] text-gray-500">
-            Real-time update across dashboard & graphs
+            {t('realtime_update_dashboard', 'Real-time update across dashboard & graphs')}
           </span>
         </div>
 
@@ -124,7 +126,7 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
           {/* Soil Moisture Slider */}
           <div className="space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-100">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-gray-600">Soil Moisture</span>
+              <span className="font-semibold text-gray-600">{t('soil_moisture_label', 'Soil Moisture')}</span>
               <span className="font-black text-deep-green">{z2.currentReading.soilMoisture}%</span>
             </div>
             <input
@@ -137,15 +139,15 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
               className="w-full accent-agri-green h-1.5 bg-gray-200 rounded-lg cursor-pointer"
             />
             <div className="flex justify-between text-[9px] text-gray-400">
-              <span>Dry (10%)</span>
-              <span>Saturated (90%)</span>
+              <span>{t('dry_10', 'Dry (10%)')}</span>
+              <span>{t('saturated_90', 'Saturated (90%)')}</span>
             </div>
           </div>
 
           {/* Temperature Slider */}
           <div className="space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-100">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-gray-600">Canopy Temperature</span>
+              <span className="font-semibold text-gray-600">{t('canopy_temp_label', 'Canopy Temperature')}</span>
               <span className="font-black text-deep-green">{z2.currentReading.temperature}°C</span>
             </div>
             <input
@@ -158,15 +160,15 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
               className="w-full accent-agri-green h-1.5 bg-gray-200 rounded-lg cursor-pointer"
             />
             <div className="flex justify-between text-[9px] text-gray-400">
-              <span>Cool (18°C)</span>
-              <span>Extreme (42°C)</span>
+              <span>{t('cool_18', 'Cool (18°C)')}</span>
+              <span>{t('extreme_42', 'Extreme (42°C)')}</span>
             </div>
           </div>
 
           {/* Humidity Slider */}
           <div className="space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-100">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-gray-600">Relative Humidity</span>
+              <span className="font-semibold text-gray-600">{t('relative_humidity', 'Relative Humidity')}</span>
               <span className="font-black text-deep-green">{z2.currentReading.humidity}%</span>
             </div>
             <input
@@ -179,15 +181,15 @@ export const DemoControlsPanel: React.FC<DemoControlsPanelProps> = ({ farmData }
               className="w-full accent-agri-green h-1.5 bg-gray-200 rounded-lg cursor-pointer"
             />
             <div className="flex justify-between text-[9px] text-gray-400">
-              <span>Dry (30%)</span>
-              <span>Humid (100%)</span>
+              <span>{t('dry_30', 'Dry (30%)')}</span>
+              <span>{t('humid_100', 'Humid (100%)')}</span>
             </div>
           </div>
 
           {/* Rainfall Slider */}
           <div className="space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-100">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-gray-600">Recent Rainfall</span>
+              <span className="font-semibold text-gray-600">{t('recent_rainfall_label', 'Recent Rainfall')}</span>
               <span className="font-black text-deep-green">{z2.currentReading.rainfall} mm</span>
             </div>
             <input

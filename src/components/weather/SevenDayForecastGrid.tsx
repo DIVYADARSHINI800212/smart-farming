@@ -2,12 +2,16 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { DailyForecastItem } from '../../types';
 import { Sun, CloudSun, CloudRain, Droplets, Calendar } from 'lucide-react';
+import { useTranslation } from '../../context/LanguageContext';
+import { translateLabel } from '../../utils/translationMapper';
 
 interface SevenDayForecastGridProps {
   daily: DailyForecastItem[];
 }
 
 export const SevenDayForecastGrid: React.FC<SevenDayForecastGridProps> = ({ daily }) => {
+  const { t } = useTranslation();
+
   const getConditionIcon = (condition: string) => {
     switch (condition.toLowerCase()) {
       case 'sunny':
@@ -33,9 +37,9 @@ export const SevenDayForecastGrid: React.FC<SevenDayForecastGridProps> = ({ dail
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Calendar className="w-5 h-5 text-agri-green" />
-          <h3 className="text-base font-semibold text-agri-dark">7-Day Agricultural Outlook</h3>
+          <h3 className="text-base font-semibold text-agri-dark">{t('seven_day_outlook', '7-Day Agricultural Outlook')}</h3>
         </div>
-        <span className="text-xs text-agri-muted">Updated 25 mins ago</span>
+        <span className="text-xs text-agri-muted">{t('updated_25_mins_ago', 'Updated 25 mins ago')}</span>
       </div>
 
       <div className="space-y-3">
@@ -62,7 +66,7 @@ export const SevenDayForecastGrid: React.FC<SevenDayForecastGridProps> = ({ dail
                     {item.day}
                     {idx === 0 && (
                       <span className="text-[10px] bg-agri-green/10 text-agri-green font-bold px-1.5 py-0.5 rounded">
-                        Today
+                        {t('today', 'Today')}
                       </span>
                     )}
                   </div>
@@ -71,20 +75,20 @@ export const SevenDayForecastGrid: React.FC<SevenDayForecastGridProps> = ({ dail
               </div>
 
               <div className="text-xs text-agri-muted sm:w-44">
-                <span className="text-agri-dark font-medium block">{item.condition}</span>
+                <span className="text-agri-dark font-medium block">{translateLabel(item.condition, 'weather', t)}</span>
                 {item.expectedRainMm > 0 ? (
                   <span className="text-[11px] text-blue-600 font-medium">
-                    {item.expectedRainMm} mm expected
+                    {item.expectedRainMm} mm {t('expected_label', 'expected')}
                   </span>
                 ) : (
-                  <span className="text-[11px] text-slate-400">0 mm precipitation</span>
+                  <span className="text-[11px] text-slate-400">0 mm {t('precipitation_label', 'precipitation')}</span>
                 )}
               </div>
 
               <div className="flex items-center gap-2 sm:w-28 text-xs">
                 <Droplets className="w-3.5 h-3.5 text-blue-500" />
                 <span className="font-semibold text-agri-dark">{item.rainProb}%</span>
-                <span className="text-[10px] text-slate-400">rain</span>
+                <span className="text-[10px] text-slate-400">{t('rain_unit', 'rain')}</span>
               </div>
 
               {/* Min - Max Range Bar */}

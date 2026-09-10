@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, CheckCheck, ExternalLink, AlertTriangle, ShieldAlert, Droplets, SunMedium, BatteryCharging } from 'lucide-react';
 import { AppNotification } from '../../hooks/useFarmData';
+import { useTranslation } from '../../i18n';
 
 interface NotificationPanelProps {
   notifications: AppNotification[];
@@ -14,6 +15,7 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
   onMarkAsRead,
   onMarkAllAsRead,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -62,7 +64,7 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative p-2 rounded-xl text-gray-600 hover:text-deep-green hover:bg-gray-100 border border-gray-200 transition-colors"
-        title="Field Notifications & Alerts"
+        title={t('telemetry_notifications', 'Field Notifications & Alerts')}
         aria-label="Notifications"
       >
         <Bell className="h-4 w-4" />
@@ -77,10 +79,10 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
         <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 p-4 animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="flex items-center justify-between pb-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
-              <h4 className="font-bold text-sm text-deep-green">Telemetry Notifications</h4>
+              <h4 className="font-bold text-sm text-deep-green">{t('telemetry_notifications', 'Telemetry Notifications')}</h4>
               {unreadCount > 0 && (
                 <span className="text-[10px] bg-danger-red/10 text-danger-red font-bold px-2 py-0.5 rounded-full">
-                  {unreadCount} New
+                  {unreadCount} {t('new_badge', 'New')}
                 </span>
               )}
             </div>
@@ -89,7 +91,7 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
                 onClick={onMarkAllAsRead}
                 className="text-[11px] text-agri-green hover:underline flex items-center gap-1 font-semibold"
               >
-                <CheckCheck className="h-3 w-3" /> Mark all read
+                <CheckCheck className="h-3 w-3" /> {t('mark_all_read', 'Mark all read')}
               </button>
             )}
           </div>
@@ -107,7 +109,7 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
                   <div className="flex items-center gap-1.5">
                     {getIcon(n.title)}
                     <span className={`text-[9px] font-extrabold px-1.5 py-0.2 rounded-full border ${getSeverityStyle(n.severity)}`}>
-                      {n.severity} • {n.zone}
+                      {t(`badge_${n.severity.toLowerCase()}`, n.severity)} • {n.zone}
                     </span>
                   </div>
                   <span className="text-[10px] text-gray-400 font-medium">{n.timestamp}</span>
@@ -122,7 +124,7 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
 
                 <div className="pt-0.5 flex items-center justify-between text-[10px]">
                   <span className="text-agri-green font-semibold flex items-center gap-1">
-                    Take Action <ExternalLink className="h-2.5 w-2.5" />
+                    {t('take_action', 'Take Action')} <ExternalLink className="h-2.5 w-2.5" />
                   </span>
                   {!n.read && (
                     <span className="h-1.5 w-1.5 rounded-full bg-agri-green"></span>
@@ -138,9 +140,9 @@ export const NotificationPanel: React.FC<NotificationPanelProps> = ({
               onClick={() => setIsOpen(false)}
               className="text-xs text-agri-green font-bold hover:underline flex items-center gap-1"
             >
-              View All Alerts & Logs <ExternalLink className="h-3 w-3" />
+              {t('view_all_alerts_logs', 'View All Alerts & Logs')} <ExternalLink className="h-3 w-3" />
             </Link>
-            <span className="text-[10px] text-gray-400">SIH Edge Gateway</span>
+            <span className="text-[10px] text-gray-400">{t('sih_edge_gateway', 'SIH Edge Gateway')}</span>
           </div>
         </div>
       )}

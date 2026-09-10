@@ -1,6 +1,7 @@
 import React from 'react';
 import { Search, Filter, X } from 'lucide-react';
 import { AlertCategory, AlertStatus, SeverityLevel } from '../../types';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface AlertFilterBarProps {
   searchQuery: string;
@@ -25,6 +26,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
   onStatusChange,
   onReset,
 }) => {
+  const { t } = useLanguage();
   const severities: Array<SeverityLevel | 'ALL'> = ['ALL', 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
   const categories: Array<AlertCategory | 'ALL'> = [
     'ALL',
@@ -49,7 +51,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Search alerts by keyword, zone, or diagnosis..."
+            placeholder={t('search_alerts_placeholder', 'Search alerts by keyword, zone, or diagnosis...')}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-agri-green/30"
@@ -76,7 +78,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
                   : 'text-gray-600 hover:text-dark-forest'
               }`}
             >
-              {status === 'ALL' ? 'All Status' : status}
+              {status === 'ALL' ? t('all_status', 'All Status') : t('badge_' + status.toLowerCase(), status)}
             </button>
           ))}
         </div>
@@ -84,7 +86,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
 
       {/* Second row: Severity Badges */}
       <div className="flex flex-wrap items-center gap-2 pt-1">
-        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">Severity:</span>
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">{t('severity_filter_label', 'Severity:')}</span>
         {severities.map((sev) => (
           <button
             key={sev}
@@ -99,7 +101,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
                 : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
             }`}
           >
-            {sev === 'ALL' ? 'All Severities' : sev}
+            {sev === 'ALL' ? t('all_severities', 'All Severities') : sev}
           </button>
         ))}
 
@@ -108,14 +110,14 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
             onClick={onReset}
             className="ml-auto text-xs font-semibold text-danger-red hover:underline flex items-center gap-1"
           >
-            <X className="h-3 w-3" /> Reset Filters
+            <X className="h-3 w-3" /> {t('btn_reset_filters', 'Reset Filters')}
           </button>
         )}
       </div>
 
       {/* Third row: Category Badges */}
       <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-gray-100">
-        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">Category:</span>
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">{t('category_filter_label', 'Category:')}</span>
         {categories.map((cat) => (
           <button
             key={cat}
@@ -126,7 +128,7 @@ export const AlertFilterBar: React.FC<AlertFilterBarProps> = ({
                 : 'text-gray-600 hover:bg-gray-100 border border-transparent'
             }`}
           >
-            {cat}
+            {cat === 'ALL' ? t('cat_all', 'ALL') : t('cat_' + cat.toLowerCase().replace(/\s+/g, '_'), cat)}
           </button>
         ))}
       </div>

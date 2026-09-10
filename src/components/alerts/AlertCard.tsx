@@ -17,6 +17,7 @@ import {
 import { Alert, AlertCategory, SeverityLevel } from '../../types';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface AlertCardProps {
   alert: Alert;
@@ -46,8 +47,14 @@ const getCategoryIcon = (category: AlertCategory) => {
 };
 
 export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onResolve }) => {
+  const { t } = useLanguage();
   const isCritical = alert.severity === 'CRITICAL';
   const isHigh = alert.severity === 'HIGH';
+
+  const normId = alert.id.replace('-', '_');
+  const alertTitle = t(`alt_${normId}_title`, alert.title);
+  const alertMessage = t(`alt_${normId}_msg`, alert.message);
+  const alertAction = alert.recommendedAction ? t(`alt_${normId}_action`, alert.recommendedAction) : alert.recommendedAction;
 
   return (
     <div 
@@ -70,15 +77,15 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
             <div className="flex flex-wrap items-center gap-2">
               <Badge severity={alert.severity}>{alert.severity}</Badge>
               <span className="text-xs font-bold text-deep-green bg-cream px-2.5 py-0.5 rounded-full border border-gray-200">
-                {alert.category}
+                {t('cat_' + alert.category.toLowerCase().replace(/\s+/g, '_'), alert.category)}
               </span>
               <span className="text-xs font-semibold text-gray-600 flex items-center gap-1">
                 <MapPin className="h-3 w-3 text-agri-green" /> {alert.zoneName}
               </span>
             </div>
 
-            <h3 className="text-base font-bold text-dark-forest mt-1.5">{alert.title}</h3>
-            <p className="text-xs sm:text-sm text-gray-600 mt-1 leading-relaxed">{alert.message}</p>
+            <h3 className="text-base font-bold text-dark-forest mt-1.5">{alertTitle}</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mt-1 leading-relaxed">{alertMessage}</p>
           </div>
         </div>
 
@@ -92,7 +99,7 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
             alert.status === 'Acknowledged' ? 'bg-amber-100 text-yellow-800' :
             'bg-green-100 text-agri-green'
           }`}>
-            {alert.status}
+            {t('badge_' + alert.status.toLowerCase(), alert.status)}
           </span>
         </div>
       </div>
@@ -100,12 +107,12 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
       {/* Recommended Action Box */}
       <div className="mt-4 p-3 bg-white rounded-xl border border-gray-200/80 text-xs text-dark-forest space-y-1">
         <div className="flex items-center gap-1.5 font-bold text-deep-green">
-          <Sparkles className="h-3.5 w-3.5 text-agri-green" /> Recommended Action:
+          <Sparkles className="h-3.5 w-3.5 text-agri-green" /> {t('recommended_action', 'Recommended Action:')}
         </div>
-        <p className="text-gray-600 pl-5 leading-relaxed">{alert.recommendedAction}</p>
+        <p className="text-gray-600 pl-5 leading-relaxed">{alertAction}</p>
         {alert.metricImpact && (
           <div className="pl-5 pt-1 text-[11px] text-gray-400 font-medium">
-            Telemetry Trigger: {alert.metricImpact}
+            {t('telemetry_trigger', 'Telemetry Trigger:')} {alert.metricImpact}
           </div>
         )}
       </div>
@@ -113,7 +120,7 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
       {/* Action Buttons */}
       <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2">
         <div className="text-[11px] text-gray-400">
-          Alert ID: <strong>{alert.id}</strong> • Edge Rule #482
+          {t('alert_id_label', 'Alert ID:')} <strong>{alert.id}</strong> • {t('edge_rule', 'Edge Rule')} #482
         </div>
 
         <div className="flex items-center gap-2">
@@ -124,7 +131,7 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
               onClick={() => onAcknowledge(alert.id)}
               icon={<CheckCircle2 className="h-3.5 w-3.5 text-amber-600" />}
             >
-              Acknowledge
+              {t('btn_acknowledge', 'Acknowledge')}
             </Button>
           )}
           {alert.status !== 'Resolved' && (
@@ -134,12 +141,12 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert, onAcknowledge, onRe
               onClick={() => onResolve(alert.id)}
               icon={<ShieldCheck className="h-3.5 w-3.5" />}
             >
-              Mark as Resolved
+              {t('btn_resolve', 'Mark as Resolved')}
             </Button>
           )}
           {alert.status === 'Resolved' && (
             <span className="text-xs text-agri-green font-semibold flex items-center gap-1">
-              <CheckCircle2 className="h-4 w-4" /> Incident Resolved
+              <CheckCircle2 className="h-4 w-4" /> {t('incident_resolved', 'Incident Resolved')}
             </span>
           )}
         </div>

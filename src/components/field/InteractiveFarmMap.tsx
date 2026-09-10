@@ -5,6 +5,8 @@ import { Layers, Radio, AlertTriangle, Droplets, Maximize2 } from 'lucide-react'
 import { Card, CardHeader } from '../ui/Card';
 import { StatusPill } from '../ui/StatusPill';
 import { SensorNode, Zone } from '../../types';
+import { useTranslation } from '../../i18n';
+import { translateLabel, translateCropVariety } from '../../utils/translationMapper';
 
 interface InteractiveFarmMapProps {
   zones: Zone[];
@@ -40,12 +42,25 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
   selectedZoneId,
   onSelectZone,
 }) => {
+  const { t } = useTranslation();
   const [mapType, setMapType] = useState<'standard' | 'satellite'>('standard');
   const center: [number, number] = [10.7870, 79.1396]; // Thanjavur agro coordinates
 
   const tileUrl = mapType === 'standard'
     ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     : 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+  const getTranslatedZoneShort = (zone: Zone) => {
+    if (zone.zoneId === 'zone-1') return t('zone_1_label', 'Zone 1');
+    if (zone.zoneId === 'zone-2') return t('zone_2_label', 'Zone 2');
+    return zone.name.split('—')[0].trim();
+  };
+
+  const getTranslatedZoneFullName = (zone: Zone) => {
+    if (zone.zoneId === 'zone-1') return t('zone_1_north_paddy', zone.name);
+    if (zone.zoneId === 'zone-2') return t('zone_2_south_paddy', zone.name);
+    return zone.name;
+  };
 
   return (
     <Card className="p-0 overflow-hidden border-soft-green/40">
@@ -57,10 +72,10 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
           </div>
           <div>
             <h3 className="text-base font-bold text-deep-green tracking-tight">
-              Interactive Farm GIS Telemetry Map
+              {t('map_gis_title', 'Interactive Farm GIS Telemetry Map')}
             </h3>
             <p className="text-xs text-gray-500">
-              Polygon zone risk overlays & GPS-positioned LoRa nodes
+              {t('map_gis_subtitle', 'Polygon zone risk overlays & GPS-positioned LoRa nodes')}
             </p>
           </div>
         </div>
@@ -79,7 +94,7 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
                     : 'text-gray-600 hover:text-dark-forest'
                 }`}
               >
-                {z.name.split('—')[0].trim()}
+                {getTranslatedZoneShort(z)}
               </button>
             ))}
           </div>
@@ -89,7 +104,7 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
             onClick={() => setMapType(mapType === 'standard' ? 'satellite' : 'standard')}
             className="px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 transition-colors"
           >
-            {mapType === 'standard' ? '🛰️ Satellite' : '🗺️ Vector Map'}
+            {mapType === 'standard' ? `🛰️ ${t('satellite_view', 'Satellite')}` : `🗺️ ${t('vector_map', 'Vector Map')}`}
           </button>
         </div>
       </div>
@@ -133,23 +148,25 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
                 <Popup>
                   <div className="p-1 space-y-2 min-w-[220px]">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-xs text-deep-green">{zone.name}</span>
+                      <span className="font-bold text-xs text-deep-green">{getTranslatedZoneFullName(zone)}</span>
                       <StatusPill status={zone.status} pulse={false} />
                     </div>
-                    <p className="text-[11px] text-gray-500">{zone.cropType} • {zone.areaAcres} Acres</p>
+                    <p className="text-[11px] text-gray-500">
+                      {translateCropVariety(zone.cropType, t)} • {zone.areaAcres} {t('acres', 'Acres')}
+                    </p>
                     <div className="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-gray-100 text-[11px]">
-                      <div>Health: <strong className="text-agri-green">{100 - zone.riskScore}%</strong></div>
-                      <div>Moisture: <strong>{zone.currentReading.soilMoisture}%</strong></div>
-                      <div>Disease Risk: <strong className={zone.status === 'Disease Risk' ? 'text-danger-red' : 'text-gray-700'}>{zone.status === 'Disease Risk' ? 'High (Blast 82%)' : 'Low (8%)'}</strong></div>
-                      <div>Pest Risk: <strong className={zone.pestDistribution[0].percentage > 50 ? 'text-yellow-700' : 'text-gray-700'}>{zone.pestDistribution[0].label} ({zone.pestDistribution[0].percentage}%)</strong></div>
-                      <div>Temp / Humidity: <strong>{zone.currentReading.temperature}°C / {zone.currentReading.humidity}%</strong></div>
-                      <div>Last Update: <strong>{zone.currentReading.timestamp}</strong></div>
+                      <div>{t('health_score', 'Health')}: <strong className="text-agri-green">{100 - zone.riskScore}%</strong></div>
+                      <div>{t('soil_moisture', 'Moisture')}: <strong>{zone.currentReading.soilMoisture}%</strong></div>
+                      <div>{t('status_disease_risk', 'Disease Risk')}: <strong className={zone.status === 'Disease Risk' ? 'text-danger-red' : 'text-gray-700'}>{zone.status === 'Disease Risk' ? `${t('risk_high', 'High')} (${t('disease_blast', 'Blast')} 82%)` : `${t('risk_low', 'Low')} (8%)`}</strong></div>
+                      <div>{t('nav_pest_detection', 'Pest Risk')}: <strong className={zone.pestDistribution[0].percentage > 50 ? 'text-yellow-700' : 'text-gray-700'}>{translateLabel(zone.pestDistribution[0].label, 'pest', t)} ({zone.pestDistribution[0].percentage}%)</strong></div>
+                      <div>{t('ambient_temp', 'Temp')} / {t('relative_humidity', 'Humidity')}: <strong>{zone.currentReading.temperature}°C / {zone.currentReading.humidity}%</strong></div>
+                      <div>{t('last_sync_label', 'Last Update')}: <strong>{zone.currentReading.timestamp}</strong></div>
                     </div>
                     <button
                       onClick={() => onSelectZone(zone.zoneId)}
                       className="w-full mt-1 py-1 px-2 text-center text-[10px] font-bold text-white bg-agri-green hover:bg-green-700 rounded-lg transition-colors shadow-2xs"
                     >
-                      Open Zone Details
+                      {t('open_zone_details', 'Open Zone Details')}
                     </button>
                   </div>
                 </Popup>
@@ -171,10 +188,10 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
                     {node.name}
                   </div>
                   <div className="text-[11px] text-gray-600">
-                    <div>Status: <strong className="text-agri-green">{node.status}</strong></div>
-                    <div>Battery: <strong>{node.batteryPercentage}% (Solar)</strong></div>
+                    <div>{t('status_label', 'Status')}: <strong className="text-agri-green">{translateLabel(node.status, 'status', t)}</strong></div>
+                    <div>{t('battery_label', 'Battery')}: <strong>{node.batteryPercentage}% ({t('solar_harvester', 'Solar')})</strong></div>
                     <div>LoRa RSSI: <strong>{node.signalStrengthDbm} dBm</strong></div>
-                    <div>Last Sync: <strong>{node.lastSeen}</strong></div>
+                    <div>{t('last_seen_label', 'Last Sync')}: <strong>{node.lastSeen}</strong></div>
                   </div>
                 </div>
               </Popup>
@@ -185,24 +202,24 @@ export const InteractiveFarmMap: React.FC<InteractiveFarmMapProps> = ({
         {/* Legend Overlay on Map */}
         <div className="absolute bottom-4 left-4 z-[400] bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-xl shadow-lg border border-gray-200 text-xs space-y-1.5">
           <div className="font-bold text-deep-green text-[11px] uppercase tracking-wide">
-            GIS Layer Legend
+            {t('gis_layer_legend', 'GIS Layer Legend')}
           </div>
           <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded bg-emerald-500 border border-emerald-700"></span>
-              <span>Healthy</span>
+              <span>{t('legend_healthy', 'Healthy')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded bg-amber-400 border border-amber-600"></span>
-              <span>Watch</span>
+              <span>{t('legend_watch', 'Watch')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded bg-red-500 border border-red-700"></span>
-              <span>High Risk</span>
+              <span>{t('legend_high_risk', 'High Risk')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span>📡</span>
-              <span>IoT Node</span>
+              <span>{t('legend_iot_node', 'IoT Node')}</span>
             </div>
           </div>
         </div>

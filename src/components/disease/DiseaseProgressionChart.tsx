@@ -12,16 +12,20 @@ import {
 import { Card, CardHeader } from '../ui/Card';
 import { TrendingUp } from 'lucide-react';
 
+import { useTranslation } from '../../context/LanguageContext';
+
 interface DiseaseProgressionChartProps {
   data: Array<{ day: string; untreatedProgression: number; withIntervention: number; blastRiskIndex: number }>;
 }
 
 export const DiseaseProgressionChart: React.FC<DiseaseProgressionChartProps> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader
-        title="Epidemic Progression Projection (Untreated vs Controlled)"
-        subtitle="Canopy lesion area expansion dynamics over 14 days"
+        title={t('epidemic_progression_title', 'Epidemic Progression Projection (Untreated vs Controlled)')}
+        subtitle={t('epidemic_progression_desc', 'Canopy lesion area expansion dynamics over 14 days')}
         icon={<TrendingUp className="h-5 w-5 text-danger-red" />}
       />
 
@@ -43,7 +47,7 @@ export const DiseaseProgressionChart: React.FC<DiseaseProgressionChartProps> = (
             <Line
               type="monotone"
               dataKey="untreatedProgression"
-              name="Untreated Foliar Spread (% Area)"
+              name={t('untreated_foliar_spread', 'Untreated Foliar Spread (% Area)')}
               stroke="#D9534F"
               strokeWidth={2.5}
               strokeDasharray="4 4"
@@ -52,7 +56,7 @@ export const DiseaseProgressionChart: React.FC<DiseaseProgressionChartProps> = (
             <Line
               type="monotone"
               dataKey="withIntervention"
-              name="With Prescribed Treatment (% Area)"
+              name={t('prescribed_treatment_spread', 'With Prescribed Treatment (% Area)')}
               stroke="#2E7D32"
               strokeWidth={2.5}
               dot={{ r: 3, fill: '#2E7D32' }}
@@ -62,8 +66,8 @@ export const DiseaseProgressionChart: React.FC<DiseaseProgressionChartProps> = (
       </div>
 
       <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-        <span>Model: <strong>SEIR Epidemiological Simulator</strong></span>
-        <span className="text-agri-green font-semibold">Intervention saves ~78% canopy surface</span>
+        <span>{t('model_label', 'Model:')} <strong>{t('seir_simulator_badge', 'SEIR Epidemiological Simulator')}</strong></span>
+        <span className="text-agri-green font-semibold">{t('intervention_saves_canopy', 'Intervention saves ~78% canopy surface')}</span>
       </div>
     </Card>
   );

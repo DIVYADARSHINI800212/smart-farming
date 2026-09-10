@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { ScanEye, Camera, History, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ScanEye, History } from 'lucide-react';
 import { ZoneSelector } from '../components/ui/ZoneSelector';
 import { ImageUploader } from '../components/vision/ImageUploader';
 import { PreprocessingPipeline } from '../components/vision/PreprocessingPipeline';
@@ -13,11 +13,13 @@ import {
   SampleImageOption,
 } from '../data/aiVisionData';
 import { useFarmData } from '../hooks/useFarmData';
+import { useTranslation } from '../i18n';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const AIVision: React.FC = () => {
   const { zones } = useOutletContext<FarmDataContext>();
+  const { t } = useTranslation();
 
   const [selectedZone, setSelectedZone] = useState<string>('zone-1');
   const [selectedImage, setSelectedImage] = useState<string | null>(mockSampleImages[0].thumbnailUrl);
@@ -33,7 +35,6 @@ export const AIVision: React.FC = () => {
   };
 
   const handleTriggerCamera = () => {
-    // Select the second sample (pest) as simulated camera snap
     const nextSample = mockSampleImages[1];
     setSelectedImage(nextSample.thumbnailUrl);
     setSelectedSample(nextSample);
@@ -46,13 +47,12 @@ export const AIVision: React.FC = () => {
       setIsAnalyzing(false);
       setHasAnalyzed(true);
 
-      // Add to history if new
       if (selectedSample) {
         const newHistoryItem = {
           id: `det-${Date.now().toString().slice(-3)}`,
           zoneId: selectedZone,
           imageUrl: selectedSample.thumbnailUrl,
-          timestamp: 'Just now',
+          timestamp: t('today', 'Just now'),
           detectedClass: selectedSample.simulatedClass,
           confidence: selectedSample.simulatedConfidence,
           severity: selectedSample.simulatedSeverity,
@@ -80,17 +80,17 @@ export const AIVision: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl font-black text-deep-green tracking-tight">
-              AI Vision & Foliar Macro Inspection
+              {t('ai_vision_title', 'AI Vision & Foliar Macro Inspection')}
             </h1>
             <p className="text-xs text-gray-500 mt-0.5">
-              Complete edge acquisition workflow: Zone selection → Image upload → Preprocessing → CNN Inference
+              {t('ai_vision_subtitle', 'Complete edge acquisition workflow: Zone selection → Image upload → Preprocessing → CNN Inference')}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
-            DEMO AI PIPELINE
+            {t('demo_mode_badge', 'DEMO AI PIPELINE')}
           </span>
         </div>
       </div>
@@ -99,9 +99,9 @@ export const AIVision: React.FC = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-bold uppercase tracking-wider text-gray-400">
-            Step 1: Select Target Farm Zone
+            {t('step_1_zone', 'Step 1: Select Target Farm Zone')}
           </label>
-          <span className="text-xs text-gray-400">Attaches spatial GPS coordinates to sample</span>
+          <span className="text-xs text-gray-400">{t('gps_coords_note', 'Attaches spatial GPS coordinates to sample')}</span>
         </div>
         <ZoneSelector
           selectedZone={selectedZone}
@@ -112,7 +112,7 @@ export const AIVision: React.FC = () => {
       {/* Step 2: Upload / Capture Leaf Image */}
       <div className="space-y-2">
         <label className="text-xs font-bold uppercase tracking-wider text-gray-400">
-          Step 2 & 3: Upload Leaf Photo or Select Preset Sample
+          {t('step_2_3_upload', 'Step 2 & 3: Upload Leaf Photo or Select Preset Sample')}
         </label>
         <ImageUploader
           currentImage={selectedImage}
@@ -125,7 +125,7 @@ export const AIVision: React.FC = () => {
       {/* Step 4: Edge Preprocessing Verification */}
       <div className="space-y-2">
         <label className="text-xs font-bold uppercase tracking-wider text-gray-400">
-          Step 4: Automated Edge Image Quality Preprocessing
+          {t('step_4_preproc', 'Step 4: Automated Edge Image Quality Preprocessing')}
         </label>
         <PreprocessingPipeline
           isProcessing={isAnalyzing}
@@ -136,7 +136,7 @@ export const AIVision: React.FC = () => {
       {/* Step 5 & 6: AI Inference & Results */}
       <div className="space-y-2">
         <label className="text-xs font-bold uppercase tracking-wider text-gray-400">
-          Step 5 & 6: Model Inference & Classification Results
+          {t('step_5_6_inference', 'Step 5 & 6: Model Inference & Classification Results')}
         </label>
         <InferenceViewer
           image={selectedImage}
@@ -151,12 +151,12 @@ export const AIVision: React.FC = () => {
       {/* Detection History Table */}
       <Card>
         <CardHeader
-          title="Edge Vision Detection History Log"
-          subtitle="Recent on-device inferences cached in local SQLite buffer"
+          title={t('history_log_title', 'Edge Vision Detection History Log')}
+          subtitle={t('history_log_sub', 'Recent on-device inferences cached in local SQLite buffer')}
           icon={<History className="h-5 w-5 text-gray-500" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-              {history.length} Inferences Logged
+              {history.length} {t('inferences_logged', 'Inferences Logged')}
             </span>
           }
         />
@@ -165,13 +165,13 @@ export const AIVision: React.FC = () => {
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-gray-100 text-[11px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50/50">
-                <th className="py-2.5 px-3">Capture Preview</th>
-                <th className="py-2.5 px-3">Log ID</th>
-                <th className="py-2.5 px-3">Zone</th>
-                <th className="py-2.5 px-3">Primary Diagnosis</th>
-                <th className="py-2.5 px-3">Confidence</th>
-                <th className="py-2.5 px-3">Severity</th>
-                <th className="py-2.5 px-3">Time</th>
+                <th className="py-2.5 px-3">{t('capture_preview', 'Capture Preview')}</th>
+                <th className="py-2.5 px-3">{t('log_id', 'Log ID')}</th>
+                <th className="py-2.5 px-3">{t('zones_label', 'Zone')}</th>
+                <th className="py-2.5 px-3">{t('primary_diagnosis', 'Primary Diagnosis')}</th>
+                <th className="py-2.5 px-3">{t('confidence', 'Confidence')}</th>
+                <th className="py-2.5 px-3">{t('severity', 'Severity')}</th>
+                <th className="py-2.5 px-3">{t('time', 'Time')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -186,12 +186,12 @@ export const AIVision: React.FC = () => {
                   </td>
                   <td className="py-2.5 px-3 font-semibold text-gray-500">{item.id}</td>
                   <td className="py-2.5 px-3 font-bold text-dark-forest">
-                    {item.zoneId === 'zone-1' ? 'Zone 1 (North)' : 'Zone 2 (South)'}
+                    {item.zoneId === 'zone-1' ? t('zone_1_north_paddy', 'Zone 1 (North)') : t('zone_2_south_paddy', 'Zone 2 (South)')}
                   </td>
                   <td className="py-2.5 px-3 font-bold text-deep-green">{item.detectedClass}</td>
                   <td className="py-2.5 px-3 font-black text-danger-red">{item.confidence}%</td>
                   <td className="py-2.5 px-3">
-                    <Badge severity={item.severity}>{item.severity}</Badge>
+                    <Badge severity={item.severity}>{t(`badge_${item.severity.toLowerCase()}`, item.severity)}</Badge>
                   </td>
                   <td className="py-2.5 px-3 text-gray-400">{item.timestamp}</td>
                 </tr>

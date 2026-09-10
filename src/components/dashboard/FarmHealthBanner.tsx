@@ -1,12 +1,15 @@
 import React from 'react';
-import { ShieldCheck, TrendingUp, Sparkles, Activity } from 'lucide-react';
+import { ShieldCheck, TrendingUp } from 'lucide-react';
 import { FarmOverview } from '../../types';
+import { useTranslation } from '../../i18n';
 
 interface FarmHealthBannerProps {
   overview: FarmOverview;
 }
 
 export const FarmHealthBanner: React.FC<FarmHealthBannerProps> = ({ overview }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-deep-green via-[#194435] to-[#12372A] text-white p-6 shadow-xl border border-soft-green/20">
       {/* Background Decorative Pattern */}
@@ -29,17 +32,17 @@ export const FarmHealthBanner: React.FC<FarmHealthBannerProps> = ({ overview }) 
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-soft-green/20 text-soft-green border border-soft-green/30">
-                Farm Health Score • {overview.cropHealthStatus}
+                {t('farm_health_score', 'Farm Health Score')} • {t(`badge_${overview.cropHealthStatus.toLowerCase()}`, overview.cropHealthStatus)}
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 text-xs text-soft-green">
-                <TrendingUp className="h-3.5 w-3.5" /> +4.2% vs last week
+                <TrendingUp className="h-3.5 w-3.5" /> +4.2% {t('vs_last_week', 'vs last week')}
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1">
-              Precision Crop & Soil Intelligence
+              {t('precision_crop_soil', 'Precision Crop & Soil Intelligence')}
             </h2>
             <p className="text-xs sm:text-sm text-soft-green/80 mt-1 max-w-xl leading-relaxed">
-              Real-time multi-spectral sensor analysis and edge disease inference indicate stable vegetative growth with localized moisture stress in Zone 1.
+              {t('farm_health_desc', 'Real-time multi-spectral sensor analysis and edge disease inference indicate stable vegetative growth with localized moisture stress in Zone 1.')}
             </p>
           </div>
         </div>
@@ -47,18 +50,18 @@ export const FarmHealthBanner: React.FC<FarmHealthBannerProps> = ({ overview }) 
         {/* Right Side: Quick Diagnostic Pills */}
         <div className="flex flex-wrap sm:flex-nowrap gap-3 shrink-0">
           <div className="bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-xl border border-white/10 min-w-[130px]">
-            <span className="text-[11px] text-soft-green font-medium block">Zone 1 Status</span>
+            <span className="text-[11px] text-soft-green font-medium block">{t('zone_1_status', 'Zone 1 Status')}</span>
             <span className="text-sm font-bold text-warning-amber flex items-center gap-1.5 mt-0.5">
               <span className="h-2 w-2 rounded-full bg-warning-amber animate-pulse"></span>
-              Water Stress (32%)
+              {t('water_stress', 'Water Stress')} (32%)
             </span>
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-xl border border-white/10 min-w-[130px]">
-            <span className="text-[11px] text-soft-green font-medium block">Zone 2 Status</span>
+            <span className="text-[11px] text-soft-green font-medium block">{t('zone_2_status', 'Zone 2 Status')}</span>
             <span className="text-sm font-bold text-danger-red flex items-center gap-1.5 mt-0.5">
               <span className="h-2 w-2 rounded-full bg-danger-red animate-pulse"></span>
-              Blast Risk (82%)
+              {t('blast_risk', 'Blast Risk')} (82%)
             </span>
           </div>
         </div>

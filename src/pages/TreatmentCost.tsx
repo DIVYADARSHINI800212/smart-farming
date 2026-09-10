@@ -30,7 +30,7 @@ export const TreatmentCost: React.FC = () => {
       {/* 1. Workflow Stepper (Step 6) */}
       <TreatmentWorkflowStepper
         currentStep={6}
-        nextStepTitle={t('action_start_followup')}
+        nextStepTitle={t('action_start_followup', 'Start Treatment Follow-Up')}
       />
 
       {/* 2. Banner Disclaimer */}
@@ -45,14 +45,14 @@ export const TreatmentCost: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_cost')}
+                {t('nav_cost', 'Treatment Cost')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-yellow-800">
-                Budget & Economic Threshold Analysis
+                {t('budget_economic_analysis', 'Budget & Economic Threshold Analysis')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Estimate variable input costs, manual labor overhead, and machinery expenses to assess treatment return on investment (ROI)
+              {t('cost_subtitle', 'Estimate variable input costs, manual labor overhead, and machinery expenses to assess treatment return on investment (ROI)')}
             </p>
           </div>
         </div>
@@ -80,7 +80,7 @@ export const TreatmentCost: React.FC = () => {
             size="md"
             onClick={() => navigate('/treatment-timing')}
           >
-            Back to Application Timing
+            {t('btn_back_to_timing', 'Back to Application Timing')}
           </Button>
 
           <Button
@@ -89,7 +89,7 @@ export const TreatmentCost: React.FC = () => {
             onClick={() => navigate('/treatment-follow-up')}
             className="flex items-center gap-2"
           >
-            <span>{t('action_start_followup')}</span>
+            <span>{t('action_start_followup', 'Start Treatment Follow-Up')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

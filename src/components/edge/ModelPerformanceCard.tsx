@@ -1,29 +1,32 @@
 import React from 'react';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
-import { mockEdgeModelBenchmarks } from '../../data/edgeNodeData';
+import { EdgeModelSpec } from '../../types';
 import { BrainCircuit, Zap, FileCode, CheckCircle2, Cpu } from 'lucide-react';
+import { useTranslation } from '../../context/LanguageContext';
 
 interface ModelPerformanceCardProps {
-  models: typeof mockEdgeModelBenchmarks;
+  models: EdgeModelSpec[];
 }
 
 export const ModelPerformanceCard: React.FC<ModelPerformanceCardProps> = ({ models }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="p-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 mb-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 border border-purple-100">
             <BrainCircuit className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-agri-dark">On-Device Edge AI Models & Inferences</h3>
-            <p className="text-xs text-agri-muted">Quantized INT8 neural networks running locally on Raspberry Pi 4</p>
+            <h3 className="text-base font-bold text-agri-dark">{t('on_device_ai_models', 'On-Device Edge AI Models & Inferences')}</h3>
+            <p className="text-xs text-agri-muted">{t('quantized_int8_desc', 'Quantized INT8 neural networks running locally on Raspberry Pi 4')}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="success">LOCAL NPU DEPLOYED</Badge>
-          <Badge variant="info">ZERO CLOUD ROUND-TRIP</Badge>
+          <Badge variant="success">{t('local_npu_deployed', 'LOCAL NPU DEPLOYED')}</Badge>
+          <Badge variant="info">{t('zero_cloud_roundtrip', 'ZERO CLOUD ROUND-TRIP')}</Badge>
         </div>
       </div>
 
@@ -51,7 +54,7 @@ export const ModelPerformanceCard: React.FC<ModelPerformanceCardProps> = ({ mode
               <div className="p-2 rounded-lg bg-white border border-slate-100">
                 <div className="flex items-center gap-1 text-[10px] text-agri-muted mb-0.5">
                   <Zap className="w-3 h-3 text-amber-500" />
-                  <span>Latency</span>
+                  <span>{t('latency_label', 'Latency')}</span>
                 </div>
                 <span className="font-mono font-bold text-agri-dark">{model.inferenceTimeMs} ms</span>
               </div>
@@ -59,7 +62,7 @@ export const ModelPerformanceCard: React.FC<ModelPerformanceCardProps> = ({ mode
               <div className="p-2 rounded-lg bg-white border border-slate-100">
                 <div className="flex items-center gap-1 text-[10px] text-agri-muted mb-0.5">
                   <FileCode className="w-3 h-3 text-blue-500" />
-                  <span>Size</span>
+                  <span>{t('size_label', 'Size')}</span>
                 </div>
                 <span className="font-mono font-bold text-agri-dark">{model.modelSizeMb} MB</span>
               </div>
@@ -67,7 +70,7 @@ export const ModelPerformanceCard: React.FC<ModelPerformanceCardProps> = ({ mode
               <div className="p-2 rounded-lg bg-white border border-slate-100">
                 <div className="flex items-center gap-1 text-[10px] text-agri-muted mb-0.5">
                   <Cpu className="w-3 h-3 text-purple-500" />
-                  <span>Engine</span>
+                  <span>{t('engine_label', 'Engine')}</span>
                 </div>
                 <span className="font-mono font-bold text-agri-dark text-[10px] truncate">{model.acceleration}</span>
               </div>
@@ -78,7 +81,7 @@ export const ModelPerformanceCard: React.FC<ModelPerformanceCardProps> = ({ mode
                 <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                 Input: {model.inputShape}
               </span>
-              <span>Ready</span>
+              <span>{t('ready_status', 'Ready')}</span>
             </div>
           </div>
         ))}

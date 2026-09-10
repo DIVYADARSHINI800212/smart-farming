@@ -18,8 +18,11 @@ import {
   mockRecoveryTimelineChart,
   mockSeverityComparisonData,
 } from '../../data/followUpData';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const BeforeAfterCard: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-6">
       {/* 1. Before vs After Key Metric Scorecards */}
@@ -27,20 +30,20 @@ export const BeforeAfterCard: React.FC = () => {
         <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-subtle flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Disease Severity
+              {t('disease_severity', 'Disease Severity')}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-agri-green">
-              -47% Reduction
+              -47% {t('reduction_label', 'Reduction')}
             </span>
           </div>
           <div className="my-3 flex items-baseline gap-3">
             <div className="text-left">
-              <span className="text-[10px] text-gray-400 block font-semibold">Pre-Spray</span>
+              <span className="text-[10px] text-gray-400 block font-semibold">{t('pre_spray', 'Pre-Spray')}</span>
               <span className="text-xl font-bold text-danger-red line-through">72%</span>
             </div>
             <span className="text-gray-300 font-bold text-lg">→</span>
             <div className="text-left">
-              <span className="text-[10px] text-agri-green block font-bold">Post-Day 7</span>
+              <span className="text-[10px] text-agri-green block font-bold">{t('post_day_7', 'Post-Day 7')}</span>
               <span className="text-3xl font-black text-deep-green">38%</span>
             </div>
           </div>
@@ -52,35 +55,35 @@ export const BeforeAfterCard: React.FC = () => {
         <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-subtle flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Pest Leaf Folding
+              {t('pest_leaf_folding', 'Pest Leaf Folding')}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-agri-green">
-              -57% Suppression
+              -57% {t('suppression_label', 'Suppression')}
             </span>
           </div>
           <div className="my-3 flex items-baseline gap-3">
             <div className="text-left">
-              <span className="text-[10px] text-gray-400 block font-semibold">Pre-Spray</span>
+              <span className="text-[10px] text-gray-400 block font-semibold">{t('pre_spray', 'Pre-Spray')}</span>
               <span className="text-xl font-bold text-danger-red line-through">65%</span>
             </div>
             <span className="text-gray-300 font-bold text-lg">→</span>
             <div className="text-left">
-              <span className="text-[10px] text-agri-green block font-bold">Post-Day 7</span>
+              <span className="text-[10px] text-agri-green block font-bold">{t('post_day_7', 'Post-Day 7')}</span>
               <span className="text-3xl font-black text-deep-green">28%</span>
             </div>
           </div>
           <p className="text-[11px] text-gray-500">
-            Larval activity suppressed below economic threshold (10/ac).
+            {t('pest_suppressed_note', 'Larval activity suppressed below economic threshold (10/ac).')}
           </p>
         </div>
 
         <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-subtle flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Efficacy Index
+              {t('efficacy_index', 'Efficacy Index')}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green">
-              Verified
+              {t('badge_verified', 'Verified')}
             </span>
           </div>
           <div className="my-3">
@@ -89,36 +92,36 @@ export const BeforeAfterCard: React.FC = () => {
               <span className="text-xs font-bold text-gray-500">/ 100</span>
             </div>
             <span className="text-xs font-bold text-agri-green mt-0.5 block">
-              Moderately Effective Response
+              {t('moderately_effective_response', 'Moderately Effective Response')}
             </span>
           </div>
           <p className="text-[11px] text-gray-500">
-            Satisfactory response without need for emergency booster spray.
+            {t('booster_spray_not_needed', 'Satisfactory response without need for emergency booster spray.')}
           </p>
         </div>
 
         <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-subtle flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Canopy Greenness
+              {t('canopy_greenness', 'Canopy Greenness')}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-agri-green">
-              +61% Vigor
+              +61% {t('vigor_label', 'Vigor')}
             </span>
           </div>
           <div className="my-3 flex items-baseline gap-3">
             <div className="text-left">
-              <span className="text-[10px] text-gray-400 block font-semibold">Pre-Spray</span>
+              <span className="text-[10px] text-gray-400 block font-semibold">{t('pre_spray', 'Pre-Spray')}</span>
               <span className="text-xl font-bold text-amber-600">52</span>
             </div>
             <span className="text-gray-300 font-bold text-lg">→</span>
             <div className="text-left">
-              <span className="text-[10px] text-agri-green block font-bold">Post-Day 7</span>
+              <span className="text-[10px] text-agri-green block font-bold">{t('post_day_7', 'Post-Day 7')}</span>
               <span className="text-3xl font-black text-deep-green">84</span>
             </div>
           </div>
           <p className="text-[11px] text-gray-500">
-            Upper flag leaf emergence completely free of lesion spots.
+            {t('flag_leaf_emergence_note', 'Upper flag leaf emergence completely free of lesion spots.')}
           </p>
         </div>
       </div>
@@ -129,8 +132,8 @@ export const BeforeAfterCard: React.FC = () => {
         <div className="lg:col-span-6">
           <Card className="h-full flex flex-col justify-between">
             <CardHeader
-              title="Foliar Severity Reduction (Pre vs Post)"
-              subtitle="Comparing quantitative disease and pest pressure before vs after intervention"
+              title={t('foliar_severity_reduction_title', 'Foliar Severity Reduction (Pre vs Post)')}
+              subtitle={t('foliar_severity_reduction_sub', 'Comparing quantitative disease and pest pressure before vs after intervention')}
               icon={<TrendingDown className="h-5 w-5 text-agri-green" />}
             />
 
@@ -159,9 +162,9 @@ export const BeforeAfterCard: React.FC = () => {
                     }}
                   />
                   <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                  <Bar dataKey="before" name="Before Treatment (%)" fill="#D9534F" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="after" name="Current After Spray (%)" fill="#2E7D32" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="target" name="Full Recovery Target (%)" fill="#A8D5BA" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="before" name={t('legend_before_treatment', 'Before Treatment (%)')} fill="#D9534F" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="after" name={t('legend_after_spray', 'Current After Spray (%)')} fill="#2E7D32" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="target" name={t('legend_recovery_target', 'Full Recovery Target (%)')} fill="#A8D5BA" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -172,8 +175,8 @@ export const BeforeAfterCard: React.FC = () => {
         <div className="lg:col-span-6">
           <Card className="h-full flex flex-col justify-between">
             <CardHeader
-              title="14-Day Trajectory: Untreated vs Treated"
-              subtitle="Projected path showing lesion arrest vs exponential untreated spread"
+              title={t('trajectory_14day_title', '14-Day Trajectory: Untreated vs Treated')}
+              subtitle={t('trajectory_14day_sub', 'Projected path showing lesion arrest vs exponential untreated spread')}
               icon={<Activity className="h-5 w-5 text-deep-green" />}
             />
 
@@ -198,7 +201,7 @@ export const BeforeAfterCard: React.FC = () => {
                   <Line
                     type="monotone"
                     dataKey="untreated"
-                    name="Projected Untreated Spread (%)"
+                    name={t('legend_untreated_spread', 'Projected Untreated Spread (%)')}
                     stroke="#D9534F"
                     strokeWidth={2}
                     strokeDasharray="4 4"
@@ -207,7 +210,7 @@ export const BeforeAfterCard: React.FC = () => {
                   <Line
                     type="monotone"
                     dataKey="treated"
-                    name="Actual Treated Curve (%)"
+                    name={t('legend_treated_curve', 'Actual Treated Curve (%)')}
                     stroke="#2E7D32"
                     strokeWidth={3}
                     dot={{ r: 4 }}
@@ -222,12 +225,12 @@ export const BeforeAfterCard: React.FC = () => {
       {/* 3. Recovery Progress Timeline (Day 0 to Day 14) */}
       <Card>
         <CardHeader
-          title="14-Day Clinical Recovery Timeline"
-          subtitle="Chronological milestones from initial application to full physiological resolution"
+          title={t('clinical_recovery_timeline_title', '14-Day Clinical Recovery Timeline')}
+          subtitle={t('clinical_recovery_timeline_sub', 'Chronological milestones from initial application to full physiological resolution')}
           icon={<ShieldCheck className="h-5 w-5 text-agri-green" />}
           action={
             <span className="text-xs font-bold text-agri-green bg-green-50 px-2.5 py-1 rounded-full border border-green-200">
-              Current: Day 7 Milestone
+              {t('current_day_7_milestone', 'Current: Day 7 Milestone')}
             </span>
           }
         />
@@ -261,7 +264,7 @@ export const BeforeAfterCard: React.FC = () => {
                   )}
                   {step.isCurrent && (
                     <span className="text-[10px] font-bold uppercase tracking-wider text-agri-green animate-pulse">
-                      Active Stage
+                      {t('active_stage', 'Active Stage')}
                     </span>
                   )}
                 </div>
@@ -277,7 +280,7 @@ export const BeforeAfterCard: React.FC = () => {
 
               <div className="mt-3 pt-2.5 border-t border-gray-100">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
-                  Physiological Status
+                  {t('physiological_status', 'Physiological Status')}
                 </span>
                 <span className={`text-xs font-semibold ${
                   step.isCurrent ? 'text-agri-green font-bold' : 'text-deep-green'

@@ -1,19 +1,21 @@
 import React from 'react';
-import { Sparkles, ArrowRight, ShieldCheck, CheckSquare } from 'lucide-react';
+import { Sparkles, ShieldCheck } from 'lucide-react';
 import { Card, CardHeader } from '../ui/Card';
-import { Badge } from '../ui/Badge';
 import { AIRecommendation } from '../../types';
+import { useTranslation } from '../../i18n';
 
 interface AIRecommendationsProps {
   recommendations: AIRecommendation[];
 }
 
 export const AIRecommendations: React.FC<AIRecommendationsProps> = ({ recommendations }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="bg-gradient-to-br from-white via-white to-green-50/30">
       <CardHeader
-        title="AI Agronomic Recommendations"
-        subtitle="Fused Edge Sensor & Disease Intelligence Engine"
+        title={t('ai_recommendations_title', 'AI Agronomic Recommendations')}
+        subtitle={t('ai_recommendations_sub', 'Fused Edge Sensor & Disease Intelligence Engine')}
         icon={<Sparkles className="h-5 w-5 text-agri-green" />}
       />
 
@@ -30,19 +32,25 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({ recommenda
                   rec.urgency === 'Today' ? 'bg-amber-100 text-yellow-800' :
                   'bg-green-100 text-agri-green'
                 }`}>
-                  {rec.urgency} Action
+                  {rec.urgency === 'Immediate' ? t('urgency_immediate', 'Immediate') : rec.urgency === 'Today' ? t('today', 'Today') : t('urgency_scheduled', rec.urgency)}
                 </span>
-                <span className="text-[11px] font-semibold text-gray-500">{rec.category}</span>
+                <span className="text-[11px] font-semibold text-gray-500">
+                  {t('cat_' + rec.category.toLowerCase().replace(/\s+/g, '_'), rec.category)}
+                </span>
               </div>
 
-              <h4 className="text-sm font-bold text-deep-green leading-snug">{rec.title}</h4>
-              <p className="text-xs text-gray-600 mt-2 leading-relaxed">{rec.description}</p>
+              <h4 className="text-sm font-bold text-deep-green leading-snug">
+                {t(`rec_${rec.id.replace('-', '_')}_title`, rec.title)}
+              </h4>
+              <p className="text-xs text-gray-600 mt-2 leading-relaxed">
+                {t(`rec_${rec.id.replace('-', '_')}_desc`, rec.description)}
+              </p>
             </div>
 
             <div className="mt-4 pt-3 border-t border-gray-100 space-y-2">
               {rec.recommendedDosage && (
                 <div className="text-[11px] bg-gray-50 p-2 rounded-lg border border-gray-100 text-gray-700">
-                  <span className="font-semibold text-deep-green block">Prescribed Rate:</span>
+                  <span className="font-semibold text-deep-green block">{t('dosage_label', 'Prescribed Rate')}:</span>
                   {rec.recommendedDosage}
                 </div>
               )}

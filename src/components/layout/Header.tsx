@@ -53,8 +53,8 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onMobileOpen}
           className="p-2 -ml-1 rounded-lg text-gray-600 hover:bg-gray-100 lg:hidden"
-          title="Open menu"
-          aria-label="Open navigation menu"
+          title={t('open_menu', 'Open menu')}
+          aria-label={t('open_navigation_menu', 'Open navigation menu')}
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -67,11 +67,11 @@ export const Header: React.FC<HeaderProps> = ({
                 {farmOverview.name}
               </h1>
               <span className="hidden md:inline-flex text-[10px] font-bold bg-soft-green/40 text-deep-green px-2 py-0.5 rounded-full">
-                SIH Pilot Unit 1
+                {t('pilot_unit')}
               </span>
             </div>
             <p className="text-[10px] sm:text-[11px] text-gray-500 hidden sm:block">
-              {farmOverview.location} • {farmOverview.totalAcres} Acres
+              {farmOverview.location} • {farmOverview.totalAcres} {t('acres')}
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Global Demo Mode Indicator (Section 19) */}
         <div className="hidden 2xl:flex items-center gap-1 px-2.5 py-1 rounded-full bg-cream border border-amber-200/60 text-[10px] font-bold text-amber-900">
           <span className="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
-          <span>Demo Mode • Simulated Farm Data</span>
+          <span>{t('demo_mode_badge')}</span>
         </div>
 
         {/* Start Demo Button for SIH Jury (Section 23) */}
@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Edge AI Gateway Live Status Indicator */}
         <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-200/60 rounded-full text-xs font-medium text-agri-green">
           <Radio className="h-3 w-3 animate-pulse text-agri-green" />
-          <span className="text-[11px] font-bold text-deep-green">LoRa Mesh (2 Nodes)</span>
+          <span className="text-[11px] font-bold text-deep-green">{t('lora_mesh_status')}</span>
         </div>
 
         {/* Quick Weather Telemetry */}
@@ -119,8 +119,8 @@ export const Header: React.FC<HeaderProps> = ({
           className={`p-2 rounded-xl text-gray-600 hover:text-agri-green hover:bg-green-50 border border-gray-200 transition-all ${
             isRefreshing ? 'animate-spin text-agri-green' : ''
           }`}
-          title={`Poll latest sensor packet (Last: ${lastRefreshed})`}
-          aria-label="Poll sensor data"
+          title={`${t('btn_refresh')} (${lastRefreshed})`}
+          aria-label={t('poll_sensor_data', 'Poll sensor data')}
         >
           <RefreshCw className="h-4 w-4" />
         </button>
@@ -133,13 +133,13 @@ export const Header: React.FC<HeaderProps> = ({
                 key={lang}
                 onClick={() => setSelectedLanguage(lang)}
                 className={`px-2 py-1 rounded-lg transition-all ${
-                  selectedLanguage === lang
+                  selectedLanguage.toUpperCase() === lang
                     ? 'bg-agri-green text-white shadow-xs'
                     : 'text-gray-600 hover:text-dark-forest'
                 }`}
                 title={lang === 'EN' ? 'English' : lang === 'TA' ? 'தமிழ்' : 'हिन्दी'}
               >
-                {lang}
+                {lang === 'EN' ? 'EN' : lang === 'TA' ? 'தமிழ்' : 'हिन्दी'}
               </button>
             ))}
           </div>
@@ -158,8 +158,8 @@ export const Header: React.FC<HeaderProps> = ({
             RK
           </div>
           <div className="hidden lg:block text-left leading-tight">
-            <span className="text-xs font-bold text-dark-forest block">Ramesh Kumar</span>
-            <span className="text-[10px] text-gray-500 block">Lead Farmer</span>
+            <span className="text-xs font-bold text-dark-forest block">{t('farmer_name')}</span>
+            <span className="text-[10px] text-gray-500 block">{t('lead_farmer')}</span>
           </div>
         </div>
       </div>

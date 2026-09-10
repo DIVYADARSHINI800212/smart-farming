@@ -4,17 +4,17 @@ import {
   Thermometer, 
   CloudRain, 
   CloudSun, 
-  AlertTriangle, 
   Camera, 
   Clock, 
   Layers,
-  ArrowRight
 } from 'lucide-react';
 import { Card, CardHeader } from '../ui/Card';
 import { StatusPill } from '../ui/StatusPill';
 import { Button } from '../ui/Button';
 import { ProgressBar } from '../ui/ProgressBar';
 import { Zone } from '../../types';
+import { useTranslation } from '../../i18n';
+import { translateLabel, translateGrowthStage, translateCropVariety } from '../../utils/translationMapper';
 
 interface ZoneDetailCardProps {
   zone: Zone;
@@ -22,6 +22,26 @@ interface ZoneDetailCardProps {
 }
 
 export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused = false }) => {
+  const { t } = useTranslation();
+
+  const getTranslatedZoneName = (name: string) => {
+    if (name.includes('Zone 1')) return t('zone_1_north_paddy', name);
+    if (name.includes('Zone 2')) return t('zone_2_south_paddy', name);
+    return name;
+  };
+
+  const getTranslatedLabel = (label: string) => {
+    // Try disease mapping first
+    if (['Blast', 'Brown Spot', 'Healthy', 'Others'].includes(label)) {
+      return translateLabel(label, 'disease', t);
+    }
+    // Try pest mapping
+    if (['Leaf Folder', 'Stem Borer', 'Planthopper', 'No Pest'].includes(label)) {
+      return translateLabel(label, 'pest', t);
+    }
+    return label;
+  };
+
   return (
     <Card 
       className={`transition-all duration-300 ${
@@ -31,8 +51,8 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
       }`}
     >
       <CardHeader
-        title={zone.name}
-        subtitle={`${zone.cropType} • ${zone.growthStage} • ${zone.areaAcres} Acres`}
+        title={getTranslatedZoneName(zone.name)}
+        subtitle={`${translateCropVariety(zone.cropType, t)} • ${translateGrowthStage(zone.growthStage, t)} • ${zone.areaAcres} ${t('acres', 'Acres')}`}
         icon={<Layers className="h-5 w-5 text-agri-green" />}
         action={<StatusPill status={zone.status} />}
       />
@@ -45,13 +65,13 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
             <Droplets className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-gray-400 block">Soil Moisture</span>
+            <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('soil_moisture', 'Soil Moisture')}</span>
             <div className="flex items-baseline gap-1">
               <span className={`text-xl font-black ${zone.currentReading.soilMoisture < 35 ? 'text-amber-600' : 'text-agri-green'}`}>
                 {zone.currentReading.soilMoisture}%
               </span>
               <span className="text-[10px] text-gray-400">
-                {zone.currentReading.soilMoisture < 35 ? 'Low' : 'Adequate'}
+                {zone.currentReading.soilMoisture < 35 ? t('low_label', 'Low') : t('badge_optimal', 'Adequate')}
               </span>
             </div>
           </div>
@@ -63,12 +83,12 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
             <Thermometer className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-gray-400 block">Canopy Temp</span>
+            <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('ambient_temp', 'Canopy Temp')}</span>
             <div className="flex items-baseline gap-1">
               <span className="text-xl font-black text-dark-forest">
                 {zone.currentReading.temperature}°C
               </span>
-              <span className="text-[10px] text-gray-400">Normal</span>
+              <span className="text-[10px] text-gray-400">{t('badge_good', 'Normal')}</span>
             </div>
           </div>
         </div>
@@ -79,13 +99,13 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
             <CloudSun className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-gray-400 block">Rel. Humidity</span>
+            <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('relative_humidity', 'Rel. Humidity')}</span>
             <div className="flex items-baseline gap-1">
               <span className={`text-xl font-black ${zone.currentReading.humidity > 80 ? 'text-danger-red' : 'text-dark-forest'}`}>
                 {zone.currentReading.humidity}%
               </span>
               <span className="text-[10px] text-gray-400">
-                {zone.currentReading.humidity > 80 ? 'High' : 'Normal'}
+                {zone.currentReading.humidity > 80 ? t('high_label', 'High') : t('badge_good', 'Normal')}
               </span>
             </div>
           </div>
@@ -97,12 +117,12 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
             <CloudRain className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-gray-400 block">Rain Gauge</span>
+            <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('precipitation_prob', 'Rain Gauge')}</span>
             <div className="flex items-baseline gap-1">
               <span className="text-xl font-black text-blue-800">
                 {zone.currentReading.rainfall} mm
               </span>
-              <span className="text-[10px] text-gray-400">24h Cum.</span>
+              <span className="text-[10px] text-gray-400">24h</span>
             </div>
           </div>
         </div>
@@ -112,13 +132,13 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 pt-2 border-t border-gray-100">
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
-            AI Disease Classification Probabilities
+            {t('class_probability_dist', 'AI Disease Classification Probabilities')}
           </h4>
           <div className="space-y-2">
             {zone.diseaseDistribution.map((d, i) => (
               <ProgressBar
                 key={i}
-                label={d.label}
+                label={getTranslatedLabel(d.label)}
                 value={d.percentage}
                 variant={d.label === 'Blast' ? 'danger-red' : d.label === 'Healthy' ? 'agri-green' : 'warning-amber'}
               />
@@ -128,13 +148,13 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
 
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
-            Pest Population & Trap Analytics
+            {t('pest_density', 'Pest Population & Trap Analytics')}
           </h4>
           <div className="space-y-2">
             {zone.pestDistribution.map((p, i) => (
               <ProgressBar
                 key={i}
-                label={p.label}
+                label={getTranslatedLabel(p.label)}
                 value={p.percentage}
                 variant={p.label === 'Leaf Folder' ? 'warning-amber' : p.label === 'No Pest' ? 'agri-green' : 'blue'}
               />
@@ -147,16 +167,16 @@ export const ZoneDetailCard: React.FC<ZoneDetailCardProps> = ({ zone, isFocused 
       <div className="mt-4 pt-3 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <Clock className="h-3.5 w-3.5 text-agri-green" />
-          <span>Last telemetry packet: <strong>{zone.currentReading.timestamp}</strong></span>
-          <span>• Node: <strong>{zone.nodeId.toUpperCase()}</strong></span>
+          <span>{t('last_sync', 'Last packet')}: <strong>{zone.currentReading.timestamp}</strong></span>
+          <span>• {t('tab_node_config', 'Node')}: <strong>{zone.nodeId.toUpperCase()}</strong></span>
         </div>
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" icon={<Camera className="h-3.5 w-3.5" />}>
-            Capture Leaf (Phase 2)
+            {t('btn_capture_image', 'Capture Leaf')}
           </Button>
           <Button variant="primary" size="sm">
-            {zone.status === 'Water Stress' ? 'Irrigate Zone' : 'View Advisory'}
+            {zone.status === 'Water Stress' ? t('smart_irrigation_title', 'Irrigate Zone') : t('btn_view_advisory', 'View Advisory')}
           </Button>
         </div>
       </div>

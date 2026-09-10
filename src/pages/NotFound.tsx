@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sprout, LayoutDashboard, ArrowLeft, HelpCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { useLanguage } from '../context/LanguageContext';
 
 export const NotFound: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center space-y-6">
       <div className="relative">
@@ -20,10 +23,10 @@ export const NotFound: React.FC = () => {
           404 Error
         </span>
         <h1 className="text-2xl sm:text-3xl font-black text-deep-green tracking-tight">
-          Page Not Found
+          {t('page_not_found', 'Page Not Found')}
         </h1>
         <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-          The field sector or agronomic route you are attempting to inspect does not exist or has been relocated within the precision farm grid.
+          {t('page_not_found_desc', 'The requested agricultural telemetry or diagnostic route does not exist.')}
         </p>
       </div>
 
@@ -35,7 +38,7 @@ export const NotFound: React.FC = () => {
             icon={<LayoutDashboard className="h-4 w-4" />}
             className="bg-agri-green text-xs font-bold"
           >
-            Return to Dashboard
+            {t('back_to_dashboard', 'Back to Dashboard')}
           </Button>
         </Link>
         <Link to="/field-monitoring">
@@ -45,7 +48,7 @@ export const NotFound: React.FC = () => {
             icon={<ArrowLeft className="h-4 w-4" />}
             className="text-xs font-semibold"
           >
-            Field Monitoring Map
+            {t('nav_field_monitoring', 'Field Monitoring')}
           </Button>
         </Link>
       </div>

@@ -56,7 +56,7 @@ export const ProductAvailability: React.FC = () => {
       {/* 1. Workflow Stepper (Step 4) */}
       <TreatmentWorkflowStepper
         currentStep={4}
-        nextStepTitle={t('action_check_timing')}
+        nextStepTitle={t('action_check_timing', 'Check Treatment Timing')}
       />
 
       {/* 2. Banner Disclaimer */}
@@ -71,14 +71,14 @@ export const ProductAvailability: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_availability')}
+                {t('nav_availability', 'Product Availability')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">
-                Dealer Stock Locator (Demo)
+                {t('dealer_stock_locator', 'Dealer Stock Locator (Demo)')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Locate agro-input dealers, cooperative PACS godowns, and authorized distributors within delivery proximity
+              {t('availability_subtitle', 'Locate agro-input dealers, cooperative PACS godowns, and authorized distributors within delivery proximity')}
             </p>
           </div>
         </div>
@@ -89,7 +89,7 @@ export const ProductAvailability: React.FC = () => {
           onClick={() => navigate('/treatment-timing')}
           className="self-start md:self-auto shrink-0"
         >
-          <span>{t('action_check_timing')}</span>
+          <span>{t('action_check_timing', 'Check Treatment Timing')}</span>
           <ArrowRight className="h-4 w-4 ml-1.5" />
         </Button>
       </div>
@@ -101,7 +101,7 @@ export const ProductAvailability: React.FC = () => {
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search by product name, active ingredient, dealer name, or town..."
+              placeholder={t('search_dealer_placeholder', 'Search by product name, active ingredient, dealer name, or town...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 text-xs text-dark-forest bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-green/30 focus:bg-white transition-all font-medium"
@@ -109,19 +109,25 @@ export const ProductAvailability: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-            {(['All', 'In Stock', 'Limited Stock', 'Out of Stock'] as const).map((status) => (
-              <button
-                key={status}
-                onClick={() => setSelectedStockFilter(status)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                  selectedStockFilter === status
-                    ? 'bg-deep-green text-white shadow-xs'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {status}
-              </button>
-            ))}
+            {(['All', 'In Stock', 'Limited Stock', 'Out of Stock'] as const).map((status) => {
+              const label = status === 'All' ? t('cat_all', 'All')
+                : status === 'In Stock' ? t('badge_in_stock', 'In Stock')
+                : status === 'Limited Stock' ? t('badge_limited_stock', 'Limited Stock')
+                : t('badge_out_of_stock', 'Out of Stock');
+              return (
+                <button
+                  key={status}
+                  onClick={() => setSelectedStockFilter(status)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                    selectedStockFilter === status
+                      ? 'bg-deep-green text-white shadow-xs'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </Card>
@@ -141,7 +147,7 @@ export const ProductAvailability: React.FC = () => {
             size="md"
             onClick={() => navigate('/agricultural-inputs')}
           >
-            Back to Agricultural Inputs
+            {t('btn_back_to_inputs', 'Back to Agricultural Inputs')}
           </Button>
 
           <Button
@@ -150,7 +156,7 @@ export const ProductAvailability: React.FC = () => {
             onClick={() => navigate('/treatment-timing')}
             className="flex items-center gap-2"
           >
-            <span>{t('action_check_timing')}</span>
+            <span>{t('action_check_timing', 'Check Treatment Timing')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

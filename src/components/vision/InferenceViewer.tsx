@@ -1,11 +1,12 @@
 import React from 'react';
-import { Sparkles, ArrowRight, ShieldCheck, AlertTriangle, Microscope, Bug } from 'lucide-react';
+import { Sparkles, ArrowRight, Microscope, Bug } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { ConfidenceBar } from '../ui/ConfidenceBar';
 import { Badge } from '../ui/Badge';
 import { SampleImageOption } from '../../data/aiVisionData';
+import { useTranslation } from '../../i18n';
 
 interface InferenceViewerProps {
   image: string | null;
@@ -24,13 +25,15 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
   onRunAnalysis,
   selectedZone,
 }) => {
+  const { t } = useTranslation();
+
   if (!image) {
     return (
       <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-2">
         <Sparkles className="h-10 w-10 text-gray-300 mb-3" />
-        <h4 className="text-sm font-bold text-gray-500">No Crop Image Loaded</h4>
+        <h4 className="text-sm font-bold text-gray-500">{t('no_crop_image_loaded', 'No Crop Image Loaded')}</h4>
         <p className="text-xs text-gray-400 mt-1 max-w-xs">
-          Select a sample leaf image or upload a photograph above to trigger the edge neural pipeline.
+          {t('select_sample_hint', 'Select a sample leaf image or upload a photograph above to trigger the edge neural pipeline.')}
         </p>
       </Card>
     );
@@ -49,12 +52,12 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
   return (
     <Card className="border-agri-green/40 shadow-card">
       <CardHeader
-        title="AI Vision Inspection & Inference Engine"
+        title={t('inference_result', 'AI Vision Inspection & Inference Engine')}
         subtitle="Edge MobileNetV2 INT8 Quantized Model (SIH Demo)"
         icon={<Sparkles className="h-5 w-5 text-agri-green" />}
         action={
           <span className="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full border border-amber-300">
-            DEMONSTRATION AI RESULT
+            {t('demo_mode_badge', 'DEMONSTRATION AI RESULT')}
           </span>
         }
       />
@@ -81,7 +84,7 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
 
           <div className="flex items-center justify-between">
             <span className="text-xs text-gray-500">
-              Assigned to: <strong>{selectedZone === 'zone-1' ? 'Zone 1 (North Field)' : 'Zone 2 (South Field)'}</strong>
+              {t('assigned_to', 'Assigned to')}: <strong>{selectedZone === 'zone-1' ? t('zone_1_north_paddy', 'Zone 1 (North Field)') : t('zone_2_south_paddy', 'Zone 2 (South Field)')}</strong>
             </span>
             <Button
               variant="primary"
@@ -90,7 +93,7 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
               isLoading={isAnalyzing}
               icon={<Sparkles className="h-4 w-4" />}
             >
-              {hasAnalyzed ? 'Re-Run Edge Inference' : 'Run Edge AI Analysis'}
+              {hasAnalyzed ? t('re_run_inference', 'Re-Run Edge Inference') : t('btn_start_inference', 'Run Edge AI Analysis')}
             </Button>
           </div>
         </div>
@@ -101,7 +104,7 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-agri-green" />
               <div>
-                <h4 className="text-sm font-bold text-deep-green">Processing Edge Inference...</h4>
+                <h4 className="text-sm font-bold text-deep-green">{t('analyzing_image', 'Processing Edge Inference...')}</h4>
                 <p className="text-xs text-gray-500 mt-1">
                   Executing MobileNetV2 INT8 convolution layers on gateway NPU.
                 </p>
@@ -114,23 +117,23 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                      Primary Edge Diagnosis
+                      {t('primary_diagnosis', 'Primary Edge Diagnosis')}
                     </span>
                     <h3 className="text-lg font-black text-deep-green mt-0.5">{resultClass}</h3>
                   </div>
-                  <Badge severity={severity}>{severity} SEVERITY</Badge>
+                  <Badge severity={severity}>{t(`badge_${severity.toLowerCase()}`, severity)} {t('severity', 'SEVERITY')}</Badge>
                 </div>
 
                 <div className="mt-3 flex items-baseline gap-2">
                   <span className="text-3xl font-black text-danger-red">{confidence}%</span>
-                  <span className="text-xs text-gray-500 font-semibold">Classification Confidence</span>
+                  <span className="text-xs text-gray-500 font-semibold">{t('confidence', 'Classification Confidence')}</span>
                 </div>
               </div>
 
               {/* Probabilities Breakdown */}
               <div className="space-y-2.5">
                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block">
-                  Class Probability Distribution
+                  {t('class_probability_dist', 'Class Probability Distribution')}
                 </span>
                 {probabilities.map((prob, idx) => (
                   <ConfidenceBar
@@ -146,17 +149,17 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
               <div className="pt-3 border-t border-gray-100 flex flex-wrap gap-2">
                 <Link to="/disease-detection" className="flex-1 min-w-[140px]">
                   <Button variant="outline" size="sm" className="w-full text-xs" icon={<Microscope className="h-3.5 w-3.5 text-danger-red" />}>
-                    Open Disease Page
+                    {t('nav_disease_detection', 'Open Disease Page')}
                   </Button>
                 </Link>
                 <Link to="/pest-detection" className="flex-1 min-w-[140px]">
                   <Button variant="outline" size="sm" className="w-full text-xs" icon={<Bug className="h-3.5 w-3.5 text-warning-amber" />}>
-                    Open Pest Page
+                    {t('nav_pest_detection', 'Open Pest Page')}
                   </Button>
                 </Link>
                 <Link to="/risk-assessment" className="flex-1 min-w-[140px]">
                   <Button variant="primary" size="sm" className="w-full text-xs" icon={<ArrowRight className="h-3.5 w-3.5" />}>
-                    View Fused Risk
+                    {t('nav_risk_assessment', 'View Fused Risk')}
                   </Button>
                 </Link>
               </div>
@@ -164,9 +167,9 @@ export const InferenceViewer: React.FC<InferenceViewerProps> = ({
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-gray-50/50 rounded-2xl border border-gray-100">
               <Sparkles className="h-8 w-8 text-agri-green/60 mb-2" />
-              <h4 className="text-sm font-bold text-deep-green">Ready for Inference</h4>
+              <h4 className="text-sm font-bold text-deep-green">{t('ready_for_inference', 'Ready for Inference')}</h4>
               <p className="text-xs text-gray-500 mt-1 max-w-xs">
-                Click "Run Edge AI Analysis" to execute model inference and view class confidence distributions.
+                {t('click_run_inference_hint', 'Click "Run Edge AI Analysis" to execute model inference and view class confidence distributions.')}
               </p>
             </div>
           )}

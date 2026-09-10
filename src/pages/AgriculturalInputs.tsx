@@ -58,13 +58,13 @@ export const AgriculturalInputs: React.FC = () => {
       {/* 1. Workflow Stepper (Step 3) */}
       <TreatmentWorkflowStepper
         currentStep={3}
-        nextStepTitle={t('action_check_availability')}
+        nextStepTitle={t('action_check_availability', 'Check Product Availability')}
       />
 
       {/* 2. Banner Disclaimer */}
       <DemoDisclaimerBanner
         type="chemical"
-        customMessage="Prototype agricultural input database — not a substitute for an approved commercial product label. All dosages and technical specifications are demonstration references."
+        customMessage={t('inputs_disclaimer', 'Prototype agricultural input database — not a substitute for an approved commercial product label. All dosages and technical specifications are demonstration references.')}
       />
 
       {/* 3. Header */}
@@ -76,14 +76,14 @@ export const AgriculturalInputs: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                {t('nav_inputs')}
+                {t('nav_inputs', 'Agricultural Inputs')}
               </h1>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">
-                Agronomic Input Directory
+                {t('agronomic_input_directory', 'Agronomic Input Directory')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Searchable catalog of plant protection formulations, biological controls, bio-fertilizers, and soil conditioning inputs
+              {t('inputs_subtitle', 'Searchable catalog of plant protection formulations, biological controls, bio-fertilizers, and soil conditioning inputs')}
             </p>
           </div>
         </div>
@@ -94,7 +94,7 @@ export const AgriculturalInputs: React.FC = () => {
           onClick={() => navigate('/product-availability')}
           className="self-start md:self-auto shrink-0"
         >
-          <span>{t('action_check_availability')}</span>
+          <span>{t('action_check_availability', 'Check Product Availability')}</span>
           <ArrowRight className="h-4 w-4 ml-1.5" />
         </Button>
       </div>
@@ -107,7 +107,7 @@ export const AgriculturalInputs: React.FC = () => {
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search by product name, active ingredient, crop, or target disease/pest..."
+              placeholder={t('search_inputs_placeholder', 'Search by product name, active ingredient, crop, or target disease/pest...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 text-xs text-dark-forest bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-green/30 focus:bg-white transition-all font-medium"
@@ -116,7 +116,7 @@ export const AgriculturalInputs: React.FC = () => {
 
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-xs font-semibold text-gray-500">
-              Showing {filteredInputs.length} of {mockAgriculturalInputs.length} Items
+              {t('showing_items', 'Showing')} {filteredInputs.length} {t('of_items', 'of')} {mockAgriculturalInputs.length} {t('items_label', 'Items')}
             </span>
           </div>
         </div>
@@ -125,6 +125,7 @@ export const AgriculturalInputs: React.FC = () => {
         <div className="flex items-center gap-1.5 overflow-x-auto pt-3 mt-2 border-t border-gray-100 scrollbar-none">
           {CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat;
+            const catKey = 'cat_' + cat.toLowerCase().replace(/\s+/g, '_');
             return (
               <button
                 key={cat}
@@ -135,7 +136,7 @@ export const AgriculturalInputs: React.FC = () => {
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-dark-forest'
                 }`}
               >
-                {cat}
+                {t(catKey, cat)}
               </button>
             );
           })}
@@ -161,12 +162,12 @@ export const AgriculturalInputs: React.FC = () => {
                     ? 'bg-green-100 text-agri-green'
                     : 'bg-amber-100 text-yellow-800'
                 }`}>
-                  {item.category}
+                  {t('cat_' + item.category.toLowerCase().replace(/\s+/g, '_'), item.category)}
                 </span>
 
                 {item.organicCertified && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-deep-green flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" /> Bio Certified
+                    <Sparkles className="h-3 w-3" /> {t('bio_certified', 'Bio Certified')}
                   </span>
                 )}
               </div>
@@ -176,33 +177,33 @@ export const AgriculturalInputs: React.FC = () => {
                 {item.name}
               </h3>
               <p className="text-xs text-agri-green font-semibold mt-0.5">
-                Active: {item.activeIngredient}
+                {t('active_label', 'Active')}: {item.activeIngredient}
               </p>
 
               {/* Details List */}
               <div className="space-y-1.5 my-3.5 pt-3 border-t border-gray-100 text-xs text-gray-600">
                 <div>
-                  <span className="text-gray-400 font-medium">Formulation: </span>
+                  <span className="text-gray-400 font-medium">{t('formulation_label', 'Formulation')}: </span>
                   <span className="font-semibold text-dark-forest">{item.formulation}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 font-medium">Target Crop: </span>
+                  <span className="text-gray-400 font-medium">{t('target_crop_label', 'Target Crop')}: </span>
                   <span className="font-semibold text-dark-forest">{item.targetCrop}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 font-medium">Target Pest/Disease: </span>
+                  <span className="text-gray-400 font-medium">{t('target_pest_disease_label', 'Target Pest/Disease')}: </span>
                   <span className="font-bold text-danger-red">{item.targetDiseaseOrPest}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 font-medium">Application Method: </span>
+                  <span className="text-gray-400 font-medium">{t('application_method_label', 'Application Method')}: </span>
                   <span className="text-gray-800">{item.applicationMethod}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 font-medium">Label Dosage: </span>
+                  <span className="text-gray-400 font-medium">{t('label_dosage_label', 'Label Dosage')}: </span>
                   <span className="font-bold text-deep-green">{item.labelDosage}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 font-medium">Usage Restrictions: </span>
+                  <span className="text-gray-400 font-medium">{t('usage_restrictions_label', 'Usage Restrictions')}: </span>
                   <span className="text-gray-700">{item.usageRestrictions}</span>
                 </div>
               </div>
@@ -211,7 +212,7 @@ export const AgriculturalInputs: React.FC = () => {
             {/* Bottom Card Footer */}
             <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-gray-400 block font-medium">Demo Ref Price</span>
+                <span className="text-[10px] text-gray-400 block font-medium">{t('demo_ref_price', 'Demo Ref Price')}</span>
                 <span className="text-xs font-bold text-deep-green">
                   ₹{item.referencePrice} / {item.packSize}
                 </span>
@@ -221,7 +222,7 @@ export const AgriculturalInputs: React.FC = () => {
                 onClick={() => navigate('/product-availability')}
                 className="inline-flex items-center gap-1 text-xs font-bold text-agri-green hover:text-deep-green"
               >
-                <span>Check Availability</span>
+                <span>{t('btn_check_availability', 'Check Availability')}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -231,7 +232,7 @@ export const AgriculturalInputs: React.FC = () => {
 
       {filteredInputs.length === 0 && (
         <div className="p-8 text-center bg-white rounded-2xl border border-gray-200 text-gray-500">
-          <p className="text-sm font-semibold">No agricultural inputs match your filter criteria.</p>
+          <p className="text-sm font-semibold">{t('no_inputs_match', 'No agricultural inputs match your filter criteria.')}</p>
           <button
             onClick={() => {
               setSearchQuery('');
@@ -239,7 +240,7 @@ export const AgriculturalInputs: React.FC = () => {
             }}
             className="text-xs text-agri-green font-bold mt-2 hover:underline"
           >
-            Clear Search & Filters
+            {t('btn_clear_filters', 'Clear Search & Filters')}
           </button>
         </div>
       )}
@@ -252,7 +253,7 @@ export const AgriculturalInputs: React.FC = () => {
             size="md"
             onClick={() => navigate('/treatment-recommendation')}
           >
-            Back to Treatment Strategy
+            {t('btn_back_to_treatment', 'Back to Treatment Strategy')}
           </Button>
 
           <Button
@@ -261,7 +262,7 @@ export const AgriculturalInputs: React.FC = () => {
             onClick={() => navigate('/product-availability')}
             className="flex items-center gap-2"
           >
-            <span>{t('action_check_availability')}</span>
+            <span>{t('action_check_availability', 'Check Product Availability')}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

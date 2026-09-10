@@ -11,21 +11,24 @@ import {
 } from 'recharts';
 import { Card, CardHeader } from '../ui/Card';
 import { TrendingUp } from 'lucide-react';
+import { useTranslation } from '../../i18n';
 
 interface CropHealthChartProps {
   data: Array<{ day: string; health: number; moistureAvg: number; riskScore: number }>;
 }
 
 export const CropHealthChart: React.FC<CropHealthChartProps> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader
-        title="Crop Health Trend (30 Days)"
-        subtitle="Vegetation growth index & health progression"
+        title={t('chart_crop_health_title', 'Crop Health Trend (30 Days)')}
+        subtitle={t('chart_crop_health_sub', 'Vegetation growth index & health progression')}
         icon={<TrendingUp className="h-5 w-5 text-agri-green" />}
         action={
           <span className="text-xs font-semibold text-agri-green bg-green-50 px-2.5 py-1 rounded-full border border-green-200">
-            Stable Tillering
+            {t('normal_veg_growth', 'Stable Tillering')}
           </span>
         }
       />
@@ -59,7 +62,7 @@ export const CropHealthChart: React.FC<CropHealthChartProps> = ({ data }) => {
             <Area
               type="monotone"
               dataKey="health"
-              name="Crop Health Index (%)"
+              name={`${t('crop_health_index', 'Crop Health Index')} (%)`}
               stroke="#2E7D32"
               strokeWidth={2.5}
               fillOpacity={1}
@@ -68,7 +71,7 @@ export const CropHealthChart: React.FC<CropHealthChartProps> = ({ data }) => {
             <Area
               type="monotone"
               dataKey="riskScore"
-              name="Composite Risk Score (%)"
+              name={`${t('overall_farm_risk', 'Composite Risk Score')} (%)`}
               stroke="#D9534F"
               strokeWidth={2}
               fillOpacity={1}
@@ -79,8 +82,8 @@ export const CropHealthChart: React.FC<CropHealthChartProps> = ({ data }) => {
       </div>
 
       <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-        <span>Target Baseline: &gt;80%</span>
-        <span>Latest Sample: <strong>84% Health Index</strong></span>
+        <span>{t('target_moisture', 'Target')}: &gt;80%</span>
+        <span>{t('confidence', 'Latest')}: <strong>84% {t('crop_health_index', 'Health Index')}</strong></span>
       </div>
     </Card>
   );

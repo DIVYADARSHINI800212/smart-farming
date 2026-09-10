@@ -58,7 +58,7 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
             Phase 4 Integrated Pipeline
           </span>
           <span className="text-gray-500 font-medium">
-            Step {currentStep} of 7 — {WORKFLOW_STEPS[currentStep - 1]?.defaultLabel}
+            {t('step_label', 'Step')} {currentStep} / 7 — {t(WORKFLOW_STEPS[currentStep - 1]?.labelKey, WORKFLOW_STEPS[currentStep - 1]?.defaultLabel)}
           </span>
         </div>
 
@@ -69,7 +69,7 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-gray-600 hover:text-deep-green hover:bg-gray-100 transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>{t('action_back')}</span>
+              <span>{t('btn_back', 'Previous Step')}</span>
             </button>
           )}
 
@@ -78,7 +78,7 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
               onClick={() => navigate(nextStep.path)}
               className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold bg-agri-green text-white hover:bg-deep-green shadow-xs transition-all"
             >
-              <span>{nextStepTitle || t('action_next')}</span>
+              <span>{nextStepTitle || t('btn_next', 'Next Step')}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
           )}
@@ -116,8 +116,8 @@ export const TreatmentWorkflowStepper: React.FC<TreatmentWorkflowStepperProps> =
                     {step.icon}
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[10px] opacity-75 font-normal">Step {step.id}</span>
-                    <span className="truncate">{step.defaultLabel}</span>
+                    <span className="text-[10px] opacity-75 font-normal">{t('step_label', 'Step')} {step.id}</span>
+                    <span className="truncate">{t(step.labelKey, step.defaultLabel)}</span>
                   </div>
                 </NavLink>
 

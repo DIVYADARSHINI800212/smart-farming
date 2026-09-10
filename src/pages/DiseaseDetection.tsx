@@ -1,6 +1,6 @@
 import React from 'react';
 import { useOutletContext, Link } from 'react-router-dom';
-import { Microscope, AlertTriangle, ShieldCheck, ArrowRight, History, Calendar } from 'lucide-react';
+import { Microscope, ArrowRight, History, Calendar } from 'lucide-react';
 import { DiseaseResultCard } from '../components/disease/DiseaseResultCard';
 import { DiseaseProgressionChart } from '../components/disease/DiseaseProgressionChart';
 import { TreatmentProtocolCard } from '../components/disease/TreatmentProtocolCard';
@@ -13,11 +13,13 @@ import {
   mockDiseaseHistory,
 } from '../data/diseaseData';
 import { useFarmData } from '../hooks/useFarmData';
+import { useTranslation } from '../i18n';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const DiseaseDetection: React.FC = () => {
   const { zones } = useOutletContext<FarmDataContext>();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -29,26 +31,26 @@ export const DiseaseDetection: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl font-black text-deep-green tracking-tight">
-              Crop Disease Detection & Pathology Intelligence
+              {t('disease_detection_title', 'Crop Disease Detection & Pathology Intelligence')}
             </h1>
             <p className="text-xs text-gray-500 mt-0.5">
-              Edge vision diagnostics for fungal blast, brown spot, and bacterial leaf blight
+              {t('disease_detection_subtitle', 'Edge vision diagnostics for fungal blast, brown spot, and bacterial leaf blight')}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 hidden sm:inline-block">
-            DEMONSTRATION AI RESULT
+            {t('demo_mode_badge', 'DEMONSTRATION AI RESULT')}
           </span>
           <Link to="/ai-vision">
             <Button variant="outline" size="sm">
-              Re-Scan Leaf
+              {t('btn_recalculate', 'Re-Scan Leaf')}
             </Button>
           </Link>
           <Link to="/farmer-advisory">
             <Button variant="primary" size="sm" className="flex items-center gap-1.5 shadow-sm">
-              <span>View Farmer Advisory</span>
+              <span>{t('btn_view_advisory', 'View Farmer Advisory')}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
@@ -56,21 +58,21 @@ export const DiseaseDetection: React.FC = () => {
       </div>
 
       {/* Decision-Support Workflow Bridge Banner */}
-      <div className="p-4 bg-linear-to-r from-deep-green to-[#1B4D3E] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+      <div className="p-4 bg-gradient-to-r from-deep-green to-[#1B4D3E] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-soft-green/30 text-white uppercase tracking-wider">
-              Phase 4 Decision Brain
+              {t('nav_group_insights', 'Phase 4 Decision Brain')}
             </span>
-            <span className="text-xs font-semibold text-soft-green">Integrated Advisory Ready</span>
+            <span className="text-xs font-semibold text-soft-green">{t('badge_optimal', 'Integrated Advisory Ready')}</span>
           </div>
           <p className="text-xs text-white/90 font-medium">
-            Convert this 82% Rice Blast detection into structured farmer advisory, multi-pillar treatment options, nearby dealer availability, and timing forecast.
+            {t('epidemiological_reason_text', 'Convert this 82% Rice Blast detection into structured farmer advisory, multi-pillar treatment options, nearby dealer availability, and timing forecast.')}
           </p>
         </div>
         <Link to="/farmer-advisory" className="shrink-0">
           <Button variant="secondary" size="sm" className="bg-white text-deep-green hover:bg-cream font-bold w-full sm:w-auto">
-            <span>Open Decision Support</span>
+            <span>{t('btn_view_advisory', 'Open Decision Support')}</span>
             <ArrowRight className="h-3.5 w-3.5 ml-1" />
           </Button>
         </Link>
@@ -88,12 +90,12 @@ export const DiseaseDetection: React.FC = () => {
       {/* 4. Disease Incident History Log */}
       <Card>
         <CardHeader
-          title="Disease Incident & Scouting History"
-          subtitle="Chronological log of verified foliar pathologies"
+          title={t('history_log_title', 'Disease Incident & Scouting History')}
+          subtitle={t('history_log_sub', 'Chronological log of verified foliar pathologies')}
           icon={<History className="h-5 w-5 text-gray-500" />}
           action={
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-              {mockDiseaseHistory.length} Past Incidents
+              {mockDiseaseHistory.length} {t('inferences_logged', 'Past Incidents')}
             </span>
           }
         />
@@ -102,13 +104,13 @@ export const DiseaseDetection: React.FC = () => {
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-gray-100 text-[11px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50/50">
-                <th className="py-2.5 px-3">Date & Time</th>
-                <th className="py-2.5 px-3">Location</th>
-                <th className="py-2.5 px-3">Pathogen Identified</th>
-                <th className="py-2.5 px-3">Confidence</th>
-                <th className="py-2.5 px-3">Severity</th>
-                <th className="py-2.5 px-3">Affected Area</th>
-                <th className="py-2.5 px-3">Treatment Status</th>
+                <th className="py-2.5 px-3">{t('time', 'Date & Time')}</th>
+                <th className="py-2.5 px-3">{t('zones_label', 'Location')}</th>
+                <th className="py-2.5 px-3">{t('primary_diagnosis', 'Pathogen Identified')}</th>
+                <th className="py-2.5 px-3">{t('confidence', 'Confidence')}</th>
+                <th className="py-2.5 px-3">{t('severity', 'Severity')}</th>
+                <th className="py-2.5 px-3">{t('affected_leaf_area', 'Affected Area')}</th>
+                <th className="py-2.5 px-3">{t('stock_status', 'Treatment Status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -124,7 +126,7 @@ export const DiseaseDetection: React.FC = () => {
                   <td className="py-3 px-3 font-bold text-deep-green">{item.disease}</td>
                   <td className="py-3 px-3 font-bold text-danger-red">{item.confidence}%</td>
                   <td className="py-3 px-3">
-                    <Badge severity={item.severity as any}>{item.severity}</Badge>
+                    <Badge severity={item.severity as any}>{t(`badge_${item.severity.toLowerCase()}`, item.severity)}</Badge>
                   </td>
                   <td className="py-3 px-3 text-gray-600">{item.area}</td>
                   <td className="py-3 px-3">
@@ -133,7 +135,7 @@ export const DiseaseDetection: React.FC = () => {
                         ? 'bg-red-100 text-danger-red'
                         : 'bg-green-100 text-agri-green'
                     }`}>
-                      {item.status}
+                      {item.status.includes('Pending') ? t('badge_active', item.status) : t('badge_resolved', item.status)}
                     </span>
                   </td>
                 </tr>

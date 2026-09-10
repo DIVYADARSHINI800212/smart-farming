@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { UploadCloud, Camera, Image as ImageIcon, Sparkles } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { SampleImageOption } from '../../data/aiVisionData';
+import { useTranslation } from '../../i18n';
 
 interface ImageUploaderProps {
   currentImage: string | null;
@@ -16,6 +17,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   sampleOptions,
   onTriggerCamera,
 }) => {
+  const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,10 +69,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
           <UploadCloud className="h-6 w-6" />
         </div>
         <h4 className="text-sm font-bold text-deep-green">
-          Drag and drop crop leaf photograph here
+          {t('upload_drag_drop', 'Drag and drop crop leaf photograph here')}
         </h4>
         <p className="text-xs text-gray-500 mt-1 max-w-sm">
-          Supports JPG, PNG, WEBP from smartphone camera or mobile browser.
+          {t('supported_formats', 'Supports JPG, PNG, WEBP from smartphone camera or mobile browser.')}
         </p>
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -84,7 +86,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             }}
             icon={<ImageIcon className="h-4 w-4" />}
           >
-            Browse Gallery
+            {t('btn_upload_image', 'Browse Gallery')}
           </Button>
 
           <Button
@@ -97,7 +99,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             }}
             icon={<Camera className="h-4 w-4" />}
           >
-            Simulate Camera Capture
+            {t('btn_capture_image', 'Simulate Camera Capture')}
           </Button>
         </div>
       </div>
@@ -105,7 +107,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       {/* Preset Quick Test Samples */}
       <div className="space-y-2">
         <div className="flex items-center gap-1.5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-          <Sparkles className="h-3.5 w-3.5 text-agri-green" /> Or Select an Agricultural Test Sample:
+          <Sparkles className="h-3.5 w-3.5 text-agri-green" /> {t('or_select_sample', 'Or Select an Agricultural Test Sample:')}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {sampleOptions.map((sample) => (

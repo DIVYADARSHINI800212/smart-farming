@@ -1,6 +1,6 @@
 import React from 'react';
 import { useOutletContext, Link } from 'react-router-dom';
-import { Sprout, ArrowRight, ScanEye, Microscope } from 'lucide-react';
+import { Sprout, ScanEye, Microscope } from 'lucide-react';
 import { HealthScoreCard } from '../components/ui/HealthScoreCard';
 import { HealthAreaComparison } from '../components/crop-health/HealthAreaComparison';
 import { CanopyAnalysisCard } from '../components/crop-health/CanopyAnalysisCard';
@@ -11,14 +11,15 @@ import {
   mockCropHealthSummary,
   mockNutrientStatus,
   mockGrowthProgression,
-  mockHealthTrendHistorical,
 } from '../data/cropHealthData';
 import { useFarmData } from '../hooks/useFarmData';
+import { useTranslation } from '../i18n';
 
 type FarmDataContext = ReturnType<typeof useFarmData>;
 
 export const CropHealth: React.FC = () => {
   const { zones } = useOutletContext<FarmDataContext>();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -38,10 +39,10 @@ export const CropHealth: React.FC = () => {
           </div>
           <div>
             <h3 className="text-sm font-bold text-deep-green">
-              AI Vision Leaf Health Inspection Workflow
+              {t('ai_vision_title', 'AI Vision Leaf Health Inspection Workflow')}
             </h3>
             <p className="text-xs text-gray-500">
-              Capture or upload crop leaves to isolate foliar anomalies with Edge CNN models.
+              {t('ai_vision_subtitle', 'Capture or upload crop leaves to isolate foliar anomalies with Edge CNN models.')}
             </p>
           </div>
         </div>
@@ -49,12 +50,12 @@ export const CropHealth: React.FC = () => {
         <div className="flex items-center gap-2">
           <Link to="/ai-vision">
             <Button variant="secondary" size="sm" icon={<ScanEye className="h-4 w-4" />}>
-              Open AI Vision
+              {t('nav_ai_vision', 'Open AI Vision')}
             </Button>
           </Link>
           <Link to="/disease-detection">
             <Button variant="primary" size="sm" icon={<Microscope className="h-4 w-4" />}>
-              View Blast Diagnostic
+              {t('nav_disease_detection', 'View Blast Diagnostic')}
             </Button>
           </Link>
         </div>

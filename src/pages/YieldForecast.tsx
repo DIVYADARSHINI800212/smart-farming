@@ -25,8 +25,10 @@ import {
 } from 'recharts';
 import { MOCK_YIELD_FACTORS, MOCK_HISTORICAL_YIELDS } from '../data/yieldData';
 import { Button } from '../components/ui/Button';
+import { useLanguage } from '../context/LanguageContext';
 
 export const YieldForecast: React.FC = () => {
+  const { t } = useLanguage();
   const expectedYieldTonnes = 4.8;
   const potentialHarvestTonnes = 5.1;
   const estimatedYieldRisk = 'Medium';
@@ -42,20 +44,20 @@ export const YieldForecast: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-black text-deep-green tracking-tight">
-                Yield Risk Forecasting & Loss Mitigation
+                {t('yield_forecasting_title', 'Yield Risk Forecasting & Loss Mitigation')}
               </h1>
               <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-100 text-yellow-800 border border-amber-200">
-                Demo Forecast
+                {t('demo_forecast', 'Demo Forecast')}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
-              Machine-learning yield risk assessment combining microclimate indices, disease foliar incidence, and water stress factors
+              {t('yield_forecasting_subtitle', 'Machine-learning yield risk assessment combining microclimate indices, disease foliar incidence, and water stress factors')}
             </p>
           </div>
         </div>
 
         <div className="text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-200 shrink-0">
-          <span>Model: <strong>Random Forest Regressor v1.2 (INT8)</strong></span>
+          <span>{t('model_random_forest', 'Model: Random Forest Regressor v1.2 (INT8)')}</span>
         </div>
       </div>
 
@@ -64,47 +66,47 @@ export const YieldForecast: React.FC = () => {
         {/* Metric 1: Expected Yield */}
         <div className="bg-gradient-to-br from-deep-green to-[#1b4334] text-white p-6 rounded-2xl shadow-md border border-soft-green/20 space-y-3">
           <span className="text-xs font-bold uppercase tracking-wider text-soft-green block">
-            Projected Total Harvest
+            {t('projected_total_harvest', 'Projected Total Harvest')}
           </span>
           <div className="flex items-baseline gap-2">
             <span className="text-4xl font-black text-white">{expectedYieldTonnes}</span>
-            <span className="text-sm font-bold text-soft-green">Tonnes (4.8 Acres)</span>
+            <span className="text-sm font-bold text-soft-green">{t('tonnes_acre_suffix', 'Tonnes (4.8 Acres)')}</span>
           </div>
           <div className="text-xs text-soft-green/80 flex items-center justify-between pt-2 border-t border-white/10">
-            <span>Per Acre: <strong>1.00 Tonne / Acre</strong></span>
-            <span>Target: <strong>5.0 Tonnes</strong></span>
+            <span>{t('per_acre_prefix', 'Per Acre')}: <strong>1.00 Tonne / Acre</strong></span>
+            <span>{t('target_prefix', 'Target')}: <strong>5.0 Tonnes</strong></span>
           </div>
         </div>
 
         {/* Metric 2: Overall Yield Risk */}
         <div className="bg-white p-6 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-3">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block">
-            Current Yield Vulnerability Risk
+            {t('current_yield_vulnerability', 'Current Yield Vulnerability Risk')}
           </span>
           <div className="flex items-center gap-3">
             <span className="text-3xl font-black text-warning-amber">
-              {estimatedYieldRisk}
+              {t('risk_medium', estimatedYieldRisk)}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-yellow-800">
               Score: 58 / 100
             </span>
           </div>
           <p className="text-xs text-gray-500 leading-relaxed pt-2 border-t border-gray-100">
-            Main drivers: <strong>Rice blast emergence in Zone 2</strong> (-0.42t) and <strong>Zone 1 moisture deficit</strong> (-0.15t).
+            {t('yield_vulnerability_drivers', 'Main drivers: Rice blast emergence in Zone 2 (-0.42t) and Zone 1 moisture deficit (-0.15t).')}
           </p>
         </div>
 
         {/* Metric 3: Harvest Protection Opportunity */}
         <div className="bg-white p-6 rounded-2xl border border-[#E6F0EB] shadow-xs space-y-3">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block">
-            Treatable Yield Protection
+            {t('treatable_yield_protection', 'Treatable Yield Protection')}
           </span>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-black text-agri-green">+0.48</span>
-            <span className="text-sm font-bold text-gray-500">Tonnes Retrievable</span>
+            <span className="text-sm font-bold text-gray-500">{t('tonnes_retrievable', 'Tonnes Retrievable')}</span>
           </div>
           <p className="text-xs text-gray-500 leading-relaxed pt-2 border-t border-gray-100">
-            Timely application of prescribed <strong>Tricyclazole 75% WP</strong> prevents irreversible panicle grain shedding.
+            {t('treatable_yield_desc', 'Timely application of prescribed Tricyclazole 75% WP prevents irreversible panicle grain shedding.')}
           </p>
         </div>
       </div>
@@ -114,14 +116,14 @@ export const YieldForecast: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-gray-100">
           <div>
             <h3 className="text-sm font-bold text-deep-green uppercase tracking-wide">
-              Agronomic Factor Impact Breakdown
+              {t('agronomic_factor_breakdown', 'Agronomic Factor Impact Breakdown')}
             </h3>
             <p className="text-xs text-gray-500">
-              Contribution of biophysical, pathology, and sensor-monitored variables toward final expected tonnage
+              {t('agronomic_factor_desc', 'Contribution of biophysical, pathology, and sensor-monitored variables toward final expected tonnage')}
             </p>
           </div>
           <span className="text-xs text-gray-400 italic">
-            *Demo Forecast — Simulated machine-learning weights
+            {t('simulated_ml_weights', '*Demo Forecast — Simulated machine-learning weights')}
           </span>
         </div>
 
@@ -140,14 +142,14 @@ export const YieldForecast: React.FC = () => {
                       f.riskLevel === 'Medium' ? 'bg-amber-100 text-yellow-800' :
                       'bg-green-100 text-agri-green'
                     }`}>
-                      {f.riskLevel} Risk • {f.category}
+                      {t(`risk_${f.riskLevel.toLowerCase()}`, f.riskLevel)} • {f.category}
                     </span>
                   </div>
                   <p className="text-xs text-gray-500">
                     {f.description}
                   </p>
                   <p className="text-[11px] text-deep-green font-semibold">
-                    💡 Action: {f.recommendation}
+                    💡 {t('action_label', 'Action')}: {f.recommendation}
                   </p>
                 </div>
 
@@ -160,7 +162,7 @@ export const YieldForecast: React.FC = () => {
                       {f.impactTonnes > 0 ? `+${f.impactTonnes}` : f.impactTonnes} Tonnes
                     </span>
                     <span className="text-[10px] text-gray-400 block">
-                      {isNegative ? 'Potential Loss' : 'Favorable Gain'}
+                      {isNegative ? t('potential_loss', 'Potential Loss') : t('favorable_gain', 'Favorable Gain')}
                     </span>
                   </div>
                 </div>
@@ -175,14 +177,14 @@ export const YieldForecast: React.FC = () => {
         <div className="flex items-center justify-between pb-3 border-b border-gray-100">
           <div>
             <h3 className="text-sm font-bold text-deep-green uppercase tracking-wide">
-              Multi-Season Harvest Benchmark (Historical vs Current Forecast)
+              {t('multi_season_benchmark', 'Multi-Season Harvest Benchmark (Historical vs Current Forecast)')}
             </h3>
             <p className="text-xs text-gray-500">
-              Comparison with Kuruvai & Samba cycles across Thanjavur pilot acreage
+              {t('multi_season_desc', 'Comparison with Kuruvai & Samba cycles across Thanjavur pilot acreage')}
             </p>
           </div>
           <span className="text-xs font-bold text-agri-green bg-green-50 px-2.5 py-1 rounded-full">
-            Target: 5.0t
+            {t('target_prefix', 'Target')}: 5.0t
           </span>
         </div>
 
@@ -191,11 +193,11 @@ export const YieldForecast: React.FC = () => {
             <BarChart data={MOCK_HISTORICAL_YIELDS} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F4F2" />
               <XAxis dataKey="season" tick={{ fontSize: 11, fill: '#718096' }} />
-              <YAxis domain={[3, 6]} tick={{ fontSize: 11, fill: '#718096' }} label={{ value: 'Tonnes', angle: -90, position: 'insideLeft', fill: '#718096', fontSize: 11 }} />
+              <YAxis domain={[3, 6]} tick={{ fontSize: 11, fill: '#718096' }} label={{ value: t('unit_tonnes', 'Tonnes'), angle: -90, position: 'insideLeft', fill: '#718096', fontSize: 11 }} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="actualTonnes" name="Actual / Projected Harvest (t)" fill="#2E7D32" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="targetTonnes" name="Regional Potential Target (t)" fill="#A8D5BA" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="actualTonnes" name={t('actual_projected_harvest', 'Actual / Projected Harvest (t)')} fill="#2E7D32" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="targetTonnes" name={t('regional_potential_target', 'Regional Potential Target (t)')} fill="#A8D5BA" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -205,10 +207,10 @@ export const YieldForecast: React.FC = () => {
       <div className="bg-cream/70 rounded-2xl border border-amber-200/80 p-5 text-xs text-dark-forest space-y-2">
         <div className="flex items-center gap-2 text-warning-amber font-bold">
           <HelpCircle className="h-4 w-4" />
-          <span>PROTOTYPE DEMONSTRATION DISCLAIMER</span>
+          <span>{t('prototype_demo_disclaimer', 'PROTOTYPE DEMONSTRATION DISCLAIMER')}</span>
         </div>
         <p className="text-gray-600 leading-relaxed">
-          The yield forecast presented above is a <strong>Demo Forecast</strong> utilizing simulated edge telemetry and synthetic feature weightings for the Smart India Hackathon prototype. It does not guarantee commercial field harvest weights. Always verify soil health and regional agronomic advisories with local Krishi Vigyan Kendra (KVK) and State Department of Agriculture authorities.
+          {t('prototype_disclaimer_text', 'The yield forecast presented above is a Demo Forecast utilizing simulated edge telemetry and synthetic feature weightings for the Smart India Hackathon prototype. It does not guarantee commercial field harvest weights. Always verify soil health and regional agronomic advisories with local Krishi Vigyan Kendra (KVK) and State Department of Agriculture authorities.')}
         </p>
       </div>
     </div>
